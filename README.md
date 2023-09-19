@@ -1,4 +1,4 @@
-![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/55a10a1b-fa21-4f52-aee7-bff79f5420f4)# RISC-V-based-MYTH
+# RISC-V-based-MYTH
 This repository contains the whole summary of hands-on done by Abhinav Prakash (IS22MTECH14002) during the workshop RISC-V based MYTH and understanding the architecture of RISC-V 
 
 
@@ -74,6 +74,7 @@ riscv64-unknown-elf-objdump -d sum1ton.o | less
 riscv64-unknown-elf-gcc -ofast -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
 ``` 
 
+- Now to debus the assembly code
 
 
 ### Signed and unsigned arithmetic operations
