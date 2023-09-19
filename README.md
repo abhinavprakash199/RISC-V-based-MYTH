@@ -1,4 +1,4 @@
-# RISC-V-based-MYTH
+![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/55a10a1b-fa21-4f52-aee7-bff79f5420f4)# RISC-V-based-MYTH
 This repository contains the whole summary of hands-on done by Abhinav Prakash (IS22MTECH14002) during the workshop RISC-V based MYTH and understanding the architecture of RISC-V 
 
 
@@ -34,6 +34,9 @@ This repository contains the whole summary of hands-on done by Abhinav Prakash (
 ## Day 1:
 ## Introduction to RISC-V ISA and GNU compiler toolchain
 ---
+### Introduction to RISC-V basic Keywords
+---
+
 1. **Pseudo instruction:** A mnemonic or symbolic representation used in assembly language programming that simplifies coding but is translated into one or more actual machine instructions by the assembler.
 
 2. **Base integer instruction (RV32I):** The fundamental set of instructions in the RISC-V architecture designed for 32-bit integer operations, forming the core of RISC-V instruction sets.
@@ -45,9 +48,34 @@ This repository contains the whole summary of hands-on done by Abhinav Prakash (
 5. **Application Binary Interface (ABI):** A set of conventions and rules that govern the interaction between different software components, defining aspects such as function calling conventions, data representation, and system call interfaces.
 
 6. **Memory allocation and stack pointer:** Memory allocation refers to the process of reserving and managing memory space for variables and data structures, while a stack pointer is a register or memory location that keeps track of the top of the call stack, facilitating function calls and local variable storage in a program.
-7. 
-### Introduction to RISC-V basic Keywords
----
+
+### Lab 1
+- Writing a C code and running it in a compiler.
+
+![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/7fe8bf96-39a4-4ade-9305-30edcf254ee8)
+
+- Now we will compile this in a RISC-V gcc compiler using this command, which will generate `sum1ton.o` file.
+```
+riscv64-unknown-elf-gcc -o1 -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
+``` 
+- To get the Assembly code of our program, we use this command:
+
+```
+riscv64-unknown-elf-objdump -d sum1ton.o
+riscv64-unknown-elf-objdump -d sum1ton.o | less
+```
+- This assembly code is generated in RISC-V architecture for the main function (having address 10184), which is byte addressable and takes 34 instructions to execute the main function [(1020c-10184)/4 = 22]
+
+![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/199f8c69-b8d7-4d88-9fff-55ea172201b7)
+
+- Now instead of using `-o1` if we use `-ofast` it uses fewer instructions to execute the same program.
+
+```
+riscv64-unknown-elf-gcc -ofast -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
+``` 
+
+
+
 ### Signed and unsigned arithmetic operations
 ---
 
@@ -107,6 +135,10 @@ This repository contains the whole summary of hands-on done by Abhinav Prakash (
 
 ## All commands of linux
 ---
+- `leafpad <file_name>.c` Command to make a c file in leafpad.
+- To run the .c file use `gcc <filename>.c`(if there are no errors in the code we will get an executable file with the default name a.out) then run this executable by executing `./a.out'.
+- `cat <filename>.c` is used to display the contents of a file with a .c extension in the terminal
+- `| less` combination is commonly used to paginate and view long text output one screen at a time.
 
 ## Appendix
 ---
