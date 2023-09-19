@@ -34,6 +34,18 @@ This repository contains the whole summary of hands-on done by Abhinav Prakash (
 ## Day 1:
 ## Introduction to RISC-V ISA and GNU compiler toolchain
 ---
+1. **Pseudo instruction:** A mnemonic or symbolic representation used in assembly language programming that simplifies coding but is translated into one or more actual machine instructions by the assembler.
+
+2. **Base integer instruction (RV32I):** The fundamental set of instructions in the RISC-V architecture designed for 32-bit integer operations, forming the core of RISC-V instruction sets.
+
+3. **Multiply extension (RV32M):** An optional extension to the RISC-V architecture that adds hardware support for integer multiplication operations, enhancing computational capabilities.
+
+4. **Single and Double precision floating point extension (RV64F and RV64D):** Extensions to the RISC-V architecture that provide support for single-precision (RV64F) and double-precision (RV64D) floating-point arithmetic operations, enabling efficient handling of real numbers.
+
+5. **Application Binary Interface (ABI):** A set of conventions and rules that govern the interaction between different software components, defining aspects such as function calling conventions, data representation, and system call interfaces.
+
+6. **Memory allocation and stack pointer:** Memory allocation refers to the process of reserving and managing memory space for variables and data structures, while a stack pointer is a register or memory location that keeps track of the top of the call stack, facilitating function calls and local variable storage in a program.
+7. 
 ### Introduction to RISC-V basic Keywords
 ---
 ### Signed and unsigned arithmetic operations
