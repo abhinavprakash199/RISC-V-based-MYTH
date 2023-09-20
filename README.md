@@ -156,10 +156,38 @@ spike  pk signed.o
 ## Introduction to ABI and basic verification flow
 ---
 ### Application Binary interface (ABI)
----
-![Screenshot (2716)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/0b1e2429-1103-4dfc-b263-1947cc521a69)
+![Screenshot (2716)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/ea0ce1a2-156e-4f3c-912c-68635aaa2334)
 
+- A **double word** is twice the size of a word. In RISC-V, for example, in RV32, a double word is 8 bytes (64 bits), whereas a word is 4 bytes (32 bits), and in RV64, a double word is 16 bytes (128 bits), whereas a word is 8 bytes(64 bits).
+- An **edianess** refers to how multi-byte data is stored in memory. In a big-endian system, the most significant byte is stored at the lowest memory address, while in a little-endian system, the least significant byte is stored at the lowest memory address. RISC-V supports both big-endian and little-endian modes.
+- The **RV32I has 32-bit registers**, and the **RV64I has 64-bit registers**. But both the **RV32I and RV64I have only 32 registers**, and the **size of the instructions is 32 bits only**.
 
+#### Load Instruction 
+- Here store the value of the main memory register address from 16 to 23(each of size 8bit) in the RISC-V x8 register (64 bits for RV64I).
+![Screenshot (2718)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3926173a-c26f-4ec8-85fb-d6535a5ed894)
+
+#### Add Instruction
+- Here add 24 and 8 and stores the value in the RISC-V x8 register(64-bit for RV64I).
+![Screenshot (2719)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/c2135f5c-168c-46a7-8cbb-af75bf7d548d)
+
+#### Store Instruction 
+- Here, store the value of the RISC-V x8 register in the main memory address from 16 to 23(each of size 8bit) 
+
+![Screenshot (2722)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/2f95b81e-3912-4fc1-aaf1-db77c3ea6b3e)
+
+- Here, all the registers (rd,rs1,rs2) are of 5 bits and this is the reason **RISC-5 has only 32 registers**(2^5)
+
+- ABI set of rules governing how software components interact at the binary level, and dose the instruction calls through this particular 32 registers.
+
+![Screenshot (2723)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/69c726eb-7a4c-4d21-a42a-34001d5e32d9)
+
+### RISC-V instruction set architecture
+In the RISC-V instruction set architecture, instructions are categorized into different formats based on their opcode and operand types. Single-letter abbreviations denote these formats. Here's an explanation of each type:
+
+- **R-Type (Register Type)** - These instructions involve operations that operate on two source registers and store the result in a destination register. They include arithmetic, logical, and bitwise operations. The typical format is *opcode rd, rs1, rs2*. Eg `add x8, x24,x8`
+- **I-Type (Immediate Type)** - These instructions have an immediate (constant) value as one of their operands, and they work with a source register to perform operations like arithmetic, logical, and memory operations. The typical format is *opcode rd, rs1, imm*. Eg `ld x8, 16(x23)`
+
+- **S-Type (Store Type)** - S-type instructions are used for storing data in memory. They combine a source register, a destination address (base register), and an immediate offset to determine where the data should be stored. The typical format is *opcode rs2, imm(rs1)*. Eg `sd x8, 8(x23)`
 
 
 ## Day 3:
