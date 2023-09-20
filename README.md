@@ -13,6 +13,7 @@ This repository contains the whole summary of hands-on done by Abhinav Prakash (
     + [Application Binary interface (ABI)](#Application-Binary-interface-(ABI))
     + [RISC-V instruction set architecture](#RISC-V-instruction-set-architecture)
     + [Lab of using ABI function calls](#Lab-of-using-ABI-function-calls)
+    + [Labs of RISC-V Basic Verification flow using iverilog](#Labs-of-RISC-V-Basic-Verification-flow-using-iverilog)
  
 * [Day 3 - Digital Logic with TL-Verilog and Makerchip](#day-3)
     + [Combinational logic in TL-Verilog using Makerchip](#Combinational-logic-in-TL-Verilog-using-Makerchip)
@@ -233,7 +234,7 @@ spike pk count_1to9.o
 ![Screenshot (2733)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3e77bf5f-82b9-4257-b10d-f3ce84221ae8)
 ![Screenshot (2732)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/53124ed4-3d67-429a-8051-185c559fbf13)
 
-### RISC-V Basic Verification flow using iverilog
+### Labs of RISC-V Basic Verification flow using iverilog
 ---
 - Now, we will see to run the C program in RISC-V CPU(till now we have done simulations)
 - We have RISCV CPU written in Verilog but we will be doing lays in tl-Verilog 
