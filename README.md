@@ -12,6 +12,7 @@ This repository contains the whole summary of hands-on done by Abhinav Prakash (
 * [Day 2: Introduction to ABI and basic verification flow](#day-2)
     + [Application Binary interface (ABI)](#Application-Binary-interface-(ABI))
     + [RISC-V instruction set architecture](#RISC-V-instruction-set-architecture)
+    + [Lab of using ABI function calls](#Lab-of-using-ABI-function-calls)
  
 * [Day 3 - Digital Logic with TL-Verilog and Makerchip](#day-3)
     + [Combinational logic in TL-Verilog using Makerchip](#Combinational-logic-in-TL-Verilog-using-Makerchip)
@@ -183,6 +184,7 @@ spike  pk signed.o
 ![Screenshot (2723)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/69c726eb-7a4c-4d21-a42a-34001d5e32d9)
 
 ### RISC-V instruction set architecture
+---
 In the RISC-V instruction set architecture, instructions are categorized into different formats based on their opcode and operand types. Single-letter abbreviations denote these formats. Here's an explanation of each type:
 
 - **R-Type (Register Type)** - These instructions involve operations that operate on two source registers and store the result in a destination register. They include arithmetic, logical, and bitwise operations. The typical format is *opcode rd, rs1, rs2*. Eg `add x8, x24,x8`
@@ -190,7 +192,49 @@ In the RISC-V instruction set architecture, instructions are categorized into di
 
 - **S-Type (Store Type)** - S-type instructions are used for storing data in memory. They combine a source register, a destination address (base register), and an immediate offset to determine where the data should be stored. The typical format is *opcode rs2, imm(rs1)*. Eg `sd x8, 8(x23)`
 
+### Lab of using ABI function calls
+---
+- The flow chart of the function performed by ASM(Assembly code) code is shown below :
 
+![Screenshot (2725)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/47a6bc2c-d4d3-4710-ad8c-b0a83e6f4492)
+
+- To illustrate the ABI, the C code shown above will send the values to the ASM code through the function load,in register a0 and a1 and the ASM code will perform the function and return the value to the C code in register a0 and the value is displayed by the C code.
+
+![Screenshot (2728)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f1383fb6-18c9-46ff-816a-745a8734f4ec)
+
+- We the ASM(Assembly code) code to add numbers from 1 to 9 in `load.s` file
+
+![Screenshot (2730)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/906201a4-6acd-458c-982e-53587dacd378)
+```
+.section .text
+.global load
+.type load, @function
+
+load:
+	add 	a4, a0, zero  // Initialize sum register a4 with 0x0
+	add 	a2, a0, a1    // store count of 10 in register a2. Register a1 is loaded with 0xa (decimal 10) from main program
+	add	a3, a0, zero  // initialize intermediate sum register a3 by 0
+loop:	add 	a4, a3, a4    // Incremental addition
+	addi 	a3, a3, 1     // Increment intermediate register by 1	
+	blt 	a3, a2, loop  // If a3 is less than a2, branch to label named <loop>
+	add	a0, a4, zero  // Store final result to register a0 so that it can be read by main program
+	ret
+```
+
+- Now, to run the files in RISC-V, we use these commands:
+
+```
+riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o count_1to9.o count_1to9.c load.s
+riscv64-unknown-elf-objdump -d count_1to9.o | less
+spike pk count_1to9.o
+```
+
+- Finally, we got the output
+![Screenshot (2733)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3e77bf5f-82b9-4257-b10d-f3ce84221ae8)
+![Screenshot (2732)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/53124ed4-3d67-429a-8051-185c559fbf13)
+
+
+  
 ## Day 3:
 ## Digital Logic with TL-Verilog and Makerchip
 ---
@@ -243,7 +287,8 @@ In the RISC-V instruction set architecture, instructions are categorized into di
 
 ## Appendix
 ---
-- 
+- `sum1ton.o`
+- `load.s`
 ## References
 ---
 - [RISC-V based MYTH](https://www.vlsisystemdesign.com/riscv-based-myth/?awt_a=5L_6&awt_l=H2Nw0&awt_m=3l0nDqaoscA8._6)
