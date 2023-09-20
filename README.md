@@ -6,7 +6,8 @@ This repository contains the whole summary of hands-on done by Abhinav Prakash (
 
 * [Day 1: Introduction to RISC-V ISA and GNU compiler toolchain](#day-1)
     + [Introduction to RISC-V basic Keywords](#Introduction-to-RISC-V-basic-keywords)
-    + [Signed and unsigned arithmetic operations](#Signed-and-unsigned-arithmetic-operations)
+    + [Lab of compile and execute the C code in the RISC-V gnu toolchain](#Lab-of-compile-and-execute-the-C-code-in-the-RISC-V-gnu-toolchain)
+    + [Lab of signed and unsigned arithmetic operations](#Lab-of-signed-and-unsigned-arithmetic-operations)
     
 * [Day 2: Introduction to ABI and basic verification flow](#day-2)
     + [Application Binary interface (ABI)](#Application-Binary-interface-(ABI))
@@ -49,7 +50,8 @@ This repository contains the whole summary of hands-on done by Abhinav Prakash (
 
 6. **Memory allocation and stack pointer:** Memory allocation refers to reserving and managing memory space for variables and data structures. In contrast, a stack pointer is a register or memory location that keeps track of the top of the call stack, facilitating function calls and local variable storage in a program.
 
-### Lab 1
+### Lab of compile and execute the C code in the RISC-V gnu toolchain
+---
 - Writing a C code and running it in a compiler.
   
 ![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/5a30df08-d688-4d6e-9824-15d912d48b80)
@@ -92,7 +94,7 @@ reg <core_no> <register name> // command to find the content of register
 ![Screenshot (2711)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/0ded7e0b-09d2-43d3-be6f-ed0a4a7ba407)
 
 
-### Explanation of the commands :
+#### Explanation of the commands :
 
 - **-O1/-Ofast** - This flag specifies the optimization level to be used during compilation. In this case, the level is set to 1, which represents a basic level of optimization. Higher optimization levels (like -O2 or -O3) can potentially result in more optimized and faster code, but they might also increase compilation time.-Ofast is an optimization level flag used in GCC (GNU Compiler Collection) to enable aggressive optimizations that go beyond the optimizations performed by -O3.
 
@@ -120,10 +122,35 @@ reg <core_no> <register name> // command to find the content of register
 
 - **reg 0 sp** - Inquire about the value stored in register., in this case it is stack pointer (sp)
 
-### Signed and unsigned arithmetic operations
+### Lab of signed and unsigned arithmetic operations
 ---
+#### Unsigned
+- Consider the C code, demonstrating the maximum unsigned number the RV64I can store.
+
+- To compile and execute the C code in the RISC-V gnu toolchain, use these commands
+```
+riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o unsigned.o unsigned.c 
+spike  pk unsigned.o
+```
+![Screenshot (2712)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/9f469ff4-8a0b-44c8-8966-d4310ed7d34c)
+
+- Line 1 will execute and give the result of (2^64)-1.
+- Line 2 will execute and give the result of (2^64)-1 instead of (2^127)-1 since the maximum unsigned value that can be stored in the 64 bit register is (2^64)-1.
+- Line 3 will execute and give the result of 0 instead of -(2^64) since the minimum unsigned value that can be stored in the 64-bit register is 0.
+- Line 4 will execute and give the result of 0 instead of (2^64)-1.
+- Line 5 will execute and give the result of 0 instead of -(2^64) since the minimum unsigned value that can be stored in the 64-bit register is 0.
+- Line 6 will execute and give the result of 1024 since the value of max is less than (2^64)-1.
+
+#### Signed
+- Consider the C code, demonstrating the maximum and minimum signed number the RV64I can store.
 
 
+- To compile and execute the C code in the RISC-V gnu toolchain, use these commands
+```
+riscv64-unknown-elf-gcc -Ofast -mabi=lp64 -march=rv64i -o signed.o signed.c 
+spike  pk signed.o
+```
+![Screenshot (2713)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f357b7c9-1b10-42c2-9a61-67e0d9e1deae)
 
 ## Day 2:
 ## Introduction to ABI and basic verification flow
