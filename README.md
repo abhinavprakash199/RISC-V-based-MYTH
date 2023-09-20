@@ -11,6 +11,7 @@ This repository contains the whole summary of hands-on done by Abhinav Prakash (
     
 * [Day 2: Introduction to ABI and basic verification flow](#day-2)
     + [Application Binary interface (ABI)](#Application-Binary-interface-(ABI))
+    + [RISC-V instruction set architecture](#RISC-V-instruction-set-architecture)
  
 * [Day 3 - Digital Logic with TL-Verilog and Makerchip](#day-3)
     + [Combinational logic in TL-Verilog using Makerchip](#Combinational-logic-in-TL-Verilog-using-Makerchip)
@@ -56,7 +57,7 @@ This repository contains the whole summary of hands-on done by Abhinav Prakash (
   
 ![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/5a30df08-d688-4d6e-9824-15d912d48b80)
 
-- Now we will compile this in a RISC-V gcc compiler using this command (this command is in place of `gcc <filename>.c` in GCC compiler), which will generate `sum1ton.o` file.
+- Now we will compile this in a RISC-V gcc compiler using this command (this command is in place of `gcc <filename>.c` in GCC compiler), which will generate a `sum1ton.o` file.
 ```
 riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
 ```
