@@ -56,7 +56,7 @@ This repository contains the whole summary of hands-on done by Abhinav Prakash (
 
 - Now we will compile this in a RISC-V gcc compiler using this command (this command is in place of `gcc <filename>.c` in GCC compiler), which will generate `sum1ton.o` file.
 ```
-riscv64-unknown-elf-gcc -o1 -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
+riscv64-unknown-elf-gcc -O1 -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
 ``` 
 - To get the Assembly code of our program, we use this command:
 
@@ -64,26 +64,30 @@ riscv64-unknown-elf-gcc -o1 -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
 riscv64-unknown-elf-objdump -d sum1ton.o
 riscv64-unknown-elf-objdump -d sum1ton.o | less
 ```
-- This assembly code is generated in RISC-V architecture for the main function (having address 10184), which is byte addressable and takes 34 instructions to execute the main function [(1020c-10184)/4 = 22]
+- This assembly code is generated in RISC-V architecture for the main function (having address 10184), which is byte addressable and takes 15 instructions to execute the main function [(101c0-10184)/4 = f]
+  
+![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/ba6fb5a7-acd2-4f34-b242-312b2a910374)
 
-![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/199f8c69-b8d7-4d88-9fff-55ea172201b7)
 
-- Now, instead of using `-o1` if we use `-ofast` it uses fewer instructions to execute the same program.
+- Now, instead of using `-O1` if we use `-Ofast`, it uses only 12 instructions [(101e0-101b0)/4 = c] to execute the same program.
 
 ```
 riscv64-unknown-elf-gcc -ofast -mabi=lp64 -march=rv64i -o sum1ton.o sum1ton.c
-``` 
+```
+![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/ed747e68-3d52-4fd9-a71b-5e138963b1ce)
+
 
 - Now, to debug the assembly code, we use the following commands.
 ```
-spike pk sum1ton.o       //this command is in place of `./a.out` in GCC compiler, which gives the same answer as in the GCC compiler
+spike pk sum1ton.o       //this command is in place of `./a.out` in the GCC compiler, which gives the same answer as in the GCC compiler
 spike -d pk sum1ton.o    // to open a debugger
-until pc 0 10184         // to run PC until the address of the main function
+until pc 0 100b0         // to run PC until the address of the main function
+reg 0 a2                 // command to find the content of the content of register a2
 reg 0 sp                 // command to find the content of the stack pointer
 reg <core_no> <register name> // command to find the content of register
 
 ```
-![Screenshot (2708)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/bf17be16-b4ad-450b-9be4-68bd491edfbe)
+![Screenshot (2711)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/0ded7e0b-09d2-43d3-be6f-ed0a4a7ba407)
 
 ### Signed and unsigned arithmetic operations
 ---
