@@ -294,6 +294,7 @@ spike pk count_1to9.o
 - [RISC-V based MYTH](https://www.vlsisystemdesign.com/riscv-based-myth/?awt_a=5L_6&awt_l=H2Nw0&awt_m=3l0nDqaoscA8._6)
 - [RISC-V Commands](https://gcc.gnu.org/onlinedocs/gcc/RISC-V-Options.html)
 - [RISC-V Installation](https://github.com/kunalg123/riscv_workshop_collaterals/blob/master/run.sh)
+- [RISC-V Repo](https://github.com/KanishR1/RISCV-ISA)
 
 
 
