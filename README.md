@@ -277,10 +277,10 @@ Here we will be designing different logic gates, combinational circuits, and seq
 
 #### Transaction Level(TL) - Verilog
 
-TL-Verilog is a hardware description language developed by Redwood EDA. It extends Verilog with transaction-level modeling (TL-X), offering more efficient and concise design representation while remaining compatible with standard Verilog. It simplifies syntax, eliminates the need for legacy Verilog features, and is tailored for modeling hardware. TL-Verilog is designed for the design process, making it easier to write and edit Verilog code with fewer bugs. It is particularly useful for transaction-level design, where transactions move through a microarchitecture, steered by flow components. TL-Verilog is well-supported by the Makerchip platform.
+TL-Verilog is a hardware description language developed by Redwood EDA. It extends Verilog with transaction-level modeling (TL-X), offering more efficient and concise design representation while remaining compatible with standard Verilog. It simplifies syntax, eliminates the need for legacy Verilog features, and is tailored for modeling hardware. TL-Verilog is designed for the design process, making it easier to write and edit Verilog code with fewer bugs. It is particularly useful for transaction-level design, where transactions move through a microarchitecture steered by flow components. TL-Verilog is well-supported by the Makerchip platform.
 
 #### Makerchip IDE
-Makerchip IDE is a user-friendly integrated development environment for digital design and hardware description languages (HDLs) like TL Verilog, SystemVerilog, Verilog, and VHDL. It enables users to design, simulate, and test digital circuits and systems visually, with real-time simulation capabilities for catching errors early and refining designs efficiently. It serves as a valuable tool for both beginners and experienced digital designers, fostering innovation in digital electronics.
+Makerchip IDE is a user-friendly integrated development environment for digital design and hardware description languages (HDLs) like TL Verilog, SystemVerilog, Verilog, and VHDL. It enables users to design, simulate, and test digital circuits and systems visually, with real-time simulation capabilities for catching errors early and refining designs efficiently. It serves as a valuable tool for both beginners and experienced digital designers, fostering innovation in digital electronics. [Open Makerchip IDE](https://makerchip.com/sandbox/)
 
 
 
