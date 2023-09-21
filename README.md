@@ -312,26 +312,21 @@ chmod 777 rv32im.sh
 
 ## All commands of linux
 ---
-- `leafpad <file_name>.c` Command to make a c file in leafpad.
-- To run the .c file use `gcc <filename>.c`(if there are no errors in the code we will get an executable file with the default name a.out) then run this executable by executing `./a.out'.
-- `cat <filename>.c` is used to display the contents of a file with a .c extension in the terminal
+- `leafpad <file_name>.c` Command to make a c file in Leafpad.
+- To run the .c file use `gcc <filename>.c`(if there are no errors in the code, we will get an executable file with the default name a.out), then run this executable by executing `./a.out'.
+- `cat <filename>.c` is used to display the contents of a file with a.c extension in the terminal
 - `| less` combination is commonly used to paginate and view long text output one screen at a time.
 
 ## Appendix
 ---
 - **`sum1ton.o`**: This is an object file likely generated from source code, possibly C or assembly, that contains compiled code for a program that calculates the sum of numbers from 1 to n.
-
-- load.s: A source code file, typically in assembly language, that contains instructions for loading or initializing a program, often used in embedded systems.
-
-rv32im.sh: A shell script file used for configuring or managing a RISC-V RV32IM processor, possibly for setting up an environment or running a program on the processor.
-
-firmware.hex: A hexadecimal file containing data or instructions, often used for initializing memory or configuration of hardware components in digital design.
-
-firmware32.hex: Similar to firmware.hex, but specific to a 32-bit system or processor.
-
-testbench.vcd: A VCD (Value Change Dump) file generated during digital simulation, containing data about signal values and changes over time for debugging and analysis.
-
-testbench.vvp: A Verilog simulation output file that results from compiling a testbench and design files, which can be executed to simulate and analyze the behavior of a digital design.
+- **`load.s`**: A source code file, typically in assembly language, that contains instructions for loading or initializing a program, often used in embedded systems.
+- **`rv32im.sh`**: A shell script file used for configuring or managing a RISC-V RV32IM processor, possibly for setting up an environment or running a program on the processor.
+- **`firmware.hex`**: A hexadecimal file containing data or instructions, often used for initializing memory or configuring hardware components in digital design.
+- **`firmware32.hex`**: Similar to firmware.hex, but specific to a 32-bit system or processor.
+- **`testbench.vcd`**: A VCD (Value Change Dump) file generated during digital simulation, containing data about signal values and changes over time for debugging and analysis.
+- **`testbench.vvp`**: A Verilog simulation output file that results from compiling a testbench and design files, which can be executed to simulate and analyze the behavior of a digital design.
+  
 ## References
 ---
 - [RISC-V based MYTH](https://www.vlsisystemdesign.com/riscv-based-myth/?awt_a=5L_6&awt_l=H2Nw0&awt_m=3l0nDqaoscA8._6)
