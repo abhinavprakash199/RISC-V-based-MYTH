@@ -313,11 +313,73 @@ Makerchip IDE is a user-friendly integrated development environment for digital 
 #### Calculator 
 - TL Verilog codes
 ```
-
+ $reset = *reset;
+     
+   $op[1:0] = $random[1:0];
+   
+   $val1[31:0] = $rand1[3:0];         
+   $val2[31:0] = $rand2[3:0];         //Opcode	Function
+   $sum[31:0] = $val1+$val2;          //2'b00	Addition
+   $diff[31:0] = $val1-$val2;         //2'b01	Subtraction
+   $prod[31:0] = $val1*$val2;         //2'b10	Multiplication
+   $div[31:0] = $val1/$val2;          //2'b11	Division
+   
+   $out[31:0] = $op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum);
 ```
+![Screenshot (2746)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/10247972-34dd-484b-908d-14733a7fd510)
+
  
 ### Lab of Sequential logic in TL-Verilog using Makerchip
 ---
+#### Fibonacci Series
+
+![Screenshot (2749)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4d07128c-f1d5-4601-b0db-e91f864be879)
+
+The TL-Verilog code for fibonacci series
+
+```
+    $reset = *reset;
+   
+   $num[31:0] = $reset ? 1 : (>>1$num + >>2$num);
+   // >>1$num - Previous number
+   // >>2$num - Previous to previous number
+```
+![Screenshot (2751)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1b72dc7c-d2b4-4208-a8e1-b1ec26483027)
+
+#### Counter
+![Screenshot (2752)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f40d26da-07df-4531-9362-fd539d2500fc)
+
+The TL-Verilog code for Counter
+
+```
+   $reset = *reset;
+   $cnt[31:0] = $reset ? 0 : (>>1$cnt + 1);
+```   
+![Screenshot (2753)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/ebfc39c3-a330-4ac9-9f3f-f8bc7fffae10)
+
+#### Sequential Calculator
+![Screenshot (2755)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/be639c52-6624-480f-be6b-ba6350aa4253)
+
+The TL-verilog code for sequential calculator
+
+```
+$reset = *reset;
+          
+      $op[1:0] = $random[1:0];
+
+      
+      $val1[31:0] = $rand1[3:0];         
+      $val2[31:0] = //$rand2[3:0];         //Opcode	Function
+      $sum[31:0] = $val1+$val2;          //2'b00	Addition
+      $diff[31:0] = $val1-$val2;         //2'b01	Subtraction
+      $prod[31:0] = $val1*$val2;         //2'b10	Multiplication
+      $div[31:0] = $val1/$val2;          //2'b11	Division
+
+   $out[31:0] = $reset ? 32'h0 :($op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum));
+   $val1[31:0] = >>1$out[31:0];
+   
+```
+
 
 
 ## Day 4:
