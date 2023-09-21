@@ -16,7 +16,9 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     + [Labs of RISC-V Basic Verification flow using iverilog](#Labs-of-RISC-V-Basic-Verification-flow-using-iverilog)
  
 * [Day 3 - Digital Logic with TL-Verilog and Makerchip](#day-3)
-    + [Combinational logic in TL-Verilog using Makerchip](#Combinational-logic-in-TL-Verilog-using-Makerchip)
+    + [TL-Verilog and Makerchip IDE](#TL-Verilog-and-Makerchip-IDE)
+    + [Lab of Combinational logic in TL-Verilog using Makerchip](#Lab-of-Combinational-logic-in-TL-Verilog-using-Makerchip)
+    + [Lab of Sequential logic in TL-Verilog using Makerchip](#Lab-of-Sequential-logic-in-L-Verilog-using-Makerchip)
       
 * [Day 4 - Basic RISC-V CPU micro-architecture](#day-4)
     + [Microarchitecture and testbench for a simple RISC-V CPU](#Microarchitecture-and-testbench-for-a-simple-RISC-V-CPU)
@@ -270,7 +272,7 @@ chmod 777 rv32im.sh
 ## Day 3:
 ## Digital Logic with TL-Verilog and Makerchip
 ---
-### Combinational logic in TL-Verilog using Makerchip
+### TL-Verilog and Makerchip IDE
 ---
 
 Here we will be designing different logic gates, combinational circuits, and sequential circuits using TL-Verilog and Makerchip.
@@ -287,8 +289,9 @@ Makerchip IDE is a user-friendly integrated development environment for digital 
 - **NOTE** - Unlike verilog, no need to declare $in and $out ports. In Maketrchip three space indentation must be preserved.
 
 ![Screenshot (2742)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/82af3627-b246-4096-a8da-bda3cc0e850f)
-
-### Logic Gates
+### Lab of Combinational logic in TL-Verilog using Makerchip 
+---
+#### Logic Gates
 ```
    $out = !$in;               // OR gate
    $out_and = $in1 && $in2;   // AND gate
@@ -297,14 +300,12 @@ Makerchip IDE is a user-friendly integrated development environment for digital 
 ```
 ![Screenshot (2743)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b5c4c8d9-7a02-432c-b3b1-abee419b5774)
 
-### Vector Addition
+#### Vector Addition, 2:1 Multiplexer and 2:1 Vector Multiplexer
 
-### 2:1 Multiplexer
+#### Calculator 
 
-
-### 2:1 Vector Multiplexer
-
-
+### Lab of Sequential logic in TL-Verilog using Makerchip
+---
 
 
 ## Day 4:
