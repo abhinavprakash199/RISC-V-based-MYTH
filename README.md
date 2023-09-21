@@ -105,21 +105,21 @@ reg <core_no> <register name> // command to find the content of register
 
 - **-march=rv64i** - Generate code for given RISC-V ISA. ISA strings must be lower-case. Examples include ‘rv64i’, ‘rv32g’, ‘rv32e’, and ‘rv32imaf’. In this case, "rv64i" specifies a 64-bit RISC-V architecture with the "i" extension, which denotes the base integer instruction set.
 
-- **-o sum1ton_O1.o** - This flag indicates the name of the output file after compilation. In this case, the compiled code will be saved as "sum1ton_O1.o".
+- **-o sum1ton.o** - This flag indicates the name of the output file after compilation. In this case, the compiled code will be saved as "sum1ton_O1.o".
 
-- **sum1ton.c** - This is the source code file that you want to compile. In this case, it's named "sum1ton.c".
+- **sum1ton.c** - This is the source code file that we want to compile. In this case, it's named "sum1ton.c".
 
 - **riscv64-unknown-elf-objdump** - This is the command-line utility used for examining the contents of object files, executables, and libraries. It can provide information about the disassembled machine code, symbol tables, and more.
 
-- **-d**  This flag specifies that the disassembly mode should be used. In other words, you are requesting to see the disassembled machine code instructions corresponding to the binary content in the object file.
+- **-d**  This flag specifies that the disassembly mode should be used. In other words, we request to see the disassembled machine code instructions corresponding to the binary content in the object file.
 
-- **sum1ton_O1.o** - This is the object file that you want to disassemble. It contains the compiled machine code generated from the "sum1ton.c" source code file using the specified compiler options.
+- **sum1ton.o** - This is the object file we want to disassemble. It contains the compiled machine code generated from the "sum1ton.c" source code file using the specified compiler options.
 
-- **spike** - Spike is a RISC-V ISA simulator that emulates the behavior of a RISC-V processor. It's used to run RISC-V binary programs on a host machine, simulating how those programs would execute on actual RISC-V hardware.
+- **spike** - Spike is a RISC-V ISA simulator that emulates the behavior of a RISC-V processor. It runs RISC-V binary programs on a host machine, simulating how those programs would execute on actual RISC-V hardware.
 
 - **pk** - The "proxy kernel" (pk) is a small user-mode runtime environment that provides a basic set of functionalities needed to execute programs in the Spike simulator. It serves as a minimal operating system interface for the simulated environment. The proxy kernel handles basic interactions with the simulated environment, such as managing memory, handling system calls, and providing essential runtime support.
 
-- **-d (in spike command)** - indicates spike in debug mode. Debug mode enables you to closely monitor and interact with the simulated program's execution, making it useful for analyzing code behavior, identifying issues, and stepping through instructions.
+- **-d (in spike command)** - indicates spike in debug mode. Debug mode enables us to closely monitor and interact with the simulated program's execution, making it useful for analyzing code behavior, identifying issues, and stepping through instructions.
 
 - **until pc 0 10184** - continue executing the program until the program counter reaches address 10184.
 
