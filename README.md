@@ -277,14 +277,48 @@ chmod 777 rv32im.sh
 
 Here we will be designing different logic gates, combinational circuits, and sequential circuits using TL-Verilog and Makerchip.
 
+#### Makerchip IDE
+Makerchip IDE is a user-friendly integrated development environment for digital design and hardware description languages (HDLs) like TL Verilog, SystemVerilog, Verilog, and VHDL. It enables users to design, simulate, and test digital circuits and systems visually, with real-time simulation capabilities for catching errors early and refining designs efficiently. It serves as a valuable tool for both beginners and experienced digital designers, fostering innovation in digital electronics. [Open Makerchip IDE](https://makerchip.com/sandbox/)
+
 #### Transaction Level(TL) - Verilog
 
 TL-Verilog is a hardware description language developed by Redwood EDA. It extends Verilog with transaction-level modeling (TL-X), offering more efficient and concise design representation while remaining compatible with standard Verilog. It simplifies syntax, eliminates the need for legacy Verilog features, and is tailored for modeling hardware. TL-Verilog is designed for the design process, making it easier to write and edit Verilog code with fewer bugs. It is particularly useful for transaction-level design, where transactions move through a microarchitecture steered by flow components. TL-Verilog is well-supported by the Makerchip platform.
 
-#### Makerchip IDE
-Makerchip IDE is a user-friendly integrated development environment for digital design and hardware description languages (HDLs) like TL Verilog, SystemVerilog, Verilog, and VHDL. It enables users to design, simulate, and test digital circuits and systems visually, with real-time simulation capabilities for catching errors early and refining designs efficiently. It serves as a valuable tool for both beginners and experienced digital designers, fostering innovation in digital electronics. [Open Makerchip IDE](https://makerchip.com/sandbox/)
+### TL Verilog Syntex
+```
+\m5_TLV_version 1d: tl-x.org
+\m5
+   
+   // =================================================
+   // Welcome!  New to Makerchip? Try the "Learn" menu.
+   // =================================================
+   
+   //use(m5-1.0)   /// uncomment to use M5 macro library.
+\SV
+   // Macro providing required top-level module definition, random
+   // stimulus support, and Verilator config.
+   m5_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+   $reset = *reset;
+   
+   //...
+   
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
 
-
+```
+- **`\m5_TLV_version 1d: tl-x.org`** - This directive specifies the version of TL-Verilog being used (`1d`) and references the website (`tl-x.org`) where we can find more information about TL-Verilog.
+- **`\m5`** - This directive is followed by some comments.
+- **`\SV`** - The code switches to SystemVerilog (SV) mode with the `\SV` directive.
+- **`m5_makerchip_module`** - It defines a module named m5_makerchip_module. This encapsulates the top-level design and includes random stimulus support and Verilator configuration.
+- **`\TLV`** - The code switches back to TL-Verilog (TLV) mode with the `\TLV` directive.
+- **`$reset = *reset`** - It assigns the signal $reset to the value of *reset. This indicates that $reset is derived from the *reset signal in the TL-Verilog domain.
+- **`*passed = *cyc_cnt > 40`** - The code asserts the first condition to control simulation termination. If the value of `*cyc_cnt` (cycle count) exceeds 40, `*passed` is set to true, which could be used as a simulation success condition.
+- **`*failed = 1'b0`** - The code asserts the second condition to control simulation termination. `*failed` is set to 0 (false), indicating that the simulation has not failed.
+  
 ### Pythagorean Example Demo
 - **NOTE** - Unlike verilog, no need to declare $in and $out ports. In Maketrchip three space indentation must be preserved.
 
@@ -314,11 +348,11 @@ Makerchip IDE is a user-friendly integrated development environment for digital 
 - TL Verilog codes
 ```
  $reset = *reset;
-     
-   $op[1:0] = $random[1:0];
    
-   $val1[31:0] = $rand1[3:0];         
-   $val2[31:0] = $rand2[3:0];         //Opcode	Function
+   $op[1:0] = $rand2[1:0];  //$randX (where X is a number) generates a random value of X bits in width.
+   
+   $val1[31:0] = $rand3[2:0];         
+   $val2[31:0] = $rand4[3:0];         //Opcode	Function
    $sum[31:0] = $val1+$val2;          //2'b00	Addition
    $diff[31:0] = $val1-$val2;         //2'b01	Subtraction
    $prod[31:0] = $val1*$val2;         //2'b10	Multiplication
@@ -326,7 +360,7 @@ Makerchip IDE is a user-friendly integrated development environment for digital 
    
    $out[31:0] = $op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum);
 ```
-![Screenshot (2746)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/10247972-34dd-484b-908d-14733a7fd510)
+![Screenshot (2758)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/8ad547ba-5340-4f07-b7ba-4f248006ee8d)
 
  
 ### Lab of Sequential logic in TL-Verilog using Makerchip
@@ -364,21 +398,22 @@ The TL-verilog code for sequential calculator
 
 ```
 $reset = *reset;
-          
-      $op[1:0] = $random[1:0];
-
-      
-      $val1[31:0] = $rand1[3:0];         
-      $val2[31:0] = //$rand2[3:0];         //Opcode	Function
-      $sum[31:0] = $val1+$val2;          //2'b00	Addition
-      $diff[31:0] = $val1-$val2;         //2'b01	Subtraction
-      $prod[31:0] = $val1*$val2;         //2'b10	Multiplication
-      $div[31:0] = $val1/$val2;          //2'b11	Division
-
+   
+   $op[1:0] = $rand2[1:0];  //$randX (where X is a number) generates a random value of X bits in width.
+   
+   $val1[31:0] = >>1$out[31:0];         
+   $val2[31:0] = $rand4[3:0];         //Opcode	Function
+   $sum[31:0] = $val1+$val2;          //2'b00	Addition
+   $diff[31:0] = $val1-$val2;         //2'b01	Subtraction
+   $prod[31:0] = $val1*$val2;         //2'b10	Multiplication
+   $div[31:0] = $val1/$val2;          //2'b11	Division
+   
    $out[31:0] = $reset ? 32'h0 :($op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum));
    $val1[31:0] = >>1$out[31:0];
-   
+     
 ```
+![Screenshot (2760)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/bcc50f21-ef03-41f8-a2bf-d044a5b51127)
+
 
 
 
