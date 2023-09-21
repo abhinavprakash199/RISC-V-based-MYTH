@@ -283,6 +283,27 @@ TL-Verilog is a hardware description language developed by Redwood EDA. It exten
 Makerchip IDE is a user-friendly integrated development environment for digital design and hardware description languages (HDLs) like TL Verilog, SystemVerilog, Verilog, and VHDL. It enables users to design, simulate, and test digital circuits and systems visually, with real-time simulation capabilities for catching errors early and refining designs efficiently. It serves as a valuable tool for both beginners and experienced digital designers, fostering innovation in digital electronics. [Open Makerchip IDE](https://makerchip.com/sandbox/)
 
 
+### Pythagorean Example Demo
+- **NOTE** - Unlike verilog, no need to declare $in and $out ports. In Maketrchip three space indentation must be preserved.
+
+![Screenshot (2742)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/82af3627-b246-4096-a8da-bda3cc0e850f)
+
+### Logic Gates
+```
+   $out = !$in;               // OR gate
+   $out_and = $in1 && $in2;   // AND gate
+   $out_or = $in1 || $in2;    // OR gate
+   $out_xor = $in1 ^ $in2;    // XOR gate
+```
+![Screenshot (2743)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b5c4c8d9-7a02-432c-b3b1-abee419b5774)
+
+### Vector Addition
+
+### 2:1 Multiplexer
+
+
+### 2:1 Vector Multiplexer
+
 
 
 
