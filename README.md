@@ -292,6 +292,7 @@ Makerchip IDE is a user-friendly integrated development environment for digital 
 ### Lab of Combinational logic in TL-Verilog using Makerchip 
 ---
 #### Logic Gates
+- TL Verilog code for logic gates.
 ```
    $out = !$in;               // OR gate
    $out_and = $in1 && $in2;   // AND gate
@@ -301,9 +302,20 @@ Makerchip IDE is a user-friendly integrated development environment for digital 
 ![Screenshot (2743)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b5c4c8d9-7a02-432c-b3b1-abee419b5774)
 
 #### Vector Addition, 2:1 Multiplexer and 2:1 Vector Multiplexer
-
+- TL Verilog codes
+```   
+   $out_add[5:0] = $in1[4:0] + $in2[4:0];           // vector addition
+   $out_mux = $sel ? $in1 : $in0;                   // 2:1 MUX
+   $out_vecmux[7:0] = $sel ? $in1[7:0] : $in0[7:0]; //2:1 Vector Multiplexer
+```
+![Screenshot (2745)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/5afe7c2a-9b31-4995-8a1d-14adf2f11f0d)
+  
 #### Calculator 
+- TL Verilog codes
+```
 
+```
+ 
 ### Lab of Sequential logic in TL-Verilog using Makerchip
 ---
 
