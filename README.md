@@ -22,7 +22,10 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     + [Lab of Pipelined Pythagorean](#Lab-of-Pipelined-Pythagorean)
     + [Lab of Counter and 1 Cycle Pipeline Calculator](#Lab-of-Counter-and-1-Cycle-Pipeline-Calculator)
     + [Lab of Counter and 2 Cycle Pipeline Calculator](#Lab-of-Counter-and-2-Cycle-Pipeline-Calculator)
+    + [Validity and Clock Gating](#Validity-and-Clock-Gating)
     + [Lab of Pipelined Pythagorean with validity](#Lab-of-Pipelined-Pythagorean-with-validity)
+    + [Lab of Distance Accumulator](#Lab-of-Distance-Accumulator)
+    + [2 Cycle Calculator with Validity](#2-Cycle-Calculator-with-Validity)
       
 * [Day 4 - Basic RISC-V CPU micro-architecture](#day-4)
     + [Microarchitecture and testbench for a simple RISC-V CPU](#Microarchitecture-and-testbench-for-a-simple-RISC-V-CPU)
@@ -630,7 +633,7 @@ Validity is a concept used to indicate whether data or transactions are valid an
 ![Screenshot (2812)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/29b7196e-cf0c-4821-89ca-126591a0be6f)
 
 ```verilog
-    calc
+   |calc
       @1
          $reset = *reset;
       ?$valid
@@ -642,11 +645,18 @@ Validity is a concept used to indicate whether data or transactions are valid an
          @3
             $cc[31:0] = sqrt($cc_sq);
       @4
-         $tot_dist[63:0] =
-		$reset ? '0 : ($valid ?
-			(>>1$tot_dist + $out) : $RETAIN);  //$RETAIN = >>$tot_dist
+         $tot_dist[63:0] = $reset ? 64'b0 : ($valid ?
+                (>>1$tot_dist + $out) : $RETAIN);  
+                      //$RETAIN = >>$tot_dist
+   endmodule
+
 ```
 
+![Screenshot (2814)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/be5dff83-1c4a-4850-af2b-afb9ef33067c)
+[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0vghP0)
+
+### 2 Cycle Calculator with Validity
+---
 
 ## Day 4:
 ## Basic RISC-V CPU micro-architecture
