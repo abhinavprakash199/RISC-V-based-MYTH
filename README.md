@@ -284,7 +284,32 @@ Makerchip IDE is a user-friendly integrated development environment for digital 
 
 TL-Verilog is a hardware description language developed by Redwood EDA. It extends Verilog with transaction-level modeling (TL-X), offering more efficient and concise design representation while remaining compatible with standard Verilog. It simplifies syntax, eliminates the need for legacy Verilog features, and is tailored for modeling hardware. TL-Verilog is designed for the design process, making it easier to write and edit Verilog code with fewer bugs. It is particularly useful for transaction-level design, where transactions move through a microarchitecture steered by flow components. TL-Verilog is well-supported by the Makerchip platform.
 
-### TL Verilog Syntex
+#### Identifier and Types in TL Verilog
+![Screenshot (2767)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/a791b326-c1b3-4d0b-bcee-03f91e7ea8b7)
+
+TL-Verilog uses strict naming semantics. The first token must start with two alpha characters. Identifiers can have three types of delimitation or casing.
+1. **`$lower_case`** - Pipe signal
+Signal names are written in lowercase letters, preceded by a "$" symbol. These signals are possibly related to some form of data pipeline or flow. 
+```verilog
+$input_data
+$output_buffer
+$data_processing
+```
+2. **`$CamelCase`** - State signal
+Signal names are written in all uppercase letters, possibly to indicate that these signals are treated as keywords or constants.   
+```verilog
+$IdleState
+$ProcessingState
+$ErrorState
+```   
+3. **`$Upper_CASE`** - Keyword signal
+Signal names are written in all uppercase letters, possibly to indicate that these signals are treated as keywords or constants
+```verilog
+$ENABLED
+$MAX_LIMIT
+$ERROR_CODE
+```
+#### TL Verilog Syntex
 ```verilog
 \m5_TLV_version 1d: tl-x.org
 \m5
@@ -418,8 +443,8 @@ The TL-Verilog code of Pipelined Pythagorean
 \TLV
    $reset = *reset;
    
-   |calc
-      @1
+   |calc                //     | - Represent the code below are pipeline.
+      @1                //    @ - Represents the pipelined stage number.
          $aa_sq[31:0] = $aa[3:0] * $aa[3:0];
          $bb_sq[31:0] = $bb[3:0] * $bb[3:0];
       @2
