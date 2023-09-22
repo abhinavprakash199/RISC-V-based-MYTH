@@ -27,6 +27,7 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     + [Lab of Distance Accumulator](#Lab-of-Distance-Accumulator)
     + [Lab of 2 Cycle Pipeline Calculator with Validity](#Lab-of-2-Cycle-Pipeline-Calculator-with-Validity)
     + [Lab of Calculator with Single Value Memory](#Lab-of-Calculator-with-Single-Value-Memory)
+    + [Lab of Pythagorean using Hierarchy](#Lab-of-Pythagorean-using-Hierarchy)
       
 * [Day 4 - Basic RISC-V CPU micro-architecture](#day-4)
     + [Microarchitecture and testbench for a simple RISC-V CPU](#Microarchitecture-and-testbench-for-a-simple-RISC-V-CPU)
@@ -733,7 +734,8 @@ Here, we are enabling a valid bit when rand_valif = 3
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0yPfNhM9A/0Lghg1#)
 
-// D3SK5_L1 HERICARY
+### Lab of Pythagorean using Hierarchy
+---
 
 ## Day 4:
 ## Basic RISC-V CPU micro-architecture
