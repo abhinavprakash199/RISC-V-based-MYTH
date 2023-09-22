@@ -623,10 +623,10 @@ Here, we are enabling a valid bit when rand_valif = 3
 \SV
    endmodule
 ```
-- Here we use `?$valid` bit, which is high only when we get useful output; in the figure, it is high when output is highlighted.
+- Here we use `?$valid` manas valid bit high, then only its content is executed.
 
 ![Screenshot (2811)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/773422e5-77db-4659-af49-cb74f7a4c292)
-[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0r0hzX#)
+- [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0r0hzX#)
 
 ### Lab of Distance Accumulator
 ---
