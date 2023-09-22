@@ -1,4 +1,4 @@
-# RISC-V-based-MYTH
+![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/19218658-537b-4558-ac95-8867dfe313f6)# RISC-V-based-MYTH
 This repository contains the whole summary of the hands-on done by Abhinav Prakash (IS22MTECH14002) during the workshop RISC-V based MYTH and understanding the architecture of RISC-V and configuring the ISA and binary files using picorv32 RISC-V architecture with the help if  TL-verilog and Makerchip.
 
 
@@ -690,6 +690,7 @@ Here, we are enabling a valid bit when rand_valif = 3
    
 
 ```
+![Screenshot (2822)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/d962709c-e573-4952-a806-6dc6a630c0c4)
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0yPfNhM9A/0vghPJ#)
 - [CHECK SOLUTION](https://myth.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2FRISC-V_MYTH_Workshop%2Fmaster%2Fcalculator_shell.tlv#)
@@ -697,8 +698,40 @@ Here, we are enabling a valid bit when rand_valif = 3
 
 ### Lab of Calculator with Single Value Memory
 ---
+![Screenshot (2818)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b5d7ea27-7502-4a14-ae0d-cb68ffa0f8df)
 
 
+```verilog
+|calc
+      @1
+         $reset = *reset;
+         $val1 [31:0] = >>2$out;
+         $val2 [31:0] = $rand2[3:0];
+         $valid = $reset ? 1'b0 : >>1$valid + 1'b1 ;
+         $valid_or_reset = $valid || $reset;
+
+      ?$vaild_or_reset
+         @1   
+            $sum [31:0] = $val1 + $val2;
+            $diff[31:0] = $val1 - $val2;
+            $prod[31:0] = $val1 * $val2;
+            $div[31:0] = $val1 / $val2;
+
+         @2   
+            $mem[31:0] = $reset ? 32'b0 :
+                         ($op[2:0] == 3'b101) ? $val1 : >>2$mem ;
+
+            $out [31:0] = $reset ? 32'b0 :
+                          ($op[2:0] == 3'b000) ? $sum :
+                          ($op[2:0] == 3'b001) ? $diff :
+                          ($op[2:0] == 3'b010) ? $prod :
+                          ($op[2:0] == 3'b011) ? $quot :
+                          ($op[2:0] == 3'b100) ? >>2$mem : >>2$out ;
+
+```
+![Screenshot (2820)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/12d5dc34-6111-40ca-b9e9-3503db2d826c)
+
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0yPfNhM9A/0Lghg1#)
 
 
 
@@ -707,7 +740,7 @@ Here, we are enabling a valid bit when rand_valif = 3
 ---
 ### Microarchitecture and testbench for a simple RISC-V CPU
 ---
-![Screenshot (2818)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b5d7ea27-7502-4a14-ae0d-cb68ffa0f8df)
+
 
 
 
