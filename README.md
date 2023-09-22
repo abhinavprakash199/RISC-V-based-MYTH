@@ -341,7 +341,7 @@ $ERROR_CODE
 - **`\m5_TLV_version 1d: tl-x.org`** - This directive specifies the file format(`/m5_TLV`) of TL-Verilog version(`1d` is late) and references the website (`tl-x.org`) where we can find more information about TL-Verilog. `\m5` is enabling the macro preprocessing using a macro language m5
 - **`\m5`** - This directive is followed by some comments.
 - **`\SV`** - The code switches to SystemVerilog (SV) mode with the `\SV` directive.
-- **`m5_makerchip_module`** - It defines a module named m5_makerchip_module. This encapsulates the top-level design and includes random stimulus support and Verilator configuration. To expan the macro we can see "NAV-TLV" file in Makerchip IDE.
+- **`m5_makerchip_module`** - It defines a module named m5_makerchip_module. This encapsulates the top-level design and includes random stimulus support and Verilator configuration. To expand the macro we can see "NAV-TLV" file in Makerchip IDE.
 - **`\TLV`** - The code switches back to TL-Verilog (TLV) mode with the `\TLV` directive.
 - **`$reset = *reset`** - It assigns the signal reset($reset) of TL Verilog to the reset(*reset) value of of System Verilog in \SV part. This indicates that $reset is derived from the *reset signal in the TL-Verilog domain.
 - **`*passed = *cyc_cnt > 40`** - The code asserts the first condition to control simulation termination. If the value of `*cyc_cnt` (cycle count) exceeds 40, `*passed` is set to true, which could be used as a simulation success condition, and the simulation will stop after that because the m5 module returns pass when output is given.
@@ -458,6 +458,7 @@ The TL-verilog code for sequential calculator
 [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0DRhAR#)
 
 ### Lab of Pipelined Pythagorean
+---
 The TL-Verilog code of Pipelined Pythagorean
 ![Screenshot (2763)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/21fb925d-0480-4602-bea0-54dd52bfab3c)
 
@@ -491,6 +492,7 @@ The TL-Verilog code of Pipelined Pythagorean
 [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0BghK1)
 
 ### Lab of Counter and 1 Cycle Pipeline Calculator
+---
 The counter counts no or clock and gives output in cnt whenever reset is 1.
 
 ![Screenshot (2781)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4fa10630-b78c-4833-bd53-2de6b540b548)
@@ -530,7 +532,7 @@ The counter counts no or clock and gives output in cnt whenever reset is 1.
 [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/066hm4#)
 
 ### Lab of Counter and 2 Cycle Pipeline Calculator
-
+---
 ![Screenshot (2772)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/9796ed8c-f051-46f1-9c6f-a31c14634829)
 
 The TL-Verilog code of 2-Cycle Pipeline Calculator
@@ -567,9 +569,15 @@ The TL-Verilog code of 2-Cycle Pipeline Calculator
 [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0VmhyK#)
 
 ### Validity and Clock Gating
+---
+#### Validity
+Validity is a concept used to indicate whether data or transactions are valid and ready for processing. It's represented by a signal, often named valid, which can have two values: 1 (true) to indicate that the data is valid, or 0 (false) to indicate that the data is not valid or not ready. Validity signals help manage data flow, synchronization, and correctness in transaction-level hardware descriptions. They ensure that data is processed only when it's in a valid state, helping to maintain the integrity of the design.
 
+#### Clock Gating
+ clock gating is a technique used to optimize the power efficiency of digital integrated circuits. It involves inserting logic gates into the clock network to selectively disable or "gate" the clock signal to certain areas of the chip when they are not in use. This helps reduce dynamic power consumption by preventing unnecessary clock toggling in idle or unused portions of the circuit. Clock gating is a common practice in modern chip design to improve energy efficiency without sacrificing performance.
 
-
+### Lab of Distance Accumulator
+---
 ## Day 4:
 ## Basic RISC-V CPU micro-architecture
 ---
