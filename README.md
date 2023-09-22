@@ -1,4 +1,4 @@
-# RISC-V-based-MYTH
+![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/2bb03ff5-3461-4c5f-b63d-a1c1511fe84c)![Screenshot (2797)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/87204331-e02f-4dba-9285-8886f19ee0f1)# RISC-V-based-MYTH
 This repository contains the whole summary of the hands-on done by Abhinav Prakash (IS22MTECH14002) during the workshop RISC-V based MYTH and understanding the architecture of RISC-V and configuring the ISA and binary files using picorv32 RISC-V architecture with the help if  TL-verilog and Makerchip.
 
 
@@ -338,30 +338,33 @@ $ERROR_CODE
    endmodule
 
 ```
-- **`\m5_TLV_version 1d: tl-x.org`** - This directive specifies the file format(`/m5_TLV`) of TL-Verilog version(`1d` is lates ) and references the website (`tl-x.org`) where we can find more information about TL-Verilog. `\m5` is enabling the macro preprocessing using a macro language m5
+- **`\m5_TLV_version 1d: tl-x.org`** - This directive specifies the file format(`/m5_TLV`) of TL-Verilog version(`1d` is late) and references the website (`tl-x.org`) where we can find more information about TL-Verilog. `\m5` is enabling the macro preprocessing using a macro language m5
 - **`\m5`** - This directive is followed by some comments.
 - **`\SV`** - The code switches to SystemVerilog (SV) mode with the `\SV` directive.
 - **`m5_makerchip_module`** - It defines a module named m5_makerchip_module. This encapsulates the top-level design and includes random stimulus support and Verilator configuration. To expan the macro we can see "NAV-TLV" file in Makerchip IDE.
 - **`\TLV`** - The code switches back to TL-Verilog (TLV) mode with the `\TLV` directive.
-- **`$reset = *reset`** - It assigns the signal $reset to the value of *reset. This indicates that $reset is derived from the *reset signal in the TL-Verilog domain.
-- **`*passed = *cyc_cnt > 40`** - The code asserts the first condition to control simulation termination. If the value of `*cyc_cnt` (cycle count) exceeds 40, `*passed` is set to true, which could be used as a simulation success condition and sumulation will stop after that because m5 module return pass when output is given.
+- **`$reset = *reset`** - It assigns the signal reset($reset) of TL Verilog to the reset(*reset) value of of System Verilog in \SV part. This indicates that $reset is derived from the *reset signal in the TL-Verilog domain.
+- **`*passed = *cyc_cnt > 40`** - The code asserts the first condition to control simulation termination. If the value of `*cyc_cnt` (cycle count) exceeds 40, `*passed` is set to true, which could be used as a simulation success condition, and the simulation will stop after that because the m5 module returns pass when output is given.
 - **`*failed = 1'b0`** - The code asserts the second condition to control simulation termination. `*failed` is set to 0 (false), indicating that the simulation has not failed.
   
-### Pythagorean Example Demo
-- **NOTE** - Unlike verilog, no need to declare $in and $out ports. In Maketrchip three space indentation must be preserved.
 
-![Screenshot (2742)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/82af3627-b246-4096-a8da-bda3cc0e850f)
+
+- **NOTE** - Unlike Verilog, there is no need to declare $in and $out ports. In Maketrchip, three space indentations must be preserved.
+
 ### Lab of Combinational logic in TL-Verilog using Makerchip 
 ---
 #### Logic Gates
-- TL Verilog code for logic gates.
+- TL Verilog code for logic gates
 ```verilog
    $out = !$in;               // OR gate
    $out_and = $in1 && $in2;   // AND gate
    $out_or = $in1 || $in2;    // OR gate
    $out_xor = $in1 ^ $in2;    // XOR gate
 ```
-![Screenshot (2743)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b5c4c8d9-7a02-432c-b3b1-abee419b5774)
+![Screenshot (2795)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/fc8f9348-1031-4d3b-ac28-396e2ffe71fc)
+[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/058hKX#)
+- We are getting an error *$in1 is used but never assigned* because we have not assigned `$in1` with any value and its generating random values hence can be ignored.
+- We are also getting a warning that *$out is assigned but never used* because `$out` is a floating wire getting an output. So, we can ignore or use ``BOGUS_USE($out)` to silence the warning.
 
 #### Vector Addition, 2:1 Multiplexer and 2:1 Vector Multiplexer
 - TL Verilog codes 
@@ -370,8 +373,9 @@ $ERROR_CODE
    $out_mux = $sel ? $in1m : $in0m;                   // 2:1 MUX
    $out_vecmux[7:0] = $sel ? $in1v[7:0] : $in0v[7:0]; //2:1 Vector Multiplexer
    ```
-![Screenshot (2762)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3a6984fb-002c-4160-96f2-3ab790021312)
-  
+![Screenshot (2794)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/cb1c8bb1-249e-4b50-a636-042f141d9575)
+[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/08qhA6)
+
 #### Calculator 
 - TL Verilog codes of Calculator
 ```verilog
@@ -386,8 +390,9 @@ $ERROR_CODE
    
    $out[31:0] = $op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum);
 ```
-![Screenshot (2775)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/dc90f831-9260-454c-b3ba-42f1b5f69ad9)
-[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0RghWW#)
+![Screenshot (2796)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/57fdac15-a982-4d07-94ff-c3c184701ebc)
+[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0RghWW#)
+- We are getting an error *$rand3 is used but never assigned* because we have not assigned `$rand3` with any value bit its generating random value of 3 bit hence can be ignored.
 
  
 ### Lab of Sequential logic in TL-Verilog using Makerchip
@@ -403,8 +408,8 @@ The TL-Verilog code for fibonacci series
    // >>1$num - Previous number
    // >>2$num - Previous to previous number
 ```
-![Screenshot (2751)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1b72dc7c-d2b4-4208-a8e1-b1ec26483027)
-[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0Lgh9D)
+![Screenshot (2797)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/9ae6b2dd-1337-4808-9d55-21974adf4ace)
+[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0Lgh9D)
  
 #### Counter
 ![Screenshot (2752)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f40d26da-07df-4531-9362-fd539d2500fc)
@@ -414,8 +419,8 @@ The TL-Verilog code for Counter
 ```verilog
    $cnt[31:0] = $reset ? 0 : (>>1$cnt + 1);
 ```
-![Screenshot (2768)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/6e9d443b-9e1f-426f-8ca3-fe6cb13dd38b)
-[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0KOhW7)
+![Screenshot (2798)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/e1285664-9691-4e1b-bd46-99cb38f425cd)
+[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0KOhW7)
 
 #### Sequential Calculator
 ![Screenshot (2755)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/be639c52-6624-480f-be6b-ba6350aa4253)
@@ -448,8 +453,9 @@ The TL-verilog code for sequential calculator
 \SV
    endmodule
 ```
-![Screenshot (2770)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1cc1a8ba-2160-4065-8f74-b182d56aafec)
-[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0DRhAR#)
+
+![Screenshot (2804)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/310e5165-3c6f-428b-bd02-d93b63042756)
+[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0DRhAR#)
 
 ### Lab of Pipelined Pythagorean
 The TL-Verilog code of Pipelined Pythagorean
@@ -481,8 +487,8 @@ The TL-Verilog code of Pipelined Pythagorean
    endmodule
 
 ```
-![Screenshot (2765)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/425b7072-41de-41f2-a726-9392c9c3cb60)
-[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0BghK1)
+![Screenshot (2803)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1288fb8f-745f-4175-a2dd-8f55f0dc8a0c)
+[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0BghK1)
 
 ### Lab of Counter and 1 Cycle Pipeline Calculator
 The counter counts no or clock and gives output in cnt whenever reset is 1.
@@ -503,6 +509,7 @@ The counter counts no or clock and gives output in cnt whenever reset is 1.
    
    |calc
       @1
+         $reset = *reset;
          $val1[31:0] = >>1$out;
          $sum[31:0] = $val1+$val2;
          $diff[31:0] = $val1-$val2;
@@ -519,14 +526,14 @@ The counter counts no or clock and gives output in cnt whenever reset is 1.
    endmodule
 
 ```
-![Screenshot (2784)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/fd1d6a1d-89d8-4556-9dd0-a68f65380f7f)
-[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/066hm4#)
+![Screenshot (2806)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/151839de-f09d-40a3-abd4-02062a7bcb09)
+[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/066hm4#)
 
 ### Lab of Counter and 2 Cycle Pipeline Calculator
 
 ![Screenshot (2772)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/9796ed8c-f051-46f1-9c6f-a31c14634829)
 
-The TL-Verilog code of 2 Cycle Pipeline Calculator
+The TL-Verilog code of 2-Cycle Pipeline Calculator
 ```verilog
 \m5_TLV_version 1d: tl-x.org
 \m5
@@ -541,12 +548,13 @@ The TL-Verilog code of 2 Cycle Pipeline Calculator
    
    |calc
       @1
+         $reset = *reset;
          $val1[31:0] = >>2$out;
          $sum[31:0] = $val1+$val2;
          $diff[31:0] = $val1-$val2;
          $prod[31:0] = $val1*$val2;
          $div[31:0] = $val1/$val2;
-         $valid = $reset ? 0 : (>>1$valid + 1);
+         $valid[31:0] = $reset ? 32'b0 : (>>1$valid + 1);
       @2
          $out[31:0] = ($reset | ~($valid))  ? 32'h0 : ($op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum));
    // Assert these to end simulation (before Makerchip cycle limit).
@@ -554,10 +562,9 @@ The TL-Verilog code of 2 Cycle Pipeline Calculator
    *failed = 1'b0;
 \SV
    endmodule
-
 ```
-![Screenshot (2773)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/fb2cd4c8-da9b-4dc0-b347-af00aeab4ab4)
-[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0VmhyK#)
+![Screenshot (2807)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3a86846b-e52c-4770-bcdc-6540825a88bf)
+[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0VmhyK#)
 
 ### Validity and Clock Gating
 
