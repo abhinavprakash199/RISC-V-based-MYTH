@@ -22,6 +22,7 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     + [Lab of Pipelined Pythagorean](#Lab-of-Pipelined-Pythagorean)
     + [Lab of Counter and 1 Cycle Pipeline Calculator](#Lab-of-Counter-and-1-Cycle-Pipeline-Calculator)
     + [Lab of Counter and 2 Cycle Pipeline Calculator](#Lab-of-Counter-and-2-Cycle-Pipeline-Calculator)
+    + [Lab of Pipelined Pythagorean with validity](#Lab-of-Pipelined-Pythagorean-with-validity)
       
 * [Day 4 - Basic RISC-V CPU micro-architecture](#day-4)
     + [Microarchitecture and testbench for a simple RISC-V CPU](#Microarchitecture-and-testbench-for-a-simple-RISC-V-CPU)
@@ -575,9 +576,78 @@ Validity is a concept used to indicate whether data or transactions are valid an
 
 #### Clock Gating
  clock gating is a technique used to optimize the power efficiency of digital integrated circuits. It involves inserting logic gates into the clock network to selectively disable or "gate" the clock signal to certain areas of the chip when they are not in use. This helps reduce dynamic power consumption by preventing unnecessary clock toggling in idle or unused portions of the circuit. Clock gating is a common practice in modern chip design to improve energy efficiency without sacrificing performance.
+ 
+### Lab of Pipelined Pythagorean with validity
+---
+```verilog
+
+\m4_TLV_version 1d: tl-x.org
+\SV
+   `include "sqrt32.v";
+   
+   m4_makerchip_module
+\TLV
+   
+   // Stimulus
+   |calc
+      @0
+         $valid = & $rand_valid[1:0];  // Valid with 1/4 probability
+                                       // (& over two random bits).
+   
+   // DUT (Design Under Test)
+   |calc
+      ?$valid
+         @1
+            $aa_sq[7:0] = $aa[3:0] ** 2;
+            $bb_sq[7:0] = $bb[3:0] ** 2;
+         @2
+            $cc_sq[8:0] = $aa_sq + $bb_sq;
+         @3
+            $cc[4:0] = sqrt($cc_sq);
+
+
+   // To Print output in log
+   |calc
+      @3
+         \SV_plus
+            always_ff @(posedge clk) begin
+               if ($valid)
+                  \$display("sqrt((\%2d ^ 2) + (\%2d ^ 2)) = \%2d", $aa, $bb, $cc);
+            end
+
+\SV
+   endmodule
+```
+- Here we use `?$valid` bit, which is high only when we get useful output; in the figure, it is high when output is highlighted.
+
+![Screenshot (2811)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/773422e5-77db-4659-af49-cb74f7a4c292)
+[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0r0hzX#)
 
 ### Lab of Distance Accumulator
 ---
+![Screenshot (2809)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/8f4d3c8f-5e7a-416c-a663-21be68cdc9fc)
+
+![Screenshot (2812)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/29b7196e-cf0c-4821-89ca-126591a0be6f)
+
+```verilog
+    calc
+      @1
+         $reset = *reset;
+      ?$valid
+         @1
+            $aa_sq[31:0] = $aa[3:0] * $aa;
+            $bb_sq[31:0] = $bb[3:0] * $bb;
+         @2
+            $cc_sq[31:0] = $aa_sq + $bb_sq;
+         @3
+            $cc[31:0] = sqrt($cc_sq);
+      @4
+         $tot_dist[63:0] =
+		$reset ? '0 : ($valid ?
+			(>>1$tot_dist + $out) : $RETAIN);  //$RETAIN = >>$tot_dist
+```
+
+
 ## Day 4:
 ## Basic RISC-V CPU micro-architecture
 ---
