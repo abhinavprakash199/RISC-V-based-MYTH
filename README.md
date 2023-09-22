@@ -25,7 +25,8 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     + [Validity and Clock Gating](#Validity-and-Clock-Gating)
     + [Lab of Pipelined Pythagorean with validity](#Lab-of-Pipelined-Pythagorean-with-validity)
     + [Lab of Distance Accumulator](#Lab-of-Distance-Accumulator)
-    + [2 Cycle Pipeline Calculator with Validity](#2-Cycle-Pipeline-Calculator-with-Validity)
+    + [Lab of 2 Cycle Pipeline Calculator with Validity](#Lab-of-2-Cycle-Pipeline-Calculator-with-Validity)
+    + [Lab of Calculator with Single Value Memory](#Lab-of-Calculator-with-Single-Value-Memory)
       
 * [Day 4 - Basic RISC-V CPU micro-architecture](#day-4)
     + [Microarchitecture and testbench for a simple RISC-V CPU](#Microarchitecture-and-testbench-for-a-simple-RISC-V-CPU)
@@ -656,30 +657,49 @@ Here, we are enabling a valid bit when rand_valif = 3
 ![Screenshot (2814)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/be5dff83-1c4a-4850-af2b-afb9ef33067c)
 [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0vghP0)
 
-### 2 Cycle Pipeline Calculator with Validity
+### Lab of 2 Cycle Pipeline Calculator with Validity
 ---
-Now instead of assigning an output value of 0 in every clock cycle, we are going to use validity.
-We OR the reset with a valid signal to make use of the logic enabled during the reset.
+- Now instead of assigning an output value of 0 in every clock cycle, we are going to use validity.
+- We OR the reset with a valid signal to use the logic enabled during the reset.
 
 ![Screenshot (2815)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/acdde9aa-17b3-4a1e-96c2-407644043e0e)
 
 ```verilog
    $reset = *reset;
+   $op[1:0] = $rand2[1:0];
+   $val2[31:0] = $rand4[3:0];
+   
    |calc
       @1
+         $reset = *reset;
+         $val1[31:0] = >>2$out;
+         $val2[31:0] = $rand2[3:0];
          $valid = $reset ? 0 : >>1$valid+1;
-         $valid_or_reset = $valid || $reset;
+         $valid_or_reset = $valid || $reset; 
       ?$valid_or_reset
          @1
-            $val1[31:0] = >>2$out;
             $sum[31:0] = $val1+$val2;
             $diff[31:0] = $val1-$val2;
             $prod[31:0] = $val1*$val2;
             $div[31:0] = $val1/$val2;
-            $valid = $reset ? 0 : (>>1$valid + 1);
+            
          @2
             $out[31:0] = $reset  ? 32'h0 : ($op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum));
+   
+
 ```
+
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0yPfNhM9A/0vghPJ#)
+- [CHECK SOLUTION](https://myth.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2FRISC-V_MYTH_Workshop%2Fmaster%2Fcalculator_shell.tlv#)
+- [REFERENCE SOLUTION](https://myth.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2FRISC-V_MYTH_Workshop%2Fmaster%2Freference_solutions.tlv#)
+
+### Lab of Calculator with Single Value Memory
+---
+
+
+
+
+
 ## Day 4:
 ## Basic RISC-V CPU micro-architecture
 ---
