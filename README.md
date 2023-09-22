@@ -18,7 +18,8 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
 * [Day 3 - Digital Logic with TL-Verilog and Makerchip](#day-3)
     + [TL-Verilog and Makerchip IDE](#TL-Verilog-and-Makerchip-IDE)
     + [Lab of Combinational logic in TL-Verilog using Makerchip](#Lab-of-Combinational-logic-in-TL-Verilog-using-Makerchip)
-    + [Lab of Sequential logic in TL-Verilog using Makerchip](#Lab-of-Sequential-logic-in-L-Verilog-using-Makerchip)
+    + [Lab of Sequential logic in TL-Verilog using Makerchip](#Lab-of-Sequential-logic-in-TL-Verilog-using-Makerchip)
+    + [Lab of Pipelined Pythagorean](#Lab-of-Pipelined-Pythagorean)
       
 * [Day 4 - Basic RISC-V CPU micro-architecture](#day-4)
     + [Microarchitecture and testbench for a simple RISC-V CPU](#Microarchitecture-and-testbench-for-a-simple-RISC-V-CPU)
