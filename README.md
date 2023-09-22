@@ -1,4 +1,4 @@
-![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/2bb03ff5-3461-4c5f-b63d-a1c1511fe84c)![Screenshot (2797)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/87204331-e02f-4dba-9285-8886f19ee0f1)# RISC-V-based-MYTH
+# RISC-V-based-MYTH
 This repository contains the whole summary of the hands-on done by Abhinav Prakash (IS22MTECH14002) during the workshop RISC-V based MYTH and understanding the architecture of RISC-V and configuring the ISA and binary files using picorv32 RISC-V architecture with the help if  TL-verilog and Makerchip.
 
 
