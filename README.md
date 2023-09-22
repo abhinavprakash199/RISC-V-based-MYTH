@@ -519,7 +519,7 @@ The counter counts no or clock and gives output in cnt whenever reset is 1.
    endmodule
 
 ```
-![Screenshot (2782)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/e91cb5d7-3aca-40ea-a6f1-b0f392006959)
+![Screenshot (2784)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/fd1d6a1d-89d8-4556-9dd0-a68f65380f7f)
 [MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/066hm4#)
 
 ### Lab of Counter and 2 Cycle Pipeline Calculator
