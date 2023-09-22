@@ -384,7 +384,7 @@ $ERROR_CODE
    $out[31:0] = $op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum);
 ```
 ![Screenshot (2758)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/8ad547ba-5340-4f07-b7ba-4f248006ee8d)
-
+[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0RghWW)
  
 ### Lab of Sequential logic in TL-Verilog using Makerchip
 ---
@@ -400,7 +400,8 @@ The TL-Verilog code for fibonacci series
    // >>2$num - Previous to previous number
 ```
 ![Screenshot (2751)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1b72dc7c-d2b4-4208-a8e1-b1ec26483027)
-
+[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0Lgh9D)
+ 
 #### Counter
 ![Screenshot (2752)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f40d26da-07df-4531-9362-fd539d2500fc)
 
@@ -408,8 +409,9 @@ The TL-Verilog code for Counter
 
 ```verilog
    $cnt[31:0] = $reset ? 0 : (>>1$cnt + 1);
-```   
-![Screenshot (2753)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/ebfc39c3-a330-4ac9-9f3f-f8bc7fffae10)
+```
+![Screenshot (2768)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/6e9d443b-9e1f-426f-8ca3-fe6cb13dd38b)
+[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0KOhW7)
 
 #### Sequential Calculator
 ![Screenshot (2755)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/be639c52-6624-480f-be6b-ba6350aa4253)
@@ -417,6 +419,14 @@ The TL-Verilog code for Counter
 The TL-verilog code for sequential calculator
 
 ```verilog
+   \m5_TLV_version 1d: tl-x.org
+\m5
+   
+\SV
+   m5_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+   $reset = *reset;
+   
    $op[1:0] = $rand2[1:0];  //$randX (where X is a number) generates a random value of X bits in width.
    
    $val1[31:0] = >>1$out[31:0];         
@@ -426,10 +436,19 @@ The TL-verilog code for sequential calculator
    $prod[31:0] = $val1*$val2;         //2'b10	Multiplication
    $div[31:0] = $val1/$val2;          //2'b11	Division
    
-   $out[31:0] = $reset ? 32'h0 :($op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum));
+   $out[31:0] = reset ? 32'b0: ($op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum));
+      
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
 ```
+![Screenshot (2770)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1cc1a8ba-2160-4065-8f74-b182d56aafec)
+
 ![Screenshot (2760)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/bcc50f21-ef03-41f8-a2bf-d044a5b51127)
 [MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0DRhAR#)
+
 ### Lab of Pipelined Pythagorean
 The TL-Verilog code of Pipelined Pythagorean
 ```verilog
