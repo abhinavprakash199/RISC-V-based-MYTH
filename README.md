@@ -21,7 +21,7 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     + [Lab of Sequential logic in TL-Verilog using Makerchip](#Lab-of-Sequential-logic-in-TL-Verilog-using-Makerchip)
     + [Lab of Pipelined Pythagorean](#Lab-of-Pipelined-Pythagorean)
     + [Lab of Counter and 1 Cycle Pipeline Calculator](#Lab-of-Counter-and-1-Cycle-Pipeline-Calculator)
-    + [Lab of Counter and 2 Cycle Pipeline Calculator](#Lab-of-Counter-and-2-Cycle-Pipeline-Calculator)
+    + [Lab of 2 Cycle Pipeline Calculator](#Lab-of-Counter-and-Pipeline-Calculator)
     + [Validity and Clock Gating](#Validity-and-Clock-Gating)
     + [Lab of Pipelined Pythagorean with validity](#Lab-of-Pipelined-Pythagorean-with-validity)
     + [Lab of Distance Accumulator](#Lab-of-Distance-Accumulator)
@@ -536,7 +536,7 @@ The counter counts no or clock and gives output in cnt whenever reset is 1.
 ![Screenshot (2806)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/151839de-f09d-40a3-abd4-02062a7bcb09)
 [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/066hm4#)
 
-### Lab of Counter and 2 Cycle Pipeline Calculator
+### Lab of 2 Cycle Pipeline Calculator
 ---
 ![Screenshot (2772)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/9796ed8c-f051-46f1-9c6f-a31c14634829)
 
@@ -570,6 +570,7 @@ The TL-Verilog code of 2-Cycle Pipeline Calculator
 \SV
    endmodule
 ```
+- Here `$valid` is just toggling when reset is 0 (active low reset) and just plays the role of second conformation for the 2nd clock cycle mux that 1st stage as completed the output(if it is not there the circuit will work fine) 
 ![Screenshot (2817)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/742662c1-483a-4213-8361-7b8cecc2aa78)
 
 - [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0VmhyK#)
