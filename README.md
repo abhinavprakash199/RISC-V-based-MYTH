@@ -20,6 +20,7 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     + [Lab of Combinational logic in TL-Verilog using Makerchip](#Lab-of-Combinational-logic-in-TL-Verilog-using-Makerchip)
     + [Lab of Sequential logic in TL-Verilog using Makerchip](#Lab-of-Sequential-logic-in-TL-Verilog-using-Makerchip)
     + [Lab of Pipelined Pythagorean](#Lab-of-Pipelined-Pythagorean)
+    + [Lab of 2 Cycle Pipeline Calculator](#Lab-of-2-Cycle-Pipeline-Calculator)
       
 * [Day 4 - Basic RISC-V CPU micro-architecture](#day-4)
     + [Microarchitecture and testbench for a simple RISC-V CPU](#Microarchitecture-and-testbench-for-a-simple-RISC-V-CPU)
@@ -450,6 +451,8 @@ The TL-verilog code for sequential calculator
 
 ### Lab of Pipelined Pythagorean
 The TL-Verilog code of Pipelined Pythagorean
+![Screenshot (2763)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/21fb925d-0480-4602-bea0-54dd52bfab3c)
+
 ```verilog
 \m5_TLV_version 1d: tl-x.org
 \m5
@@ -476,10 +479,46 @@ The TL-Verilog code of Pipelined Pythagorean
    endmodule
 
 ```
-
 ![Screenshot (2765)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/425b7072-41de-41f2-a726-9392c9c3cb60)
 [MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0BghK1)
 
+
+### Lab of 2 Cycle Pipeline Calculator
+
+![Screenshot (2772)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/9796ed8c-f051-46f1-9c6f-a31c14634829)
+
+The TL-Verilog code of 2 Cycle Pipeline Calculator
+```verilog
+\m5_TLV_version 1d: tl-x.org
+\m5
+  
+\SV
+   m5_makerchip_module   // (Expanded in Nav-TLV pane.)
+   `include "sqrt32.v"
+\TLV
+   $reset = *reset;
+   $op[1:0] = $rand2[1:0];
+   $val2[31:0] = $rand4[3:0];
+   
+   |calc
+      @1
+         $val1[31:0] = >>2$out;
+         $sum[31:0] = $val1+$val2;
+         $diff[31:0] = $val1-$val2;
+         $prod[31:0] = $val1*$val2;
+         $div[31:0] = $val1/$val2;
+         $valid = $reset ? 0 : (>>1$valid + 1);
+      @2
+         $out[31:0] = ($reset | ~($valid))  ? 32'h0 : ($op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum));
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
+
+```
+![Screenshot (2773)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/fb2cd4c8-da9b-4dc0-b347-af00aeab4ab4)
+[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0VmhyK#)
 ## Day 4:
 ## Basic RISC-V CPU micro-architecture
 ---
