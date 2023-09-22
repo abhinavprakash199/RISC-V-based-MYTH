@@ -706,8 +706,8 @@ Here, we are enabling a valid bit when rand_valif = 3
 ## Basic RISC-V CPU micro-architecture
 ---
 ### Microarchitecture and testbench for a simple RISC-V CPU
-
 ---
+![Screenshot (2818)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b5d7ea27-7502-4a14-ae0d-cb68ffa0f8df)
 
 
 
