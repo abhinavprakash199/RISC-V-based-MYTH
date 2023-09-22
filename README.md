@@ -338,13 +338,13 @@ $ERROR_CODE
    endmodule
 
 ```
-- **`\m5_TLV_version 1d: tl-x.org`** - This directive specifies the version of TL-Verilog being used (`1d`) and references the website (`tl-x.org`) where we can find more information about TL-Verilog.
+- **`\m5_TLV_version 1d: tl-x.org`** - This directive specifies the file format(`/m5_TLV`) of TL-Verilog version(`1d` is lates ) and references the website (`tl-x.org`) where we can find more information about TL-Verilog. `\m5` is enabling the macro preprocessing using a macro language m5
 - **`\m5`** - This directive is followed by some comments.
 - **`\SV`** - The code switches to SystemVerilog (SV) mode with the `\SV` directive.
-- **`m5_makerchip_module`** - It defines a module named m5_makerchip_module. This encapsulates the top-level design and includes random stimulus support and Verilator configuration.
+- **`m5_makerchip_module`** - It defines a module named m5_makerchip_module. This encapsulates the top-level design and includes random stimulus support and Verilator configuration. To expan the macro we can see "NAV-TLV" file in Makerchip IDE.
 - **`\TLV`** - The code switches back to TL-Verilog (TLV) mode with the `\TLV` directive.
 - **`$reset = *reset`** - It assigns the signal $reset to the value of *reset. This indicates that $reset is derived from the *reset signal in the TL-Verilog domain.
-- **`*passed = *cyc_cnt > 40`** - The code asserts the first condition to control simulation termination. If the value of `*cyc_cnt` (cycle count) exceeds 40, `*passed` is set to true, which could be used as a simulation success condition.
+- **`*passed = *cyc_cnt > 40`** - The code asserts the first condition to control simulation termination. If the value of `*cyc_cnt` (cycle count) exceeds 40, `*passed` is set to true, which could be used as a simulation success condition and sumulation will stop after that because m5 module return pass when output is given.
 - **`*failed = 1'b0`** - The code asserts the second condition to control simulation termination. `*failed` is set to 0 (false), indicating that the simulation has not failed.
   
 ### Pythagorean Example Demo
@@ -558,6 +558,8 @@ The TL-Verilog code of 2 Cycle Pipeline Calculator
 ```
 ![Screenshot (2773)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/fb2cd4c8-da9b-4dc0-b347-af00aeab4ab4)
 [MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0VmhyK#)
+
+### Validity and Clock Gating
 
 
 
