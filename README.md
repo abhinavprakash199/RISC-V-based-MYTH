@@ -582,6 +582,7 @@ Validity is a concept used to indicate whether data or transactions are valid an
  
 ### Lab of Pipelined Pythagorean with validity
 ---
+Here, we are enabling a valid bit when rand_valif = 3 
 ```verilog
 
 \m4_TLV_version 1d: tl-x.org
