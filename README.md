@@ -385,8 +385,9 @@ $ERROR_CODE
    
    $out[31:0] = $op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum);
 ```
-![Screenshot (2758)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/8ad547ba-5340-4f07-b7ba-4f248006ee8d)
+![Screenshot (2775)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/dc90f831-9260-454c-b3ba-42f1b5f69ad9)
 [MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0RghWW)
+[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0Z4hgv#)
  
 ### Lab of Sequential logic in TL-Verilog using Makerchip
 ---
