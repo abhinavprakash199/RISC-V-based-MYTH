@@ -427,10 +427,9 @@ The TL-verilog code for sequential calculator
    $div[31:0] = $val1/$val2;          //2'b11	Division
    
    $out[31:0] = $reset ? 32'h0 :($op[1] ? ($op[0] ? $div : $prod):($op[0] ? $diff : $sum));
-   $val1[31:0] = >>1$out[31:0];
 ```
 ![Screenshot (2760)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/bcc50f21-ef03-41f8-a2bf-d044a5b51127)
-
+[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0DRhAR#)
 ### Lab of Pipelined Pythagorean
 The TL-Verilog code of Pipelined Pythagorean
 ```verilog
@@ -461,7 +460,7 @@ The TL-Verilog code of Pipelined Pythagorean
 ```
 
 ![Screenshot (2765)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/425b7072-41de-41f2-a726-9392c9c3cb60)
-
+[MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0BghK1)
 
 ## Day 4:
 ## Basic RISC-V CPU micro-architecture
