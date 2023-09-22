@@ -384,7 +384,7 @@ $ERROR_CODE
 #### Calculator 
 - TL Verilog codes of Calculator
 ```verilog
-   $op[1:0] = $rand2[1:0];  //$randX (where X is a number) generates a random value of X bits in width.
+   $op[1:0] = $rand2[1:0];  //$randX (where X is a number) generates a random value of X, which is the variable name.
    
    $val1[31:0] = $rand3[2:0];         
    $val2[31:0] = $rand4[3:0];         //Opcode	Function
@@ -441,8 +441,8 @@ The TL-verilog code for sequential calculator
 \TLV
    $reset = *reset;
    
-   $op[1:0] = $rand2[1:0];  //$randX (where X is a number) generates a random value of X bits in width.
-   
+   $op[1:0] = $rand2[1:0];  //$randX (where X is a number) generates a random value of X, which is the variable name.
+      
    $val1[31:0] = >>1$out[31:0];         
    $val2[31:0] = $rand4[3:0];         //Opcode	Function
    $sum[31:0] = $val1+$val2;          //2'b00	Addition
@@ -570,8 +570,9 @@ The TL-Verilog code of 2-Cycle Pipeline Calculator
 \SV
    endmodule
 ```
-![Screenshot (2807)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3a86846b-e52c-4770-bcdc-6540825a88bf)
-[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0VmhyK#)
+![Screenshot (2817)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/742662c1-483a-4213-8361-7b8cecc2aa78)
+
+- [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0VmhyK#)
 
 ### Validity and Clock Gating
 ---
