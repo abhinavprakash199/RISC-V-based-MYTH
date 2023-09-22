@@ -446,8 +446,6 @@ The TL-verilog code for sequential calculator
    endmodule
 ```
 ![Screenshot (2770)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1cc1a8ba-2160-4065-8f74-b182d56aafec)
-
-![Screenshot (2760)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/bcc50f21-ef03-41f8-a2bf-d044a5b51127)
 [MICROCHIP URL](https://makerchip.com/sandbox/0rkfAhzwA/0DRhAR#)
 
 ### Lab of Pipelined Pythagorean
