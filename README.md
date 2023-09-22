@@ -285,7 +285,7 @@ Makerchip IDE is a user-friendly integrated development environment for digital 
 TL-Verilog is a hardware description language developed by Redwood EDA. It extends Verilog with transaction-level modeling (TL-X), offering more efficient and concise design representation while remaining compatible with standard Verilog. It simplifies syntax, eliminates the need for legacy Verilog features, and is tailored for modeling hardware. TL-Verilog is designed for the design process, making it easier to write and edit Verilog code with fewer bugs. It is particularly useful for transaction-level design, where transactions move through a microarchitecture steered by flow components. TL-Verilog is well-supported by the Makerchip platform.
 
 ### TL Verilog Syntex
-```
+```verilog
 \m5_TLV_version 1d: tl-x.org
 \m5
    
@@ -327,7 +327,7 @@ TL-Verilog is a hardware description language developed by Redwood EDA. It exten
 ---
 #### Logic Gates
 - TL Verilog code for logic gates.
-```
+```verilog
    $out = !$in;               // OR gate
    $out_and = $in1 && $in2;   // AND gate
    $out_or = $in1 || $in2;    // OR gate
@@ -336,8 +336,8 @@ TL-Verilog is a hardware description language developed by Redwood EDA. It exten
 ![Screenshot (2743)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b5c4c8d9-7a02-432c-b3b1-abee419b5774)
 
 #### Vector Addition, 2:1 Multiplexer and 2:1 Vector Multiplexer
-- TL Verilog codes
-```   
+- TL Verilog codes 
+```verilog   
    $out_add[5:0] = $in1a[4:0] + $in2a[4:0];           // vector addition
    $out_mux = $sel ? $in1m : $in0m;                   // 2:1 MUX
    $out_vecmux[7:0] = $sel ? $in1v[7:0] : $in0v[7:0]; //2:1 Vector Multiplexer
@@ -345,8 +345,8 @@ TL-Verilog is a hardware description language developed by Redwood EDA. It exten
 ![Screenshot (2762)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3a6984fb-002c-4160-96f2-3ab790021312)
   
 #### Calculator 
-- TL Verilog codes
-```
+- TL Verilog codes of Calculator
+```verilog
    $op[1:0] = $rand2[1:0];  //$randX (where X is a number) generates a random value of X bits in width.
    
    $val1[31:0] = $rand3[2:0];         
@@ -369,7 +369,7 @@ TL-Verilog is a hardware description language developed by Redwood EDA. It exten
 
 The TL-Verilog code for fibonacci series
 
-```
+```verilog
    $num[31:0] = $reset ? 1 : (>>1$num + >>2$num);
    // >>1$num - Previous number
    // >>2$num - Previous to previous number
@@ -381,7 +381,7 @@ The TL-Verilog code for fibonacci series
 
 The TL-Verilog code for Counter
 
-```
+```verilog
    $cnt[31:0] = $reset ? 0 : (>>1$cnt + 1);
 ```   
 ![Screenshot (2753)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/ebfc39c3-a330-4ac9-9f3f-f8bc7fffae10)
@@ -391,7 +391,7 @@ The TL-Verilog code for Counter
 
 The TL-verilog code for sequential calculator
 
-```
+```verilog
    $op[1:0] = $rand2[1:0];  //$randX (where X is a number) generates a random value of X bits in width.
    
    $val1[31:0] = >>1$out[31:0];         
@@ -406,7 +406,36 @@ The TL-verilog code for sequential calculator
 ```
 ![Screenshot (2760)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/bcc50f21-ef03-41f8-a2bf-d044a5b51127)
 
+### Lab of Pipelined Pythagorean
+The TL-Verilog code of Pipelined Pythagorean
+```verilog
+\m5_TLV_version 1d: tl-x.org
+\m5
+  
+\SV
+   m5_makerchip_module   // (Expanded in Nav-TLV pane.)
+   `include "sqrt32.v"
+\TLV
+   $reset = *reset;
+   
+   |calc
+      @1
+         $aa_sq[31:0] = $aa[3:0] * $aa[3:0];
+         $bb_sq[31:0] = $bb[3:0] * $bb[3:0];
+      @2
+         $cc_sq[31:0] = $aa_sq + $bb_sq;
+      @3
+         $out[31:0] = sqrt($cc_sq);
+   
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
 
+```
+
+![Screenshot (2765)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/425b7072-41de-41f2-a726-9392c9c3cb60)
 
 
 ## Day 4:
