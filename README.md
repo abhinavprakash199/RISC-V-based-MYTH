@@ -906,49 +906,91 @@ The basic RISC-V CPU block diagram
          $is_addi = $dec_bits ==? 11'bx_000_0010011;
          $is_add = $dec_bits ==? 11'b0_000_0110011;
    `BOGUS_USE($is_beq $is_beq $is_bne $is_blt $is_bge $is_bltu $is_bgeu $is_addi $is_add)
-      //`BOGUS_USE is a system verilog signgle argument macro to silence the warning is assigned but never used.
+      //`BOGUS_USE is a system verilog single argument macro to silence the warning is assigned but never used.
       
    // Assert these to end simulation (before Makerchip cycle limit).
    *passed = *cyc_cnt > 40;
    *failed = 1'b0;
    
-   // Macro instantiations for:
-   //  o instruction memory
-   //  o register file
-   //  o data memory
-   //  o CPU visualization
    |cpu
       m4+imem(@1)    // Args: (read stage)
       //m4+rf(@1, @1)  // Args: (read stage, write stage) - if equal, no register bypass is required
       //m4+dmem(@4)    // Args: (read/write stage)
-      //m4+myth_fpga(@0)  // Uncomment to run on fpga
+      //m4+myth_fpga(@0)  // Uncomment to run on FPGA
 
-   m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
+   m4+cpu_viz(@4)    // For visualization, the argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
 ```
 ![Screenshot (2846)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/28fe6e27-b26e-4477-b2fc-2be0027be3bb)
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0k5hEN#)
 
 ### 4-Register File Read Logic
+![Screenshot (2847)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/db6f397f-e199-4365-a8c1-33e8001bdb44)
+
+![Screenshot (2848)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4dfc290e-d2e9-4a31-86cc-cea79335ca24)
+
 
 ```verilog
-```
+@1
+         //Register File Read
+         $rf_wr_en = 1'b0;
+         $rf_wr_index[4:0] = 5'b0;
+         $rf_wr_data[31:0] = 32'b0;
+         
+         $rf_rd_en1 = $rs1_valid;     
+         $rf_rd_index1[4:0] = $rs1;  //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is index value of register of RISC-V)
+                                     // and return its value as $rf_rd_data1 of 32 bit, which is the value stored in that register
+         $rf_rd_en2 = $rs2_valid;
+         $rf_rd_index2[4:0] = $rs2;   //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is index value of register of RISC-V)
+                                     // and return its value as $rf_rd_data2 of 32 bit, which is the value stored in that register
+         $src1_value[31:0] = $rf_rd_data1;
+         $src2_value[31:0] = $rf_rd_data2;
+       
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+   
+   |cpu
+      m4+imem(@1)    // Args: (read stage)
+      m4+rf(@1, @1)  // Args: (read stage, write stage) - if equal, no register bypass is required
+      //m4+dmem(@4)    // Args: (read/write stage)
+      //m4+myth_fpga(@0)  // Uncomment to run on fpga
 
-- [MICROCHIP PROJECT URL]()
+   m4+cpu_viz(@4)    // For visualization, the argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
+```
+![Screenshot (2851)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/0b5392d8-06bd-48a9-aa4d-0806cc56a91c)
+
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0Anh0N#)
 
 ### 5-Arithmetic Logic Unit(ALU) implementation
+![Screenshot (2850)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/56bf26fa-7811-4fd0-a14f-78a8604a3183)
+
 
 ```verilog
+   @1
+      //ALU
+      $result[31:0] = $is_addi ? $src1_value + $imm :
+                         $is_add ? $src1_value + $src2_value :
+                         32'bx ;
 ```
+![Screenshot (2852)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f0751a5a-a9ea-46c9-8f78-d49edd0181a8)
 
-- [MICROCHIP PROJECT URL]()
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0GZhnL)
 
 ### 6-Register File Write
+![Screenshot (2853)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4d79d234-3fda-442d-a761-d2c03252cb04)
 
 ```verilog
+      @1
+         //Register File Write                  // $rd_valid = 1 when ISA have rd its instruction 
+         $rf_wr_en = $rd_valid && $rd != 5'b0;  // if $rd_valid =0 or $rd =0 then then $rf_wr_en is 0
+         $rf_wr_index[4:0] = $rd;                              // $rd=0(because x0 register of RISC-V always stores vale 32'b0 so can't be rewritten ) 
+         $rf_wr_data[31:0] = $result;       // $result is coming from ALU and getting stored in $rf_wr_index[4:0] address of RISC-V register         
+                                            // having value $rf_wr_data   
 ```
+![Screenshot (2854)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/dbe08cc8-335c-44df-a14c-cf54b33a1edf)
 
-- [MICROCHIP PROJECT URL]()
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0KOhKM)
 
 ### 7-Branch Instruction
 
