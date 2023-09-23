@@ -32,7 +32,7 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
 * [Day 4 - Basic RISC-V CPU micro-architecture](#day-4)
     + [Designing Microarchitecture of simple RISC-V CPU](#Designing-Microarchitecture-of-simple-RISC-V-CPU)
     + [RISC-V CPU Implementation Steps](#RISC-V-CPU-Implementation-Steps)
-    	- [1. Next Program Counter(PC) Logic](#1-Next-Program-Counter(PC)-Logic)
+    	- [1. Next Program Counter(PC) Logic](#1-Next-Program-Counter-Logic)
         - [2. Instruction Fetch Logic](#2-Instruction-Fetch-Logic)
         - [3. Instruction Decode Logic](#3-Instruction-Decode-Logic)
 
@@ -374,7 +374,7 @@ $ERROR_CODE
 ```
 ![Screenshot (2795)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/fc8f9348-1031-4d3b-ac28-396e2ffe71fc)
 [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/058hKX#)
-- We are getting an error *$in1 is used but never assigned* because we have not assigned `$in1` with any value and its generating random values hence can be ignored.
+- We are getting an error *$in1 is used but never assigned* because we have not assigned `$in1` with any value, and it generates random values and hence can be ignored.
 - We are also getting a warning that *$out is assigned but never used* because `$out` is a floating wire getting an output. So, we can ignore or use ``BOGUS_USE($out)` to silence the warning.
 
 #### Vector Addition, 2:1 Multiplexer and 2:1 Vector Multiplexer
@@ -771,7 +771,7 @@ The basic RISC-V CPU block diagram
 
 - [CHECK SOLUTION](https://myth.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2FRISC-V_MYTH_Workshop%2Fmaster%2Frisc-v_shell.tlv#)
 - [REFERENCE SOLUTION](https://myth.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2FRISC-V_MYTH_Workshop%2Fmaster%2Freference_solutions.tlv#)
-### 1-Next Program Counter(PC) Logic
+### 1-Next Program Counter Logic
 
 ![Screenshot (2828)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f87bb674-ddb6-400b-af62-0786e2d688f6)
 
@@ -803,6 +803,7 @@ The basic RISC-V CPU block diagram
          $reset = *reset;
          $pc[31:0] = >>1$reset ? 32'b0 : (>>1$pc + 32'd4);
       @1
+         // Instruction Fetch 
          $imem_rd_en = !$reset;
          $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];
          $instr[31:0] = $imem_rd_data[31:0];
@@ -827,14 +828,111 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/00ghx6#)
 
 ### 3-Instruction Decode Logic
+![Screenshot (2839)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/92d8cf25-facd-404e-9f97-22109aa1dd47)
 
+![Screenshot (2840)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/51b2a656-5f93-49e7-9ea6-47fa94347f3c)
+
+![Screenshot (2843)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/57bdfaf1-2692-4a5a-a380-3f0f34234fd6)
+
+![Screenshot (2844)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/7b6529ee-bba6-4e56-84e7-a95c563befe5)
 
 ```verilog
-```
+   |cpu
+      @0
+         $reset = *reset;
+         $pc[31:0] = >>1$reset ? 32'b0 : (>>1$pc + 32'd4);
+      @1
+         // Instruction Fetch
+         $imem_rd_en = !$reset;
+         $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];
+         $instr[31:0] = $imem_rd_data[31:0];
+      ?$imem_rd_en
+         @1
+            $imem_rd_data[31:0] = /imem[$imem_rd_addr]$instr;
+      @1
+         //Instruction Decode
+         $is_i_instr = $instr[6:2] ==? 5'b0000x ||   // ==? is used to compare the binary don't cares
+                       $instr[6:2] ==? 5'b001x0 ||
+                       $instr[6:2] ==? 5'b11001 ||
+                       $instr[6:2] ==? 5'b11100;
+         
+         $is_u_instr = $instr[6:2] ==? 5'b0x101;
+         
+         $is_r_instr = $instr[6:2] ==? 5'b01011 ||
+                       $instr[6:2] ==? 5'b011x0 ||
+                       $instr[6:2] ==? 5'b10100;
+         
+         $is_b_instr = $instr[6:2] ==? 5'b11000;
+         
+         $is_j_instr = $instr[6:2] ==? 5'b11011;
+         
+         $is_s_instr = $instr[6:2] ==? 5'b0100x;
+         
+         $imm[31:0] = $is_i_instr ? {{21{$instr[31]}}, $instr[30:20]} :
+                      $is_s_instr ? {{21{$instr[31]}}, $instr[30:25], $instr[11:7]} :
+                      $is_b_instr ? {{20{$instr[31]}}, $instr[7], $instr[30:25], $instr[11:8], 1'b0} :
+                      $is_u_instr ? {$instr[31:12], 12'b0} :
+                      $is_j_instr ? {{12{$instr[31]}}, $instr[19:12], $instr[20], $instr[30:21], 1'b0} :
+                                    32'b0;
+         $opcode[6:0] = $instr[6:0];
+         
+         $rs2_valid = $is_r_instr || $is_s_instr || $is_b_instr;
+         ?$rs2_valid
+            $rs2[4:0] = $instr[24:20];
+            
+         $rs1_valid = $is_r_instr || $is_i_instr || $is_s_instr || $is_b_instr;
+         ?$rs1_valid
+            $rs1[4:0] = $instr[19:15];
+         
+         $funct3_valid = $is_r_instr || $is_i_instr || $is_s_instr || $is_b_instr;
+         ?$funct3_valid
+            $funct3[2:0] = $instr[14:12];
+            
+         $funct7_valid = $is_r_instr ;
+         ?$funct7_valid
+            $funct7[6:0] = $instr[31:25];
+            
+         $rd_valid = $is_r_instr || $is_i_instr || $is_u_instr || $is_j_instr;
+         ?$rd_valid
+            $rd[4:0] = $instr[11:7];
+            
+         $dec_bits [10:0] = {$funct7[5], $funct3, $opcode};
+         $is_beq = $dec_bits ==? 11'bx_000_1100011;
+         $is_bne = $dec_bits ==? 11'bx_001_1100011;
+         $is_blt = $dec_bits ==? 11'bx_100_1100011;
+         $is_bge = $dec_bits ==? 11'bx_101_1100011;
+         $is_bltu = $dec_bits ==? 11'bx_110_1100011;
+         $is_bgeu = $dec_bits ==? 11'bx_111_1100011;
+         $is_addi = $dec_bits ==? 11'bx_000_0010011;
+         $is_add = $dec_bits ==? 11'b0_000_0110011;
+   `BOGUS_USE($is_beq $is_beq $is_bne $is_blt $is_bge $is_bltu $is_bgeu $is_addi $is_add)
+      //`BOGUS_USE is a system verilog signgle argument macro to silence the warning is assigned but never used.
+      
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+   
+   // Macro instantiations for:
+   //  o instruction memory
+   //  o register file
+   //  o data memory
+   //  o CPU visualization
+   |cpu
+      m4+imem(@1)    // Args: (read stage)
+      //m4+rf(@1, @1)  // Args: (read stage, write stage) - if equal, no register bypass is required
+      //m4+dmem(@4)    // Args: (read/write stage)
+      //m4+myth_fpga(@0)  // Uncomment to run on fpga
 
-- [MICROCHIP PROJECT URL]()
+   m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
+
+
+```
+![Screenshot (2846)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/28fe6e27-b26e-4477-b2fc-2be0027be3bb)
+
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0k5hEN#)
 
 ### 4-Register File Read Logic
+![Screenshot (2839)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/eeedfd64-d281-4c79-aaeb-900933465d62)
 
 ```verilog
 ```
