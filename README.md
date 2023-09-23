@@ -1,4 +1,4 @@
-![Screenshot (2850)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/47ed29be-b4f8-43ce-a8f0-5e66a9ba922a)# RISC-V-based-MYTH
+# RISC-V-based-MYTH
 This repository contains the whole summary of the hands-on done by Abhinav Prakash (IS22MTECH14002) during the workshop RISC-V based MYTH and understanding the architecture of RISC-V and configuring the ISA and binary files using picorv32 RISC-V architecture with the help if  TL-verilog and Makerchip.
 
 
@@ -947,7 +947,7 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/03lhEO)
 
 ### 5-Arithmetic Logic Unit Implementation
-![Screenshot (2850)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/408bf39c-bd23-491c-b9f2-41052040fa12)
+![Screenshot (2850)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/12925ae3-0d53-488a-8749-610deff62e55)
 
 ```verilog
    @1
@@ -958,7 +958,7 @@ The basic RISC-V CPU block diagram
 ```
 ![Screenshot (2863)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1fbb515c-d0c7-4b90-b931-10786851d88c)
 
-- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0GZhnL#)
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/076hJX#)
 
 ### 6-Register File Write Logic
 ![Screenshot (2853)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4d79d234-3fda-442d-a761-d2c03252cb04)
@@ -973,7 +973,7 @@ The basic RISC-V CPU block diagram
 ```
 ![Screenshot (2854)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/dbe08cc8-335c-44df-a14c-cf54b33a1edf)
 
-- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0KOhKM)
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/08qhKm#)
 
 ### 7-Branch Instruction Logic
 ![Screenshot (2855)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3a970adb-0999-491f-a0a5-a9cd72972fa3)
