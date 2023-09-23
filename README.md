@@ -1015,7 +1015,7 @@ The basic RISC-V CPU block diagram
 - Tell Makerchip when simulate passes by monitoring the value of register x10 containing the sum (within@1). It will return the passed message in log file if register x10 contains the correct sum value.
 ```
 *passed = |cpu/xreg[15]>>5$value == (1+2+3+4+5+6+7+8+9);
-```
+```verilog
 ![Screenshot (2868)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/dab1a539-2329-4f22-993c-52b4712e3e97)
 
 ### Final TL Verilog Code of designed RISC-V Architecture
