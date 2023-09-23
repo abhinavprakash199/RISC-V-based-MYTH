@@ -35,6 +35,11 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     	- [1. Next Program Counter(PC) Logic](#1-Next-Program-Counter-Logic)
         - [2. Instruction Fetch Logic](#2-Instruction-Fetch-Logic)
         - [3. Instruction Decode Logic](#3-Instruction-Decode-Logic)
+        - [4. Register File Read Logic](#4-Register-File-Read-Logic)
+        - [5. Arithmetic Logic Unit Implementation](#5-Arithmetic-Logic-Unit-Implementation)
+        - [6. Register File Write Logic](#6-Register-File-Write-Logic)
+        - [7. Branch Instruction Logic](#7-Branch-Instruction-Logic)
+    +[Final TL Verilog Code of designed RISC-V Architecture](#Final-TL-Verilog-Code-of-designed-RISC-V-Architecture)	
 
     
 * [DAY 5: Complete Pipelined RISC-V CPU micro-architecture/store](#Day-5)
@@ -962,7 +967,7 @@ The basic RISC-V CPU block diagram
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0Anh0N#)
 
-### 5-Arithmetic Logic Unit(ALU) implementation
+### 5-Arithmetic Logic Unit Implementation
 ![Screenshot (2850)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/56bf26fa-7811-4fd0-a14f-78a8604a3183)
 
 
@@ -977,7 +982,7 @@ The basic RISC-V CPU block diagram
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0GZhnL)
 
-### 6-Register File Write
+### 6-Register File Write Logic
 ![Screenshot (2853)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4d79d234-3fda-442d-a761-d2c03252cb04)
 
 ```verilog
@@ -992,7 +997,7 @@ The basic RISC-V CPU block diagram
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0KOhKM)
 
-### 7-Branch Instruction
+### 7-Branch Instruction Logic
 ![Screenshot (2855)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3a970adb-0999-491f-a0a5-a9cd72972fa3)
 
 ```verilog
@@ -1028,7 +1033,8 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/02RhrN)
 
 
-### Fianl TL Verilog Code of designed RISC-V Architecture
+### Final TL Verilog Code of designed RISC-V Architecture
+---
 
 ```verilog
 \m4_TLV_version 1d: tl-x.org
