@@ -828,7 +828,7 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/00ghx6#)
 
 ### 3-Instruction Decode Logic
-![Screenshot (2839)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/92d8cf25-facd-404e-9f97-22109aa1dd47)
+![Screenshot (2839)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/6f9c8b89-d5f7-4361-a3f8-16943dddea4a)
 
 ![Screenshot (2840)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/51b2a656-5f93-49e7-9ea6-47fa94347f3c)
 
@@ -924,15 +924,12 @@ The basic RISC-V CPU block diagram
       //m4+myth_fpga(@0)  // Uncomment to run on fpga
 
    m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
-
-
 ```
 ![Screenshot (2846)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/28fe6e27-b26e-4477-b2fc-2be0027be3bb)
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0k5hEN#)
 
 ### 4-Register File Read Logic
-![Screenshot (2839)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/eeedfd64-d281-4c79-aaeb-900933465d62)
 
 ```verilog
 ```
