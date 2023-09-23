@@ -651,14 +651,14 @@ Here, we are enabling a valid bit when rand_valif = 3
             $cc[31:0] = sqrt($cc_sq);
       @4
          $tot_dist[63:0] = $reset ? 64'b0 : ($valid ?
-                (>>1$tot_dist + $out) : $RETAIN);  
+                (>>1$tot_dist + $cc) : $RETAIN);  
                       //$RETAIN = >>$tot_dist
    endmodule
 
 ```
+![Screenshot (2823)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/c5cacea1-c7df-4871-a05f-a3a99d0a4f74)
 
-![Screenshot (2814)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/be5dff83-1c4a-4850-af2b-afb9ef33067c)
-[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0vghP0)
+- [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0n5fGhJR7/0Lghr1)
 
 ### Lab of 2 Cycle Pipeline Calculator with Validity
 ---
