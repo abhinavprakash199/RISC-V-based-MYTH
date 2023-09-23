@@ -1012,12 +1012,14 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/0j2hvQ)
 
 ### Testbench
-- Tell Makerchip when simulate passes by monitoring the value of register x10 containing the sum (within@1)
+- Tell Makerchip when simulate passes by monitoring the value of register x10 containing the sum (within@1). It will return the passed message in log file if register x10 contains the correct sum value.
 ```
 *passed = |cpu/xreg[15]>>5$value == (1+2+3+4+5+6+7+8+9);
 ```
 ### Final TL Verilog Code of designed RISC-V Architecture
 ---
+
+- [MICROCHIP FINAL PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/00ghLV#)
 
 ```verilog
 \m4_TLV_version 1d: tl-x.org
@@ -1153,10 +1155,10 @@ The basic RISC-V CPU block diagram
                          $is_bge ? (($src1_value >= $src2_value) ^ ($src1_value[31] != $src2_value[31])):   //BGE (Branch if Greater Than or Equal)
                          $is_bltu ? ($src1_value < $src2_value):              //BLTU (Branch if Less Than Unsigned)
                          $is_bgeu ? ($src1_value >= $src2_value):             //BGEU (Branch if Greater Than or Equal Unsigned)
-                                    1'b0;
+                                    1'b0;                 
          $br_tgt_pc[31:0] = $pc + $imm;
    // Assert these to end simulation (before Makerchip cycle limit).
-   *passed = |cpu/xreg[15]>>5$value == (1+2+3+4+5+6+7+8+9);
+   *passed = |cpu/xreg[10]>>5$value == (1+2+3+4+5+6+7+8+9);
    *failed = 1'b0;
    
    // Macro instantiations for:
@@ -1173,9 +1175,9 @@ The basic RISC-V CPU block diagram
    m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
 \SV
    endmodule
+
 ```
 
-- [MICROCHIP FINAL PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/00ghLV#)
 
 ### Block Diagram of the designed RISC-V Architecture
 ![Screenshot (2866)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/94d9904f-2719-42f9-8c67-f64bd6eaa4f9)
