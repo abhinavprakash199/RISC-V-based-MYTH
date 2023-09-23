@@ -740,13 +740,121 @@ Here, we are enabling a valid bit when rand_valif = 3
 ## Day 4:
 ## Basic RISC-V CPU micro-architecture
 ---
-### Microarchitecture and testbench for a simple RISC-V CPU
+### Designing Microarchitecture of simple RISC-V CPU
 ---
+The basic RISC-V CPU block diagram
+
+![Screenshot (2825)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/0739cc2f-a66d-47e7-abaa-29004e61cfe7)
+
+1. **Program Counter (PC)**: Keeps track of the memory address of the next instruction to be executed in the CPU.
+
+2. **Instruction Decoder**: Interprets machine instructions, generates control signals, and directs CPU components to execute the instruction.
+
+3. **Instruction Memory**: Stores program instructions in binary form and is read-only.
+
+4. **Data Memory**: Stores data used by the program and can be both read from and written to.
+
+5. **ALU (Arithmetic Logic Unit)**: Performs arithmetic and logical operations like addition, subtraction, and bitwise operations.
+
+6. **Read Register File**: Holds registers for data storage and is used for reading data specified by instructions.
+
+7. **Write Register File**: Stores the results of operations back into registers for future use in the program.
+
+#### RISC-V CPU Implementation Steps
+![Screenshot (2827)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/06c51a01-9774-4472-ada8-f372ee5b3817
+
+- [CHECK SOLUTION](https://myth.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2FRISC-V_MYTH_Workshop%2Fmaster%2Frisc-v_shell.tlv#)
+- [REFERENCE SOLUTION](https://myth.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2FRISC-V_MYTH_Workshop%2Fmaster%2Freference_solutions.tlv#)
+### 1. Next Program Couneter(PC) Logic
+
+![Screenshot (2828)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f87bb674-ddb6-400b-af62-0786e2d688f6)
+
+```verilog
+|cpu
+      @0
+         $reset = *reset;
+         $pc[31:0] = >>1$reset ? 32'b0 : (>>1$pc + 32'd4);
+
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+```
+![Screenshot (2829)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/51c749f0-0e61-4daa-851d-4d75eaed9a6d)
+
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/01jh4B)
+
+### 2. Instruction Fetch Logic
+
+- We uncommented `//m4+imem(@1)` and `//m4+cpu_viz(@4)` compile and observed the log errors.
+
+![Screenshot (2836)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/5128fdd9-ef49-4bec-93e9-f879841939f5)
+
+- Based on the instruction we assemble and its array size, we specify the appropriate no of Intex bits `M4_IMEM_INTEX_CNT`.
+- Since we are driving to the address from the PC and the pc is a byte address(we will assume that the PC is properly aligned to the instruction boundary and the lower 2 bits of the PC are 0).
+- Instruction memory will drive out a signal `$imem_rd_data`.
+```verilog
+   |cpu
+      @0
+         $reset = *reset;
+         $pc[31:0] = >>1$reset ? 32'b0 : (>>1$pc + 32'd4);
+      @1
+         $imem_rd_en = !$reset;
+         $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];
+         $instr[31:0] = $imem_rd_data[31:0];
+      ?$imem_rd_en
+         @1
+            $imem_rd_data[31:0] = /imem[$imem_rd_addr]$instr;
+
+   // Assert these to end simulation (before Makerchip cycle limit).
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+   |cpu
+      m4+imem(@1)    // Args: (read stage)
+      //m4+rf(@1, @1)  // Args: (read stage, write stage) - if equal, no register bypass is required
+      //m4+dmem(@4)    // Args: (read/write stage)
+      //m4+myth_fpga(@0)  // Uncomment to run on fpga
+
+   m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
+
+```
+![Screenshot (2838)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/ff6ec104-5244-436b-bfe0-cfb937245842)
+
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/00ghx6#)
+
+### 3. Instruction Decode
 
 
+```verilog
+```
 
+- [MICROCHIP PROJECT URL]()
 
+### 4. Register File Read
 
+```verilog
+```
+
+- [MICROCHIP PROJECT URL]()
+
+### 5. Arithmetic Logic Unit(ALU)
+
+```verilog
+```
+
+- [MICROCHIP PROJECT URL]()
+
+### 6. Register File Write
+
+```verilog
+```
+
+- [MICROCHIP PROJECT URL]()
+
+### 7. Branch Instruction
+
+```verilog
+```
+
+- [MICROCHIP PROJECT URL]()
 
 
 ## Day 5:
