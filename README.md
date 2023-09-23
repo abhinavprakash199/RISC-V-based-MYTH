@@ -1185,6 +1185,9 @@ The basic RISC-V CPU block diagram
 ### Waveform for designed RISC-V Architecture
 ![Screenshot (2867)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/ae9f8197-e176-4d74-9dba-641e25c5ef35)
 
+### Implemented design of RISC-V Architecture
+![Screenshot (2876)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/624524d4-60e5-4236-bac0-718f9d69419a)
+
 ## Day 5:
 ## Complete Pipelined RISC-V CPU micro-architecture/store
 ---
