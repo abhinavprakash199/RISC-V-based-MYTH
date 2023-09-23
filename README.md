@@ -961,7 +961,7 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/076hJX#)
 
 ### 6-Register File Write Logic
-![Screenshot (2853)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4d79d234-3fda-442d-a761-d2c03252cb04)
+![Screenshot (2853)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1d96f724-fc33-40fd-87c7-a9f227ea9191)
 
 ```verilog
       @1
@@ -976,7 +976,7 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/08qhKm#)
 
 ### 7-Branch Instruction Logic
-![Screenshot (2855)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3a970adb-0999-491f-a0a5-a9cd72972fa3)
+![Screenshot (2855)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/c5cea9dc-bfa2-4c88-83b2-77beb1235596)
 
 ```verilog
    |cpu
@@ -1007,8 +1007,9 @@ The basic RISC-V CPU block diagram
 
    m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
 ```
+![Screenshot (2864)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/6058ade8-6861-4ef3-9906-d9b927d4cc2b)
 
-- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/02RhrN)
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/098hpL#)
 
 
 ### Final TL Verilog Code of designed RISC-V Architecture
@@ -1061,11 +1062,8 @@ The basic RISC-V CPU block diagram
       @1
          // Instruction Fetch
          $imem_rd_en = !$reset;
-         $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];
-         $instr[31:0] = $imem_rd_data[31:0];
-      ?$imem_rd_en
-         @1
-            $imem_rd_data[31:0] = /imem[$imem_rd_addr]$instr;
+         $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];     // $imem_rd_addr is going to m4+imem(@1) vinding the vakue of that address    
+         $instr[31:0] = $imem_rd_en ? $imem_rd_data[31:0]: 32'b0;             // and returning it in $imem_rd_data[31:0]
       @1
          //Instruction Decode
          $is_i_instr = $instr[6:2] ==? 5'b0000x ||   // ==? is used to compare the binary don't cares
@@ -1113,7 +1111,7 @@ The basic RISC-V CPU block diagram
          ?$rd_valid
             $rd[4:0] = $instr[11:7];
             
-         $dec_bits [10:0] = {$funct7[5], $funct3, $opcode};
+         $dec_bits[10:0] = {$funct7[5], $funct3, $opcode};
          $is_beq = $dec_bits ==? 11'bx_000_1100011;
          $is_bne = $dec_bits ==? 11'bx_001_1100011;
          $is_blt = $dec_bits ==? 11'bx_100_1100011;
@@ -1124,19 +1122,14 @@ The basic RISC-V CPU block diagram
          $is_add = $dec_bits ==? 11'b0_000_0110011;
       @1
          //Register File Read
-         $rf_wr_en = 1'b0;
-         $rf_wr_index[4:0] = 5'b0;
-         $rf_wr_data[31:0] = 32'b0;
-         
-         $rf_rd_en1 = $rs1_valid;     
-         $rf_rd_index1[4:0] = $rs1;  //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is intex value of register of RISC-V)
-                                     // and return its value as $rf_rd_data1 of 32 bit which is the value stores in that register
+         $rf_rd_en1 = $rs1_valid;
+         $rf_rd_index1[4:0] = $rs1;  //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is index value of register of RISC-V)
+                                     // and return its value as $rf_rd_data1 of 32 bit, which is the value stored in that register
          $rf_rd_en2 = $rs2_valid;
-         $rf_rd_index2[4:0] = $rs2;   //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is intex value of register of RISC-V)
-                                     // and return its value as $rf_rd_data2 of 32 bit which is the value stores in that register
+         $rf_rd_index2[4:0] = $rs2;   //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is index value of register of RISC-V)
+                                     // and return its value as $rf_rd_data2 of 32 bit, which is the value stored in that register
          $src1_value[31:0] = $rf_rd_data1;
          $src2_value[31:0] = $rf_rd_data2;
-         
       @1
          //ALU
          $result[31:0] = $is_addi ? $src1_value + $imm :
@@ -1146,7 +1139,7 @@ The basic RISC-V CPU block diagram
          //Register File Write                  // $rd_valid = 1 when ISA have rd its instruction 
          $rf_wr_en = $rd_valid && $rd != 5'b0;  // if $rd_valid =0 or $rd =0 then then $rf_wr_en is 0
          $rf_wr_index[4:0] = $rd;                              // $rd=0(because x0 register of RISC-V always stores vale 32'b0 so can't be rewritten ) 
-         $rf_wr_data[31:0] = $result;       // $result is comming from ALU and getting stored in $rf_wr_index[4:0] address of RISC-V register         
+         $rf_wr_data[31:0] = $result;       // $result is coming from ALU and getting stored in $rf_wr_index[4:0] address of RISC-V register         
                                             // having value $rf_wr_data   
       @1
          //Branch Instructions
@@ -1159,9 +1152,8 @@ The basic RISC-V CPU block diagram
                                     1'b0;
          `BOGUS_USE($taken_branch)
          $br_tgt_pc[31:0] = $pc + $imm;
-         
    // Assert these to end simulation (before Makerchip cycle limit).
-   *passed = *cyc_cnt > 40;
+   *passed = |cpu/xreg[15]>>5$value == (1+2+3+4+5+6+7+8+9);
    *failed = 1'b0;
    
    // Macro instantiations for:
@@ -1178,10 +1170,9 @@ The basic RISC-V CPU block diagram
    m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
 \SV
    endmodule
-
 ```
 
-- [MICROCHIP FINAL PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/048hP8)
+- [MICROCHIP FINAL PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/00ghLV#)
 
 ## Day 5:
 ## Complete Pipelined RISC-V CPU micro-architecture/store
