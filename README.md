@@ -828,7 +828,7 @@ The basic RISC-V CPU block diagram
 ```
 ![Screenshot (2860)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/62d93432-0345-4f88-aaa3-8ff7c38d08de)
 
-- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/00ghx6#)
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/0WnhWl#)
 
 ### 3-Instruction Decode Logic
 ![Screenshot (2839)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3ae8c4cd-dc35-4da8-a82b-b424b3e70d12)
@@ -849,7 +849,6 @@ The basic RISC-V CPU block diagram
          $imem_rd_en = !$reset;
          $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];     // $imem_rd_addr is going to m4+imem(@1) vinding the vakue of that address    
          $instr[31:0] = $imem_rd_en ? $imem_rd_data[31:0]: 32'b0;             // and returning it in $imem_rd_data[31:0]
-         `BOGUS_USE($instr)  
       @1
          //Instruction Decode
          $is_i_instr = $instr[6:2] ==? 5'b0000x ||   // ==? is used to compare the binary don't cares
@@ -897,7 +896,7 @@ The basic RISC-V CPU block diagram
          ?$rd_valid
             $rd[4:0] = $instr[11:7];
             
-         $dec_bits [10:0] = {$funct7[5], $funct3, $opcode};
+         $dec_bits[10:0] = {$funct7[5], $funct3, $opcode};
          $is_beq = $dec_bits ==? 11'bx_000_1100011;
          $is_bne = $dec_bits ==? 11'bx_001_1100011;
          $is_blt = $dec_bits ==? 11'bx_100_1100011;
@@ -906,24 +905,12 @@ The basic RISC-V CPU block diagram
          $is_bgeu = $dec_bits ==? 11'bx_111_1100011;
          $is_addi = $dec_bits ==? 11'bx_000_0010011;
          $is_add = $dec_bits ==? 11'b0_000_0110011;
-   `BOGUS_USE($is_beq $is_beq $is_bne $is_blt $is_bge $is_bltu $is_bgeu $is_addi $is_add)
-      //`BOGUS_USE is a system verilog single argument macro to silence the warning is assigned but never used.
-      
-   // Assert these to end simulation (before Makerchip cycle limit).
-   *passed = *cyc_cnt > 40;
-   *failed = 1'b0;
-   
-   |cpu
-      m4+imem(@1)    // Args: (read stage)
-      //m4+rf(@1, @1)  // Args: (read stage, write stage) - if equal, no register bypass is required
-      //m4+dmem(@4)    // Args: (read/write stage)
-      //m4+myth_fpga(@0)  // Uncomment to run on FPGA
-
-   m4+cpu_viz(@4)    // For visualization, the argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
+         `BOGUS_USE($is_beq $is_beq $is_bne $is_blt $is_bge $is_bltu $is_bgeu $is_addi $is_add)
+         //`BOGUS_USE is a system verilog single argument macro to silence the warning is assigned but never used.    
 ```
 ![Screenshot (2861)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/37379430-3e5c-4aed-86e0-890278b29fa5)
 
-- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0k5hEN#)
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/0X6hz0)
 
 ### 4-Register File Read Logic
 ![Screenshot (2847)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b28744cd-4a9e-4400-a0fe-8be961f27be9)
@@ -954,11 +941,10 @@ The basic RISC-V CPU block diagram
       //m4+myth_fpga(@0)  // Uncomment to run on fpga
 
    m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
-
 ```
 ![Screenshot (2862)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/822c5a2d-3581-44b1-8620-2affe99b7a83)
 
-- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0Anh0N#)
+- [MICROCHIP PROJECT URL]([https://myth.makerchip.com/sandbox/0lYfoh9Or/0Anh0N#](https://myth.makerchip.com/sandbox/0ERfWhw5Y/0Z4hpG#))
 
 ### 5-Arithmetic Logic Unit Implementation
 ![Screenshot (2850)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/408bf39c-bd23-491c-b9f2-41052040fa12)
