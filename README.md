@@ -1007,7 +1007,7 @@ The basic RISC-V CPU block diagram
 
    m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
 ```
-![Screenshot (2864)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/6058ade8-6861-4ef3-9906-d9b927d4cc2b)
+![Screenshot (2865)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/22386bfd-9492-4249-9911-63b9f0d877c4)
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/0j2hvQ)
 
