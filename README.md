@@ -1,4 +1,4 @@
-![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/19218658-537b-4558-ac95-8867dfe313f6)# RISC-V-based-MYTH
+# RISC-V-based-MYTH
 This repository contains the whole summary of the hands-on done by Abhinav Prakash (IS22MTECH14002) during the workshop RISC-V based MYTH and understanding the architecture of RISC-V and configuring the ISA and binary files using picorv32 RISC-V architecture with the help if  TL-verilog and Makerchip.
 
 
@@ -495,7 +495,7 @@ The TL-Verilog code of Pipelined Pythagorean
 
 ```
 ![Screenshot (2803)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1288fb8f-745f-4175-a2dd-8f55f0dc8a0c)
-[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0BghK1)
+- [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0BghK1)
 
 ### Lab of Counter and 1 Cycle Pipeline Calculator
 ---
@@ -535,9 +535,9 @@ The counter counts no or clock and gives output in cnt whenever reset is 1.
 
 ```
 ![Screenshot (2806)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/151839de-f09d-40a3-abd4-02062a7bcb09)
-[MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/066hm4#)
+- [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/066hm4#)
 
-### Lab of 2 Cycle Pipeline Calculator
+### Lab of 2-Cycle Pipeline Calculator
 ---
 ![Screenshot (2772)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/9796ed8c-f051-46f1-9c6f-a31c14634829)
 
@@ -626,7 +626,7 @@ Here, we are enabling a valid bit when rand_valif = 3
 \SV
    endmodule
 ```
-- Here we use `?$valid` manas valid bit high, then only its content is executed.
+- Here we use `?$valid` means valid bit high, then only its content is executed.
 
 ![Screenshot (2811)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/773422e5-77db-4659-af49-cb74f7a4c292)
 - [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0r0hzX#)
