@@ -944,7 +944,7 @@ The basic RISC-V CPU block diagram
 ```
 ![Screenshot (2862)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/822c5a2d-3581-44b1-8620-2affe99b7a83)
 
-- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0Anh0N#))
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0Anh0N#)
 
 ### 5-Arithmetic Logic Unit Implementation
 ![Screenshot (2850)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/408bf39c-bd23-491c-b9f2-41052040fa12)
