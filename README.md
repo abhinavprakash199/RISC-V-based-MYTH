@@ -32,13 +32,14 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
 * [Day 4 - Basic RISC-V CPU micro-architecture](#day-4)
     + [Designing Microarchitecture of simple RISC-V CPU](#Designing-Microarchitecture-of-simple-RISC-V-CPU)
     + [RISC-V CPU Implementation Steps](#RISC-V-CPU-Implementation-Steps)
-    
-* [DAY 5: Complete Pipelined RISC-V CPU micro-architecture/store](#Day-5)
-    + [Pipelining the CPU](#Pipelining-the-CPU
     	- [1. Next Program Couneter(PC) Logic](#1.-Next-Program-Couneter(PC)-Logic)
         - [2. Instruction Fetch Logic](#2.-Instruction-Fetch-Logic)
         - [3. Instruction Decode Logic](#3.-Instruction-Decode-Logic)
 
+    
+* [DAY 5: Complete Pipelined RISC-V CPU micro-architecture/store](#Day-5)
+    + [Pipelining the CPU](#Pipelining-the-CPU)
+    	
 
 
 
