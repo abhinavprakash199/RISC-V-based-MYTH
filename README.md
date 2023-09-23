@@ -39,7 +39,7 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
         - [5. Arithmetic Logic Unit Implementation](#5-Arithmetic-Logic-Unit-Implementation)
         - [6. Register File Write Logic](#6-Register-File-Write-Logic)
         - [7. Branch Instruction Logic](#7-Branch-Instruction-Logic)
-    +[Final TL Verilog Code of designed RISC-V Architecture](#Final-TL-Verilog-Code-of-designed-RISC-V-Architecture)	
+    + [Final TL Verilog Code of designed RISC-V Architecture](#Final-TL-Verilog-Code-of-designed-RISC-V-Architecture)	
 
     
 * [DAY 5: Complete Pipelined RISC-V CPU micro-architecture/store](#Day-5)
@@ -985,14 +985,14 @@ The basic RISC-V CPU block diagram
          $pc[31:0] = >>1$reset ? 32'd0 : (>>1$taken_branch ? >>1$br_tgt_pc :  (>>1$pc+32'd4));
       @1
          //Branch Instructions
-         $taken_branch = $is_beq ? ($src1_value == $src2_value):
-                         $is_bne ? ($src1_value != $src2_value):
-                         $is_blt ? (($src1_value < $src2_value) ^ ($src1_value[31] != $src2_value[31])):
-                         $is_bge ? (($src1_value >= $src2_value) ^ ($src1_value[31] != $src2_value[31])):
-                         $is_bltu ? ($src1_value < $src2_value):
-                         $is_bgeu ? ($src1_value >= $src2_value):
+         $taken_branch = $is_beq ? ($src1_value == $src2_value):               //BEQ (Branch if Equal)
+                         $is_bne ? ($src1_value != $src2_value):               //BNE (Branch if Not Equal)  
+                         $is_blt ? (($src1_value < $src2_value) ^ ($src1_value[31] != $src2_value[31])):    // BLT (Branch if Less Than)
+                         $is_bge ? (($src1_value >= $src2_value) ^ ($src1_value[31] != $src2_value[31])):   //BGE (Branch if Greater Than or Equal)
+                         $is_bltu ? ($src1_value < $src2_value):              //BLTU (Branch if Less Than Unsigned)
+                         $is_bgeu ? ($src1_value >= $src2_value):             //BGEU (Branch if Greater Than or Equal Unsigned)
                                     1'b0;
-         `BOGUS_USE($taken_branch)
+         
          $br_tgt_pc[31:0] = $pc + $imm;
          
    // Assert these to end simulation (before Makerchip cycle limit).
@@ -1005,13 +1005,17 @@ The basic RISC-V CPU block diagram
       //m4+dmem(@4)    // Args: (read/write stage)
       //m4+myth_fpga(@0)  // Uncomment to run on fpga
 
-   m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
+   m4+cpu_viz(@4)    // For visualization, the argument should be equal to the last stage of CPU logic. @4 would work for all labs.
 ```
 ![Screenshot (2865)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/22386bfd-9492-4249-9911-63b9f0d877c4)
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/0j2hvQ)
 
-
+### Testbench
+- Tell Makerchip when simulate passes by monitoring the value of register x10 containing the sum (within@1)
+```
+*passed = |cpu/xreg[15]>>5$value == (1+2+3+4+5+6+7+8+9);
+```
 ### Final TL Verilog Code of designed RISC-V Architecture
 ---
 
@@ -1143,12 +1147,12 @@ The basic RISC-V CPU block diagram
                                             // having value $rf_wr_data   
       @1
          //Branch Instructions
-         $taken_branch = $is_beq ? ($src1_value == $src2_value):
-                         $is_bne ? ($src1_value != $src2_value):
-                         $is_blt ? (($src1_value < $src2_value) ^ ($src1_value[31] != $src2_value[31])):
-                         $is_bge ? (($src1_value >= $src2_value) ^ ($src1_value[31] != $src2_value[31])):
-                         $is_bltu ? ($src1_value < $src2_value):
-                         $is_bgeu ? ($src1_value >= $src2_value):
+         $taken_branch = $is_beq ? ($src1_value == $src2_value):               //BEQ (Branch if Equal)
+                         $is_bne ? ($src1_value != $src2_value):               //BNE (Branch if Not Equal)  
+                         $is_blt ? (($src1_value < $src2_value) ^ ($src1_value[31] != $src2_value[31])):    // BLT (Branch if Less Than)
+                         $is_bge ? (($src1_value >= $src2_value) ^ ($src1_value[31] != $src2_value[31])):   //BGE (Branch if Greater Than or Equal)
+                         $is_bltu ? ($src1_value < $src2_value):              //BLTU (Branch if Less Than Unsigned)
+                         $is_bgeu ? ($src1_value >= $src2_value):             //BGEU (Branch if Greater Than or Equal Unsigned)
                                     1'b0;
          $br_tgt_pc[31:0] = $pc + $imm;
    // Assert these to end simulation (before Makerchip cycle limit).
@@ -1172,6 +1176,12 @@ The basic RISC-V CPU block diagram
 ```
 
 - [MICROCHIP FINAL PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/00ghLV#)
+
+### Block Diagram of the designed RISC-V Architecture
+![Screenshot (2866)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/94d9904f-2719-42f9-8c67-f64bd6eaa4f9)
+
+### Waveform for designed RISC-V Architecture
+![Screenshot (2867)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/ae9f8197-e176-4d74-9dba-641e25c5ef35)
 
 ## Day 5:
 ## Complete Pipelined RISC-V CPU micro-architecture/store
