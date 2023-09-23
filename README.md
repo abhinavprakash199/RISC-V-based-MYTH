@@ -808,19 +808,17 @@ The basic RISC-V CPU block diagram
          $reset = *reset;
          $pc[31:0] = >>1$reset ? 32'b0 : (>>1$pc + 32'd4);
       @1
-         // Instruction Fetch 
+         // Instruction Fetch
          $imem_rd_en = !$reset;
-         $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];
-         $instr[31:0] = $imem_rd_data[31:0];
-      ?$imem_rd_en
-         @1
-            $imem_rd_data[31:0] = /imem[$imem_rd_addr]$instr;
-
+         $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];     // $imem_rd_addr is going to m4+imem(@1) vinding the vakue of that address    
+         $instr[31:0] = $imem_rd_en ? $imem_rd_data[31:0]: 32'b0;             // and returning it in $imem_rd_data[31:0]
+         `BOGUS_USE($instr)                         //`BOGUS_USE is a system verilog single argument macro to silence the warning is assigned but never used.        
+      
    // Assert these to end simulation (before Makerchip cycle limit).
    *passed = *cyc_cnt > 40;
    *failed = 1'b0;
    |cpu
-      m4+imem(@1)    // Args: (read stage)
+      m4+imem(@1)    // Args: (read stage)              // m4+imem(@1) is the instantiated System verilog code, can be seen in NAV-TLV in MakerChip IDE 
       //m4+rf(@1, @1)  // Args: (read stage, write stage) - if equal, no register bypass is required
       //m4+dmem(@4)    // Args: (read/write stage)
       //m4+myth_fpga(@0)  // Uncomment to run on fpga
@@ -828,12 +826,12 @@ The basic RISC-V CPU block diagram
    m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
 
 ```
-![Screenshot (2838)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/ff6ec104-5244-436b-bfe0-cfb937245842)
+![Screenshot (2860)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/62d93432-0345-4f88-aaa3-8ff7c38d08de)
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/00ghx6#)
 
 ### 3-Instruction Decode Logic
-![Screenshot (2839)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/6f9c8b89-d5f7-4361-a3f8-16943dddea4a)
+![Screenshot (2839)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3ae8c4cd-dc35-4da8-a82b-b424b3e70d12)
 
 ![Screenshot (2840)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/51b2a656-5f93-49e7-9ea6-47fa94347f3c)
 
@@ -849,11 +847,9 @@ The basic RISC-V CPU block diagram
       @1
          // Instruction Fetch
          $imem_rd_en = !$reset;
-         $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];
-         $instr[31:0] = $imem_rd_data[31:0];
-      ?$imem_rd_en
-         @1
-            $imem_rd_data[31:0] = /imem[$imem_rd_addr]$instr;
+         $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];     // $imem_rd_addr is going to m4+imem(@1) vinding the vakue of that address    
+         $instr[31:0] = $imem_rd_en ? $imem_rd_data[31:0]: 32'b0;             // and returning it in $imem_rd_data[31:0]
+         `BOGUS_USE($instr)  
       @1
          //Instruction Decode
          $is_i_instr = $instr[6:2] ==? 5'b0000x ||   // ==? is used to compare the binary don't cares
@@ -925,24 +921,19 @@ The basic RISC-V CPU block diagram
 
    m4+cpu_viz(@4)    // For visualization, the argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
 ```
-![Screenshot (2846)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/28fe6e27-b26e-4477-b2fc-2be0027be3bb)
+![Screenshot (2861)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/37379430-3e5c-4aed-86e0-890278b29fa5)
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0k5hEN#)
 
 ### 4-Register File Read Logic
-![Screenshot (2847)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/db6f397f-e199-4365-a8c1-33e8001bdb44)
+![Screenshot (2847)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b28744cd-4a9e-4400-a0fe-8be961f27be9)
 
-![Screenshot (2848)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4dfc290e-d2e9-4a31-86cc-cea79335ca24)
-
+![Screenshot (2848)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/124b6695-27e9-4b77-a48c-1e4ba3830923)
 
 ```verilog
-@1
+      @1
          //Register File Read
-         $rf_wr_en = 1'b0;
-         $rf_wr_index[4:0] = 5'b0;
-         $rf_wr_data[31:0] = 32'b0;
-         
-         $rf_rd_en1 = $rs1_valid;     
+         $rf_rd_en1 = $rs1_valid;
          $rf_rd_index1[4:0] = $rs1;  //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is index value of register of RISC-V)
                                      // and return its value as $rf_rd_data1 of 32 bit, which is the value stored in that register
          $rf_rd_en2 = $rs2_valid;
@@ -950,7 +941,8 @@ The basic RISC-V CPU block diagram
                                      // and return its value as $rf_rd_data2 of 32 bit, which is the value stored in that register
          $src1_value[31:0] = $rf_rd_data1;
          $src2_value[31:0] = $rf_rd_data2;
-       
+         `BOGUS_USE($src1_value $src1_value)
+         
    // Assert these to end simulation (before Makerchip cycle limit).
    *passed = *cyc_cnt > 40;
    *failed = 1'b0;
@@ -961,9 +953,10 @@ The basic RISC-V CPU block diagram
       //m4+dmem(@4)    // Args: (read/write stage)
       //m4+myth_fpga(@0)  // Uncomment to run on fpga
 
-   m4+cpu_viz(@4)    // For visualization, the argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
+   m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
+
 ```
-![Screenshot (2851)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/0b5392d8-06bd-48a9-aa4d-0806cc56a91c)
+![Screenshot (2862)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/822c5a2d-3581-44b1-8620-2affe99b7a83)
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/0Anh0N#)
 
