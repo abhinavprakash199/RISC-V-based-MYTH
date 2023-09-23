@@ -1009,7 +1009,7 @@ The basic RISC-V CPU block diagram
 ```
 ![Screenshot (2864)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/6058ade8-6861-4ef3-9906-d9b927d4cc2b)
 
-- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/098hpL#)
+- [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/0j2hvQ)
 
 
 ### Final TL Verilog Code of designed RISC-V Architecture
@@ -1150,7 +1150,6 @@ The basic RISC-V CPU block diagram
                          $is_bltu ? ($src1_value < $src2_value):
                          $is_bgeu ? ($src1_value >= $src2_value):
                                     1'b0;
-         `BOGUS_USE($taken_branch)
          $br_tgt_pc[31:0] = $pc + $imm;
    // Assert these to end simulation (before Makerchip cycle limit).
    *passed = |cpu/xreg[15]>>5$value == (1+2+3+4+5+6+7+8+9);
