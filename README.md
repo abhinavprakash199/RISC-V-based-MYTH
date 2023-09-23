@@ -39,6 +39,7 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
         - [5. Arithmetic Logic Unit Implementation](#5-Arithmetic-Logic-Unit-Implementation)
         - [6. Register File Write Logic](#6-Register-File-Write-Logic)
         - [7. Branch Instruction Logic](#7-Branch-Instruction-Logic)
+        - [Testbench](#Testbench)
     + [Final TL Verilog Code of designed RISC-V Architecture](#Final-TL-Verilog-Code-of-designed-RISC-V-Architecture)	
 
     
