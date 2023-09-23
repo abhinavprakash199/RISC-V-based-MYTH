@@ -30,10 +30,14 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     + [Lab of Pythagorean using Hierarchy](#Lab-of-Pythagorean-using-Hierarchy)
       
 * [Day 4 - Basic RISC-V CPU micro-architecture](#day-4)
-    + [Microarchitecture and testbench for a simple RISC-V CPU](#Microarchitecture-and-testbench-for-a-simple-RISC-V-CPU)
+    + [Designing Microarchitecture of simple RISC-V CPU](#Designing-Microarchitecture-of-simple-RISC-V-CPU)
+    + [RISC-V CPU Implementation Steps](#RISC-V-CPU-Implementation-Steps)
     
 * [DAY 5: Complete Pipelined RISC-V CPU micro-architecture/store](#Day-5)
-    + [Pipelining the CPU](#Pipelining-the-CPU)
+    + [Pipelining the CPU](#Pipelining-the-CPU
+    	- [1. Next Program Couneter(PC) Logic](#1.-Next-Program-Couneter(PC)-Logic)
+        - [2. Instruction Fetch Logic](#2.-Instruction-Fetch-Logic)
+        - [3. Instruction Decode Logic](#3.-Instruction-Decode-Logic)
 
 
 
@@ -760,8 +764,9 @@ The basic RISC-V CPU block diagram
 
 7. **Write Register File**: Stores the results of operations back into registers for future use in the program.
 
-#### RISC-V CPU Implementation Steps
-![Screenshot (2827)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/06c51a01-9774-4472-ada8-f372ee5b3817
+### RISC-V CPU Implementation Steps
+---
+![Screenshot (2827)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/06c51a01-9774-4472-ada8-f372ee5b3817)
 
 - [CHECK SOLUTION](https://myth.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2FRISC-V_MYTH_Workshop%2Fmaster%2Frisc-v_shell.tlv#)
 - [REFERENCE SOLUTION](https://myth.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2FRISC-V_MYTH_Workshop%2Fmaster%2Freference_solutions.tlv#)
@@ -820,7 +825,7 @@ The basic RISC-V CPU block diagram
 
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0lYfoh9Or/00ghx6#)
 
-### 3. Instruction Decode
+### 3. Instruction Decode Logic
 
 
 ```verilog
@@ -828,14 +833,14 @@ The basic RISC-V CPU block diagram
 
 - [MICROCHIP PROJECT URL]()
 
-### 4. Register File Read
+### 4. Register File Read Logic
 
 ```verilog
 ```
 
 - [MICROCHIP PROJECT URL]()
 
-### 5. Arithmetic Logic Unit(ALU)
+### 5. Arithmetic Logic Unit(ALU) implementation
 
 ```verilog
 ```
