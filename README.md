@@ -1,5 +1,31 @@
 # RISC-V-based-MYTH
 This repository contains the whole summary of the hands-on done by Abhinav Prakash (IS22MTECH14002) during the workshop RISC-V based MYTH and understanding the architecture of RISC-V and configuring the ISA and binary files using picorv32 RISC-V architecture with the help if  TL-verilog and Makerchip.
+```
+Subject: Request for Mentorship or Learning Opportunities in TL Verilog and RISC-V Architecture
+
+Dear [Mentor's Name],
+
+I hope this email finds you well. My name is [Your Name], and I am writing to express my sincere interest in learning more about TL Verilog and RISC-V Architecture, and to inquire about the possibility of joining your mentorship program or any other learning opportunities you may have available.
+
+I recently had the privilege of attending a workshop where you were a prominent leader, and I was greatly inspired by your expertise in the field. Your insights and contributions during the workshop have sparked my enthusiasm for TL Verilog and RISC-V Architecture. I believe that with your guidance and mentorship, I can acquire valuable knowledge and skills that will not only enhance my understanding but also help me make meaningful contributions in this field.
+
+I am eager to learn and dedicated to investing the time and effort required to excel in TL Verilog and RISC-V Architecture. I believe that under your mentorship, I can achieve my goals more effectively and efficiently. Whether it's through a formal mentorship program or any other opportunities you can recommend, I am ready to seize the chance to learn and grow.
+
+I understand that your time is valuable, and I would be truly grateful if you could consider offering me a golden opportunity to learn and develop my skills in TL Verilog and RISC-V Architecture. Your guidance would be invaluable to me, and I am eager to embark on this learning journey with your support.
+
+Thank you for considering my request. I look forward to the possibility of working with you and am excited about the prospects of acquiring knowledge and expertise in this field.
+
+Please let me know if you would like to discuss this further or if there are any specific steps I should take to explore this opportunity.
+
+Thank you once again for your time and consideration.
+
+Warm regards,
+
+[Your Name]
+[Your Contact Information]
+```
+
+
 
 
 ## *Table of Contents*
