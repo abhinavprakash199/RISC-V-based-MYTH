@@ -1247,9 +1247,7 @@ Finally, I would like to express my sincere gratitude to [Kunal Ghosh](https://w
 - Connect with me at [LinkedIn](https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile)
 
 
-
 ```
-
 \m4_TLV_version 1d: tl-x.org
 \SV
    // This code can be found in: https://github.com/stevehoover/RISC-V_MYTH_Workshop
@@ -1295,7 +1293,7 @@ Finally, I would like to express my sincere gratitude to [Kunal Ghosh](https://w
          $start = (>>1$reset && !$reset) ;
          $valid = $reset ?  1'b0 : ($start || >>3$valid ); 
          
-         $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc :  (>>1$pc+32'd4));
+         $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc :  (>>3$pc+32'd4));
       @1
          // Instruction Fetch
          $imem_rd_en = !$reset;
@@ -1389,7 +1387,7 @@ Finally, I would like to express my sincere gratitude to [Kunal Ghosh](https://w
                          $is_bgeu ? ($src1_value >= $src2_value):             //BGEU (Branch if Greater Than or Equal Unsigned)
                                     1'b0;                 
          $br_tgt_pc[31:0] = $pc + $imm;
-         $valid_taken_branch = ($valid && >>3$taken_branch) ;
+         $valid_taken_branch = ($valid && $taken_branch) ;
    // Assert these to end simulation (before Makerchip cycle limit).
    *passed = |cpu/xreg[10]>>5$value == (1+2+3+4+5+6+7+8+9);
    *failed = 1'b0;
@@ -1408,4 +1406,5 @@ Finally, I would like to express my sincere gratitude to [Kunal Ghosh](https://w
    m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
 \SV
    endmodule
+
 ```
