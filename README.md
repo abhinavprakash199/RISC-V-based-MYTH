@@ -46,6 +46,7 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     
 * [DAY 5: Complete Pipelined RISC-V CPU micro-architecture/store](#Day-5)
     + [Pipelining the CPU](#Pipelining-the-CPU)
+    + [Design of 3-stage Pipelining of RISC-V CPU micro-architecture](#Design-of-3-stage-Pipelining-of-RISC-V-CPU-micro-architecture)
     	
 
 
@@ -1193,11 +1194,23 @@ The basic RISC-V CPU block diagram
 ## Day 5:
 ## Complete Pipelined RISC-V CPU micro-architecture/store
 ---
-### 3 stage Pipelining of RISC-V CPU micro-architecture
+### Pipelining the CPU
 ---
-- Here we are planning the architecture so that it operates every third cycle of clock 
-![Screenshot (2883)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/643a91c5-e0c4-4639-b402-d6e0e04aac42)
-![Screenshot (2879)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/95671665-0b6c-4187-9504-788ce97c45fb)
+Pipelining is a fundamental concept in modern processor design, including the RISC-V architecture. It involves breaking down the execution of instructions into a series of overlapping stages, allowing for faster and more efficient processing. While pipelining offers significant performance advantages, it also introduces certain hazards that must be managed.
+
+#### Pipeline Hazards
+1. **Data Hazards:** These occur when an instruction depends on the result of a previous instruction that hasn't completed its execution yet. Data hazards can lead to pipeline stalls or the need for forwarding logic to resolve dependencies.
+2. **Control Hazards:** Control hazards happen when a decision about the next instruction is unclear, such as due to branches or jumps. These hazards can lead to pipeline flushes or speculative execution to minimize the impact.
+3. **Structural Hazards:** Structural hazards arise when multiple instructions need access to the same hardware resource simultaneously, like memory or registers. This can be resolved through resource allocation and scheduling.
+4. **Pipeline Bubbles:** Hazards can result in pipeline stalls, which leave certain stages idle, reducing the overall efficiency of the pipeline.
+
+### Design of 3-stage Pipelining of RISC-V CPU micro-architecture
+---
+- Here, we are planning the architecture so that it operates every third cycle of the clock
+
+![Screenshot (2883)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/75087c63-2b70-416a-a7ca-960d9ef4b2bc)
+
+![Screenshot (2882)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/5cf547e2-073c-450d-b4a6-ec0d29dd3761)
 
 ```verilog
 \m4_TLV_version 1d: tl-x.org
