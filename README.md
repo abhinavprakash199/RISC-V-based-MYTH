@@ -1358,7 +1358,7 @@ Finally, I would like to express my sincere gratitude to [Kunal Ghosh](https://w
          $is_bgeu = $dec_bits ==? 11'bx_111_1100011;
          $is_addi = $dec_bits ==? 11'bx_000_0010011;
          $is_add = $dec_bits ==? 11'b0_000_0110011;
-      @1
+      @2
          //Register File Read
          $rf_rd_en1 = $rs1_valid;
          $rf_rd_index1[4:0] = $rs1;  //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is index value of register of RISC-V)
@@ -1368,19 +1368,19 @@ Finally, I would like to express my sincere gratitude to [Kunal Ghosh](https://w
                                      // and return its value as $rf_rd_data2 of 32 bit, which is the value stored in that register
          $src1_value[31:0] = $rf_rd_data1;
          $src2_value[31:0] = $rf_rd_data2;
-      @1
+      @3
          //ALU
          $result[31:0] = $is_addi ? $src1_value + $imm :
                          $is_add ? $src1_value + $src2_value :
                          32'bx ;
-      @1
+      @3
          //Register File Write                  // $rd_valid = 1 when ISA have rd its instruction 
          $rf_wr_en_1 = $rd_valid && $rd != 5'b0;  // if $rd_valid =0 or $rd =0 then then $rf_wr_en is 0
          $rf_wr_en = $rf_wr_en_1 && $valid;
          $rf_wr_index[4:0] = $rd;                              // $rd=0(because x0 register of RISC-V always stores vale 32'b0 so can't be rewritten ) 
          $rf_wr_data[31:0] = $result;       // $result is coming from ALU and getting stored in $rf_wr_index[4:0] address of RISC-V register         
                                             // having value $rf_wr_data   
-      @1
+      @3
          //Branch Instructions
          $taken_branch = $is_beq ? ($src1_value == $src2_value):               //BEQ (Branch if Equal)
                          $is_bne ? ($src1_value != $src2_value):               //BNE (Branch if Not Equal)  
@@ -1402,7 +1402,7 @@ Finally, I would like to express my sincere gratitude to [Kunal Ghosh](https://w
    //  o CPU visualization
    |cpu
       m4+imem(@1)    // Args: (read stage)
-      m4+rf(@1, @1)  // Args: (read stage, write stage) - if equal, no register bypass is required
+      m4+rf(@2, @3)  // Args: (read stage, write stage) - if equal, no register bypass is required
       //m4+dmem(@4)    // Args: (read/write stage)
       //m4+myth_fpga(@0)  // Uncomment to run on fpga
 
