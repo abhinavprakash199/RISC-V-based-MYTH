@@ -1374,7 +1374,9 @@ Pipelining is a fundamental concept in modern processor design, including the RI
 ```
 ![Screenshot (2884)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/5ba5f3dc-cc92-4e68-ba51-41fa1f8748ac)
 
-
+### Design of 4-stage Pipelining of RISC-V CPU micro-architecture
+---
+Here also if there will be any branch instruction the we will skip 3 clock cycle 
 
 
 
