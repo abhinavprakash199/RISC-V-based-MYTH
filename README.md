@@ -49,6 +49,7 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     + [Design of Pipeline 3 instruction per cycle of RISC-V CPU micro-architecture](#Design-of-Pipeline-3-instruction-per-cycle-of-RISC-V-CPU-micro-architecture)
     + [Design of Pipeline 1 instruction per cycle of RISC-V CPU micro-architecture](#Design-of-Pipeline-1-instruction-per-cycle-of-RISC-V-CPU-micro-architecture)
     + [Completing Instruction Decode](#Completing-Instruction-Decode)
+    + [Completing ALU](#Completing-ALU)
     	
 
 
@@ -1598,7 +1599,43 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
          $is_jalr = $dec_bits ==? 11'bx_000_1100111;                   // JALR (Jump and Link Register) Jumps to an address in a register. Saves the return address in a register.  
          $is_jump = $is_jal || $is_jalr ;                             // Jump (J) Unconditionally jumps to a specified target address.
 ```        
-   
+
+### Completing ALU
+![Screenshot (2890)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/e0e4aa22-b017-49e5-903a-e519003e45cf)
+
+```verilog
+      @3
+         //Assigning aadi and add value to ALU
+         $sltu_rslt[31:0] = $src1_value < $src2_value ;
+         $sltiu_rslt[31:0]  = $src1_value < $imm ;
+         
+         $result[31:0] =
+              $is_addi ? $src1_value + $imm :
+              $is_add ? $src1_value + $src2_value :
+              $is_andi ? $src1_value & $imm :
+              $is_ori  ? $src1_value | $imm :
+              $is_xori ? $src1_value ^ $imm :
+              $is_slli ? $src1_value << $imm[5:0] :
+              $is_srli ? $src1_value >> $imm[5:0] :
+              $is_and ? $src1_value & $src2_value :
+              $is_or ? $src1_value | $src2_value :
+              $is_xor ? $src1_value ^ $src2_value :
+              $is_sub ? $src1_value - $src2_value :
+              $is_sll ? $src1_value << $src2_value[4:0] :
+              $is_srl ? $src1_value >> $src2_value[4:0] :
+              $is_sltu ? $src1_value < $src2_value :
+              $is_sltiu ? $src1_value < $imm :
+              $is_lui ? {$imm[31:12], 12'b0} :
+              $is_auipc ? $pc + $imm : 
+              $is_jal ? $pc + 32'd4 :
+              $is_jalr ? $pc + 32'd4 :
+              $is_srai ? {{32{$src1_value[31]}}, $src1_value} >> $imm[4:0] :
+              $is_slt ? ($src1_value[31] == $src2_value[31]) ? $sltu_rslt : {31'b0, $src1_value[31]} :
+              $is_slti ? ($src1_value[31] == $imm[31]) ? $sltiu_rslt : {31'b0, $src1_value[31]} :
+              $is_sra ? {{32{$src1_value[31]}}, $src1_value} >> $src2_value[4:0] :
+              $is_load || $is_s_instr ? $src1_value + $imm :
+              32'bx ;
+```
 
 
 
