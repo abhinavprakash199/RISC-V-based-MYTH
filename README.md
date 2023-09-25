@@ -49,8 +49,10 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     + [Design of Pipeline 3 instruction per cycle of RISC-V CPU micro-architecture](#Design-of-Pipeline-3-instruction-per-cycle-of-RISC-V-CPU-micro-architecture)
     + [Design of Pipeline 1 instruction per cycle of RISC-V CPU micro-architecture](#Design-of-Pipeline-1-instruction-per-cycle-of-RISC-V-CPU-micro-architecture)
     + [Completing Instruction Decode](#Completing-Instruction-Decode)
-    + [Completing ALU](#Completing-ALU)
-    	
+    + [Completing ALU Design](#Completing-ALU-Design)
+    + [Adding Load/Store Instructions](#Adding-Load/Store-Instructions)
+    + [Designing of Data Memory](#Designing-of-Data-Memory) 
+ 
 
 
 
@@ -1496,14 +1498,14 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
          $is_add = $dec_bits ==? 11'b0_000_0110011;
       @2
          //Register File Read
-         $rf_rd_en1 = $rs1_valid && >>2$result ; //if two stage back result and ISA has rs1 register then only read the value from ISA
+         $rf_rd_en1 = $rs1_valid && >>2$result ; //if two-stage back result and ISA has rs1 register then only read the value from ISA
          $rf_rd_index1[4:0] = $rs1;  //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is index value of register of RISC-V)
-                                     // and return its value as $rf_rd_data1 of 32 bit, which is the value stored in that register
-         $rf_rd_en2 = $rs2_valid && >>2$result;   //if two stage back result and ISA has rs2 register then only read the value from ISA
+                                     // and return its value as $rf_rd_data1 of 32-bit, which is the value stored in that register
+         $rf_rd_en2 = $rs2_valid && >>2$result;   //if two-stage back result and ISA has rs2 register then only read the value from ISA
          $rf_rd_index2[4:0] = $rs2;   //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is index value of register of RISC-V)
-                                     // and return its value as $rf_rd_data2 of 32 bit, which is the value stored in that register
-         $src1_value[31:0] = >>1$rf_wr_en && (>>1$rf_wr_index == $rs1) ? (>>1$result) : $rf_rd_data1;   //if previous destination register address matches the source register address and if previous instruction result was written in RISC V register($rf_wr_en is high) then only stote the last result of result else result date coming out from m4+rf
-         $src2_value[31:0] = >>1$rf_wr_en && (>>1$rf_wr_index == $rs2) ? (>>1$result) : $rf_rd_data2;  //if previous destination register address matches the source register address and if previous instruction result was written in RISC V register ($rf_wr_en is high) then only stote the last result of result else result date coming out from m4+rf
+                                     // and return its value as $rf_rd_data2 of 32-bit, which is the value stored in that register
+         $src1_value[31:0] = >>1$rf_wr_en && (>>1$rf_wr_index == $rs1) ? (>>1$result) : $rf_rd_data1;   //if the previous destination register address matches the source register address and if the previous instruction result was written in the RISC V register($rf_wr_en is high) then only store the last result of the result else result date coming out from m4+rf
+         $src2_value[31:0] = >>1$rf_wr_en && (>>1$rf_wr_index == $rs2) ? (>>1$result) : $rf_rd_data2;  //if the previous destination register address matches the source register address and if the previous instruction result was written in the RISC V register ($rf_wr_en is high) then only store the last result of the result else result date coming out from m4+rf
                                                                   // $rf_wr_index = $rd; $rf_rd_index1 = rs1 ; $rf_rd_index2 = rs2 
       @3
          //ALU
@@ -1527,7 +1529,7 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
                          $is_bltu ? ($src1_value < $src2_value):              //BLTU (Branch if Less Than Unsigned)
                          $is_bgeu ? ($src1_value >= $src2_value):             //BGEU (Branch if Greater Than or Equal Unsigned)
                                     1'b0;                 
-         $br_tgt_pc[31:0] = $pc + $imm;        // $br_tgt_pc will add the value of %pc value and $imm value which has the stored value of  differnece of target address and current address
+         $br_tgt_pc[31:0] = $pc + $imm;        // $br_tgt_pc will add the value of %pc value and $imm value which has the stored value of  difference of target address and current address
          $valid_taken_branch = ($valid && $taken_branch) ;  // after every 3 clock cycle when $valid is hihen and $taken_branch is high then $valid_taken_branch is high.
          
          
@@ -1546,7 +1548,7 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
       //m4+dmem(@4)    // Args: (read/write stage)
       //m4+myth_fpga(@0)  // Uncomment to run on fpga
 
-   m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
+   m4+cpu_viz(@4)    // For visualization, the argument should be equal to the last stage of CPU logic. @4 would work for all labs.
 \SV
    endmodule
 ```
@@ -1569,7 +1571,7 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
          $is_bltu = $dec_bits ==? 11'bx_110_1100011;                       //BLTU (Branch if Less Than Unsigned)
          $is_bgeu = $dec_bits ==? 11'bx_111_1100011;                       //BGEU (Branch if Greater Than or Equal Unsigned)
          $is_addi = $dec_bits ==? 11'bx_000_0010011;                       // addi (Add Immediate)
-         $is_add = $dec_bits ==? 11'b0_000_0110011;                        // add (Add two register)   
+         $is_add = $dec_bits ==? 11'b0_000_0110011;                        // add (Add two registers)   
 
             //Instruction Decode added
 	 $is_load = $dec_bits ==? 11'bx_xxx_0000011;                    // all load instructions(LB(Load Byte),LH(Load Halfword),LW(Load Word),LBU(Load Byte Unsigned),LHU(Load Halfword Unsigned))
@@ -1590,24 +1592,23 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
          $is_sltu = $dec_bits ==? 11'b0_011_0110011;                     // SLTU (Set Less Than Unsigned) Sets a target register to 1 if the value in one register is less than the value in another register (unsigned comparison); otherwise, sets it to 0.
          $is_xor = $dec_bits ==? 11'b0_100_0110011;                      // XOR (Bitwise XOR) Performs a bitwise XOR operation between two registers and stores the result in a target register.
          $is_srl = $dec_bits ==? 11'b0_101_0110011;                     // XOR (Bitwise XOR) Performs a bitwise XOR operation between two registers and stores the result in a target register.
-         $is_sra = $dec_bits ==? 11'b1_101_0110011;                     // SRA (Shift Right Arithmetic) Arithmetic right shift of a register value. Preserves the sign bit.
+         $is_sra = $dec_bits ==? 11'b1_101_0110011;                     // SRA (Shift Right Arithmetic) Arithmetic right shift of a register value. It preserves the sign bit.
          $is_or = $dec_bits ==? 11'b0_110_0110011;                      // OR (Bitwise OR) Performs a bitwise OR operation between two registers and stores the result in a target register.  
          $is_and = $dec_bits ==? 11'b0_111_0110011;                     // OR (Bitwise OR) Performs a bitwise OR operation between two registers and stores the result in a target register.
          $is_lui = $dec_bits ==? 11'bx_xxx_0110111;                   // LUI (Load Upper Immediate) Loads a 16-bit immediate value into the upper bits of a register. Lower bits are set to zero. 
-         $is_auipc = $dec_bits ==? 11'bx_xxx_0010111;                  // AUIPC (Add Upper Immediate to PC) Adds a 16-bit immediate value to the current instruction's address. Result is stored in a register.
+         $is_auipc = $dec_bits ==? 11'bx_xxx_0010111;                  // AUIPC (Add Upper Immediate to PC) Adds a 16-bit immediate value to the current instruction's address. The result is stored in a register.
          $is_jal = $dec_bits ==? 11'bx_xxx_1101111;                    // JAL (Jump and Link) Unconditionally jumps to a target address. Saves the return address in a register.            
          $is_jalr = $dec_bits ==? 11'bx_000_1100111;                   // JALR (Jump and Link Register) Jumps to an address in a register. Saves the return address in a register.  
          $is_jump = $is_jal || $is_jalr ;                             // Jump (J) Unconditionally jumps to a specified target address.
 ```        
 
-### Completing ALU
+### Completing ALU Design
 ![Screenshot (2890)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/e0e4aa22-b017-49e5-903a-e519003e45cf)
 
 ```verilog
       @3
-         //Assigning aadi and add value to ALU
-         $sltu_rslt[31:0] = $src1_value < $src2_value ;
-         $sltiu_rslt[31:0]  = $src1_value < $imm ;
+         $sltu_rslt[31:0] = $src1_value < $src2_value;  // variable declared for $is_slt Instruction
+         $sltiu_rslt[31:0]  = $src1_value < $imm;       // variable declared for $is_slti Instruction
          
          $result[31:0] =
               $is_addi ? $src1_value + $imm :
@@ -1633,29 +1634,56 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
               $is_slt ? ($src1_value[31] == $src2_value[31]) ? $sltu_rslt : {31'b0, $src1_value[31]} :
               $is_slti ? ($src1_value[31] == $imm[31]) ? $sltiu_rslt : {31'b0, $src1_value[31]} :
               $is_sra ? {{32{$src1_value[31]}}, $src1_value} >> $src2_value[4:0] :
-              $is_load || $is_s_instr ? $src1_value + $imm :            // if there is load instruction or S-type ISA then result will be  $src1_value + $imm which is address of the main memory
+              $is_load || $is_s_instr ? $src1_value + $imm :            // if there is load instruction or S-type(only type of ISA which have store instruction) ISA then result will be  $src1_value + $imm which is address of the main memory
               32'bx ;
 ```
-### Load/Store Instructions
+### Adding Load/Store Instructions
 --- 
+- In Load Instruction in RISC-V loads the register rd(destination register) with the data stores in the rs1(address) + immediate from the main memory.
+- In Store Instruction in RISC-V stores the value in register rd(destination register) to the address of register rs1(address) +immediate of main memory.
+#### Load Instructions
 ![Screenshot (2891)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f2fd89eb-f16d-48d4-86b1-2d48494bfda7)
-
-- In Load Instruction in RISC-V loads the register rd(destinantion register) with the data stores in the rs1(address) + immediate from the main memory.
-- In Store Instruction in RISC-V stores the value in register rd(destinantion register) to the address of register rs1(address) +immediate of main memory.
 
 ```verilog
       @0
-         $reset = *reset;
-         $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc : (>>3$valid_load ? >>3$pc+32'd4 :>>1$pc + 32'd4);  // if we get a valid load in the thirt last cycle the skip the pc increment for 2 times else do whaterever it was doing before.        
-      @3
+         $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc : (>>3$valid_load ? >>3$pc+32'd4 : (>>1$pc + 32'd4));  // if we get a valid load in the third last cycle the skip the pc increment for 2 times else do whatever it was doing before.
+                      // changed from $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc : >>1$pc + 32'd4);   
+      @3                                                   // changed from $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch)      
          $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch || >>1$valid_load || >>2$valid_load );  // if we get branch or load instruction then $valid is high and it skip 2 cycle
-         $valid_load = $valid && $is_load ; // $valid_load is high only when we get a valid high and ther is a load instruction in the pipline
+         $valid_load = $valid && $is_load ; // $valid_load is high only when we get a valid high and there is a load instruction in the pipeline
+```
+#### Store Instructions
+![Screenshot (2892)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/a4cd2176-983e-4abf-b202-cbfb796bdc83)
+
+```
+    @3                      // changed from $rf_wr_en = $rf_wr_en_1 && $valid;                   // Here ($rf_wr_en_1 = $rd_valid && $rd != 5'b0)
+        $rf_wr_en = $rf_wr_en_1 && ($valid ||>>2$valid_load); // $rf_wr_en is enable write when load instruction was there before two-cycle
+        $rf_wr_index[4:0] = >>2$valid_load ? >>2$rd : $rd ;
+        $rf_wr_data[31:0] = >>2$valid_load ? >>2$ld_data : $result;      // if there is a load instruction, then load the data in the data in $rf_wr_data  else normal working of the pipeline   
+                           //  changed from $rf_wr_data[31:0] = $result;                ``
+```
+### Designing of Data Memory
+---
+![Screenshot (2893)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/374abde9-6a03-46b3-8bde-a51caf185fcd)
+
+- We need to uncomment the macro(`m4+dmem(@4)`) of data memory instantiation, which provides the immediate data memory. It has 16 entities, each 32-bit wide 
+```verilog
+      @4
+         $dmem_wr_en = $is_s_instr && $valid ; //$dmem_wr_en of is enable pin to m4+dmem(@4)  // $valis is high and S-type(only type of ISA which have store instruction) ISA 
+         $dmem_addr[3:0] = $result[5:2];      // sending the address of data memory through which we need data.//Here we are only supporting the word operations and the address is a byte
+                                              // address so we assume it's aligned such that the lower 2 bits of $result can be ignored (because only 16 entries are possible, so main memory has only 4 bit address)
+         $dmem_wr_data[31:0] = $src2_value ;   // to write data in memory address
+         $dmem_rd_en = $is_load ;             // enable pin to read the data if load instruction came
+         $ld_data[31:0] = $dmem_rd_data ;   // taking output from memory and giving it back
 ```
 
+- So we assigned Machine code to load and store the data in main memory
+```
+   m4_asm(SW, r0, r10, 100)   // stores the value in r10 in address 4 of main memory(r0+4) after the loop completes
+   m4_asm(LW, r15, r0, 100)   //Again we will load the value from the same address 4 in the r15 register
+   // we need to change the coding in the passed to check the r15 register instead of the r10 ( *passed = |cpu/xreg[15]>>5$value == (1+2+3+4+5+6+7+8+9);)
 
-
-
-
+```
 
 
 ## All commands of linux
@@ -1740,11 +1768,13 @@ Finally, I would like to express my sincere gratitude to [Kunal Ghosh](https://w
    |cpu
       @0
          $reset = *reset;
-         $start = (>>1$reset && !$reset);         //Start is to provide first $valid pulse   
-         $valid = $reset ?  1'b0 : ($start || >>3$valid );      // This valis is going to be high every third clock cycle whcih will allow the pipeline to take the next input
-         
-         $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc :  (>>3$pc+32'd4)); 
-      @1                                                        // Here we are taking the output of previour piplened value of $valid_taken_branch, 3$br_tgt_pc and >>3$pc      
+         $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc : (>>3$valid_load ? >>3$pc+32'd4 : (>>1$pc + 32'd4))); 
+                                                              // Here we are taking the output of previour piplened value of $valid_taken_branch, 3$br_tgt_pc and >>3$pc      
+      @3
+         $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch || >>1$valid_load || >>2$valid_load );  // if we get branch or load instruction then $valid is high and it skip 2 cycle
+         $valid_load = $valid && $is_load ; // $valid_load is high only when we get a valid high and ther is a load instruction in the pipline      // here valid will be high when we get a branch instruction and SKIP 2 STAGE IN PIPELINE
+      @1   
+         //$inc_pc[31:0] = $pc + 32'd4 ;
          // Instruction Fetch
          $imem_rd_en = !$reset;
          $imem_rd_addr[M4_IMEM_INDEX_CNT-1:0] = $pc[M4_IMEM_INDEX_CNT+1:2];     // $imem_rd_addr is going to m4+imem(@1) vinding the vakue of that address    
@@ -1805,6 +1835,36 @@ Finally, I would like to express my sincere gratitude to [Kunal Ghosh](https://w
          $is_bgeu = $dec_bits ==? 11'bx_111_1100011;
          $is_addi = $dec_bits ==? 11'bx_000_0010011;
          $is_add = $dec_bits ==? 11'b0_000_0110011;
+         // adding Instruction decode for all set of ISA
+         $is_load = $dec_bits ==? 11'bx_xxx_0000011;                    // all load instructions(LB(Load Byte),LH(Load Halfword),LW(Load Word),LBU(Load Byte Unsigned),LHU(Load Halfword Unsigned))
+         $is_sb = $dec_bits ==? 11'bx_000_0100011;                      //SB (Store Byte)Stores the lowest byte of a register into memory.
+         $is_sh = $dec_bits ==? 11'bx_001_0100011;                      //SH  (Store Halfword)Stores the lowest 16 bits of a register into memory.
+         $is_sw = $dec_bits ==? 11'bx_010_0100011;                       // SW (Store Word)Stores a 32-bit value from a register into memory.
+         $is_slti = $dec_bits ==? 11'bx_010_0010011;                     // SLTI (Set Less Than Immediate)Sets a target register to 1 if the source register is less than a signed immediate value; otherwise, sets it to 0.
+         $is_sltiu = $dec_bits ==? 11'bx_011_0010011;                    // SLTIU (Set Less Than Immediate Unsigned)Sets a target register to 1 if the source register is less than an unsigned immediate value; otherwise, sets it to 0.       
+         $is_xori = $dec_bits ==? 11'bx_100_0010011;                     // XORI (XOR Immediate) Performs a bitwise XOR operation between a register and an immediate value, storing the result in a target register.
+         $is_ori = $dec_bits ==? 11'bx_110_0010011;                      // ORI (OR Immediate)Performs a bitwise OR operation between a register and an immediate value, storing the result in a target register.
+         $is_andi = $dec_bits ==? 11'bx_111_0010011;                     // ANDI (AND Immediate) Performs a bitwise AND operation between a register and an immediate value, storing the result in a target register.
+         $is_slli = $dec_bits ==? 11'b0_001_0010011;                     // ANDI (AND Immediate) Performs a bitwise AND operation between a register and an immediate value, storing the result in a target register.
+         $is_srli = $dec_bits ==? 11'b0_101_0010011;                     // SRLI (Shift Right Logical Immediate) Performs a logical right shift on a source register by a specified immediate value and stores the result in a target register.
+         $is_srai = $dec_bits ==? 11'b1_101_0010011;                     // SRLI (Shift Right Logical Immediate) Performs a logical right shift on a source register by a specified immediate value and stores the result in a target register.
+         $is_sub = $dec_bits ==? 11'b1_000_0110011;                     // SUB (Subtract) Subtracts the value of one register from another and stores the result in a target register.
+         $is_sll = $dec_bits ==? 11'b0_001_0110011;                     // SLL (Shift Left Logical) Performs a logical left shift on the value in one register by the number of bits specified in another register and stores the result in a target register.
+         $is_slt = $dec_bits ==? 11'b0_010_0110011;                     // SLT (Set Less Than) Sets a target register to 1 if the value in one register is less than the value in another register; otherwise, sets it to 0.
+         $is_sltu = $dec_bits ==? 11'b0_011_0110011;                     // SLTU (Set Less Than Unsigned) Sets a target register to 1 if the value in one register is less than the value in another register (unsigned comparison); otherwise, sets it to 0.
+         $is_xor = $dec_bits ==? 11'b0_100_0110011;                      // XOR (Bitwise XOR) Performs a bitwise XOR operation between two registers and stores the result in a target register.
+         $is_srl = $dec_bits ==? 11'b0_101_0110011;                     // XOR (Bitwise XOR) Performs a bitwise XOR operation between two registers and stores the result in a target register.
+         $is_sra = $dec_bits ==? 11'b1_101_0110011;                     // SRA (Shift Right Arithmetic) Arithmetic right shift of a register value. Preserves the sign bit.
+         $is_or = $dec_bits ==? 11'b0_110_0110011;                      // OR (Bitwise OR) Performs a bitwise OR operation between two registers and stores the result in a target register.  
+         $is_and = $dec_bits ==? 11'b0_111_0110011;                     // OR (Bitwise OR) Performs a bitwise OR operation between two registers and stores the result in a target register.
+         $is_lui = $dec_bits ==? 11'bx_xxx_0110111;                   // LUI (Load Upper Immediate) Loads a 16-bit immediate value into the upper bits of a register. Lower bits are set to zero. 
+         $is_auipc = $dec_bits ==? 11'bx_xxx_0010111;                  // AUIPC (Add Upper Immediate to PC) Adds a 16-bit immediate value to the current instruction's address. Result is stored in a register.
+         $is_jal = $dec_bits ==? 11'bx_xxx_1101111;                    // JAL (Jump and Link) Unconditionally jumps to a target address. Saves the return address in a register.            
+         $is_jalr = $dec_bits ==? 11'bx_000_1100111;                   // JALR (Jump and Link Register) Jumps to an address in a register. Saves the return address in a register.  
+         $is_jump = $is_jal || $is_jalr ;                             // Jump (J) Unconditionally jumps to a specified target address.
+      
+      
+      
       @2
          //Register File Read
          $rf_rd_en1 = $rs1_valid && >>2$result ; //if two stage back result and ISA has rs1 register then only read the value from ISA
@@ -1813,20 +1873,48 @@ Finally, I would like to express my sincere gratitude to [Kunal Ghosh](https://w
          $rf_rd_en2 = $rs2_valid && >>2$result;   //if two stage back result and ISA has rs2 register then only read the value from ISA
          $rf_rd_index2[4:0] = $rs2;   //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is index value of register of RISC-V)
                                      // and return its value as $rf_rd_data2 of 32 bit, which is the value stored in that register
-         $src1_value[31:0] = >>1$rf_wr_en && (>>1$rf_wr_index == $rs2) ? (>>1$result) : $rf_rd_data1;   //if previous destination register address matches the source register address and if previous instruction result was written in RISC V register($rf_wr_en is high) then only stote the last result of result else result date coming out from m4+rf
+         $src1_value[31:0] = >>1$rf_wr_en && (>>1$rf_wr_index == $rs1) ? (>>1$result) : $rf_rd_data1;   //if previous destination register address matches the source register address and if previous instruction result was written in RISC V register($rf_wr_en is high) then only stote the last result of result else result date coming out from m4+rf
          $src2_value[31:0] = >>1$rf_wr_en && (>>1$rf_wr_index == $rs2) ? (>>1$result) : $rf_rd_data2;  //if previous destination register address matches the source register address and if previous instruction result was written in RISC V register ($rf_wr_en is high) then only stote the last result of result else result date coming out from m4+rf
                                                                   // $rf_wr_index = $rd; $rf_rd_index1 = rs1 ; $rf_rd_index2 = rs2 
       @3
-         //ALU
-         $result[31:0] = $is_addi ? $src1_value + $imm :
-                         $is_add ? $src1_value + $src2_value :
-                         32'bx ;
+         //Full Designed ALU
+         $sltu_rslt[31:0] = $src1_value < $src2_value;  // variable declared for $is_slt Instruction
+         $sltiu_rslt[31:0]  = $src1_value < $imm;       // variable declared for $is_slti Instruction
+         
+         $result[31:0] =
+              $is_addi ? $src1_value + $imm :
+              $is_add ? $src1_value + $src2_value :
+              $is_andi ? $src1_value & $imm :
+              $is_ori  ? $src1_value | $imm :
+              $is_xori ? $src1_value ^ $imm :
+              $is_slli ? $src1_value << $imm[5:0] :
+              $is_srli ? $src1_value >> $imm[5:0] :
+              $is_and ? $src1_value & $src2_value :
+              $is_or ? $src1_value | $src2_value :
+              $is_xor ? $src1_value ^ $src2_value :
+              $is_sub ? $src1_value - $src2_value :
+              $is_sll ? $src1_value << $src2_value[4:0] :
+              $is_srl ? $src1_value >> $src2_value[4:0] :
+              $is_sltu ? $src1_value < $src2_value :
+              $is_sltiu ? $src1_value < $imm :
+              $is_lui ? {$imm[31:12], 12'b0} :
+              $is_auipc ? $pc + $imm : 
+              $is_jal ? $pc + 32'd4 :
+              $is_jalr ? $pc + 32'd4 :
+              $is_srai ? {{32{$src1_value[31]}}, $src1_value} >> $imm[4:0] :
+              $is_slt ? ($src1_value[31] == $src2_value[31]) ? $sltu_rslt : {31'b0, $src1_value[31]} :
+              $is_slti ? ($src1_value[31] == $imm[31]) ? $sltiu_rslt : {31'b0, $src1_value[31]} :
+              $is_sra ? {{32{$src1_value[31]}}, $src1_value} >> $src2_value[4:0] :
+              $is_load || $is_s_instr ? $src1_value + $imm :            // if there is load instruction or S-type(only type of ISA which have store instruction) ISA then result will be  $src1_value + $imm which is address of the main memory
+              32'bx ;                   
+                         
+                         
       @3
          //Register File Write                  // $rd_valid = 1 when ISA have rd its instruction 
          $rf_wr_en_1 = $rd_valid && $rd != 5'b0;  // if $rd_valid =0 or $rd =0 then then $rf_wr_en is 0
          $rf_wr_en = $rf_wr_en_1 && $valid;
          $rf_wr_index[4:0] = $rd;                              // $rd=0(because x0 register of RISC-V always stores vale 32'b0 so can't be rewritten ) 
-         $rf_wr_data[31:0] = $result;       // $result is coming from ALU and getting stored in $rf_wr_index[4:0] address of RISC-V register         
+         $rf_wr_data[31:0] = $result;      // if there is a load instruction, then load the data in the data in $rf_wr_data  else normal working of the pipeline    // $result is coming from ALU and getting stored in $rf_wr_index[4:0] address of RISC-V register         
                                             // having value $rf_wr_data   
       
       @3
