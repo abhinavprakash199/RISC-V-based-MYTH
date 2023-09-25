@@ -1646,9 +1646,12 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 
 ```verilog
       @0
-         $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc : (>>3$valid_load ? >>3$pc+32'd4 : (>>1$pc + 32'd4));  // if we get a valid load in the third last cycle the skip the pc increment for 2 times else do whatever it was doing before.
+         $pc[31:0] = >>1$reset ? 32'd0 :
+                       (>>3$valid_taken_branch ? >>3$br_tgt_pc :                 // if we get a valid load in the third last cycle the skip the pc increment for 
+                            (>>3$valid_load ? >>3$pc+32'd4 :                     // 2 times else do whatever it was doing before.
+                                    (>>1$pc + 32'd4));  
                       // changed from $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc : >>1$pc + 32'd4);   
-      @3                                                   // changed from $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch)      
+      @3             // changed from $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch)      
          $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch || >>1$valid_load || >>2$valid_load );  // if we get branch or load instruction then $valid is high and it skip 2 cycle
          $valid_load = $valid && $is_load ; // $valid_load is high only when we get a valid high and there is a load instruction in the pipeline
                  
