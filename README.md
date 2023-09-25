@@ -578,7 +578,8 @@ The TL-verilog code for sequential calculator
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/9796ed8c-f051-46f1-9c6f-a31c14634829"
 
-The TL-Verilog code of 2-Cycle Pipeline Calculator
+- The TL-Verilog code of 2-Cycle Pipeline Calculator
+
 ```verilog
 \m5_TLV_version 1d: tl-x.org
 \m5
@@ -623,7 +624,7 @@ Validity is a concept used to indicate whether data or transactions are valid an
  
 ### Lab of Pipelined Pythagorean with validity
 ---
-Here, we are enabling a valid bit when rand_valif = 3 
+- Here, we are enabling a valid bit when rand_valif = 3 
 ```verilog
 
 \m4_TLV_version 1d: tl-x.org
@@ -791,17 +792,11 @@ The basic RISC-V CPU block diagram
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/59fdaf69-868e-401b-8e24-d7c7db91d255"
 
 1. **Program Counter (PC)**: Keeps track of the memory address of the next instruction to be executed in the CPU.
-
 2. **Instruction Decoder**: Interprets machine instructions, generates control signals, and directs CPU components to execute the instruction.
-
 3. **Instruction Memory**: Stores program instructions in binary form and is read-only.
-
 4. **Data Memory**: Stores data used by the program and can be both read from and written to.
-
 5. **ALU (Arithmetic Logic Unit)**: Performs arithmetic and logical operations like addition, subtraction, and bitwise operations.
-
 6. **Read Register File**: Holds registers for data storage and is used for reading data specified by instructions.
-
 7. **Write Register File**: Stores the results of operations back into registers for future use in the program.
 
 ### RISC-V CPU Implementation Steps
@@ -1704,6 +1699,8 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f2fd89eb-f16d-48d4-86b1-2d48494bfda7"
 
+- TL Verilog code for logic of Load Instructions.
+  
 ```verilog
       @0
          $pc[31:0] = >>1$reset ? 32'd0 :
@@ -1719,7 +1716,9 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 #### Store Instructions
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/a4cd2176-983e-4abf-b202-cbfb796bdc83"
-
+	    
+- TL Verilog code for logic of Store Instructions.
+- 
 ```verilog
     @3                      // changed from $rf_wr_en = $rf_wr_en_1 && $valid;                   // Here ($rf_wr_en_1 = $rd_valid && $rd != 5'b0)
         $rf_wr_en = $rf_wr_en_1 && ($valid ||>>2$valid_load); // $rf_wr_en is enable write when load instruction was there before two-cycle
@@ -1759,6 +1758,7 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/2b113d11-b362-487a-a710-da5d923b0da3"
 
+- - TL Verilog code for logic of Jump Instructions.
 ```verilog
      @0              // previously was  $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc : (>>3$valid_load ? >>3$pc+32'd4 : (>>1$pc + 32'd4)); 
         $pc[31:0] = >>1$reset ? 32'd0 :
