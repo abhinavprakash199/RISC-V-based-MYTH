@@ -1209,10 +1209,10 @@ Pipelining is a fundamental concept in modern processor design, including the RI
 ### Design of Pipeline 3 instruction per cycle of RISC-V CPU micro-architecture
 ---
 - Here, we are planning the architecture so that it operates every third cycle of the clock
+- 
+![Screenshot (2883)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/877a5d5a-1ac1-4653-b078-2b08de3c408e)
 
-![Screenshot (2883)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/75087c63-2b70-416a-a7ca-960d9ef4b2bc)
-
-![Screenshot (2882)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/5cf547e2-073c-450d-b4a6-ec0d29dd3761)
+![Screenshot (2882)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b2339a2e-aaaf-4511-a715-f056488421f1)
 
 ```verilog
 \m4_TLV_version 1d: tl-x.org
@@ -1549,6 +1549,7 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
 \SV
    endmodule
 ```
+![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4d4d0fb2-cf76-44fe-9baa-8acc36f3fcc8)
 
 - [MICROCHIP FINAL PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/00ghLV#)
 ### Completing Instruction Decode
@@ -1557,7 +1558,7 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
 
 ![Screenshot (2888)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/48a96f04-5c68-44ba-a3f0-1f41d7d009c4)
 
-```
+```verilog
       @1   //Instruction Decode previously done
          $dec_bits[10:0] = {$funct7[5], $funct3, $opcode};
          $is_beq = $dec_bits ==? 11'bx_000_1100011;                     
@@ -1575,29 +1576,28 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
          $is_sh = $dec_bits ==? 11'bx_001_0100011;                      //SH  (Store Halfword)Stores the lowest 16 bits of a register into memory.
          $is_sw = $dec_bits ==? 11'bx_010_0100011;                       // SW (Store Word)Stores a 32-bit value from a register into memory.
          $is_slti = $dec_bits ==? 11'bx_010_0010011;                     // SLTI (Set Less Than Immediate)Sets a target register to 1 if the source register is less than a signed immediate value; otherwise, sets it to 0.
-         $is_sltiu = $dec_bits ==? 11'bx_011_0010011;
-         $is_xori = $dec_bits ==? 11'bx_100_0010011;
-         $is_ori = $dec_bits ==? 11'bx_110_0010011;
-         $is_andi = $dec_bits ==? 11'bx_111_0010011;
-         $is_slli = $dec_bits ==? 11'b0_001_0010011;
-         $is_srli = $dec_bits ==? 11'b0_101_0010011;
-         $is_srai = $dec_bits ==? 11'b1_101_0010011;
-         $is_sub = $dec_bits ==? 11'b1_000_0110011;
-         $is_sll = $dec_bits ==? 11'b0_001_0110011;
-         $is_slt = $dec_bits ==? 11'b0_010_0110011;
-         $is_sltu = $dec_bits ==? 11'b0_011_0110011;
-         $is_xor = $dec_bits ==? 11'b0_100_0110011;
-         $is_srl = $dec_bits ==? 11'b0_101_0110011;
-         $is_sra = $dec_bits ==? 11'b1_101_0110011;
-         $is_or = $dec_bits ==? 11'b0_110_0110011;
-         $is_and = $dec_bits ==? 11'b0_111_0110011;
-
-         $is_lui = $dec_bits ==? 11'bx_xxx_0110111;
-         $is_auipc = $dec_bits ==? 11'bx_xxx_0010111;
-         $is_jal = $dec_bits ==? 11'bx_xxx_1101111;
-         $is_jalr = $dec_bits ==? 11'bx_000_1100111;
-         $is_jump = $is_jal || $is_jalr ;
-         
+         $is_sltiu = $dec_bits ==? 11'bx_011_0010011;                    // SLTIU (Set Less Than Immediate Unsigned)Sets a target register to 1 if the source register is less than an unsigned immediate value; otherwise, sets it to 0.       
+         $is_xori = $dec_bits ==? 11'bx_100_0010011;                     // XORI (XOR Immediate) Performs a bitwise XOR operation between a register and an immediate value, storing the result in a target register.
+         $is_ori = $dec_bits ==? 11'bx_110_0010011;                      // ORI (OR Immediate)Performs a bitwise OR operation between a register and an immediate value, storing the result in a target register.
+         $is_andi = $dec_bits ==? 11'bx_111_0010011;                     // ANDI (AND Immediate) Performs a bitwise AND operation between a register and an immediate value, storing the result in a target register.
+         $is_slli = $dec_bits ==? 11'b0_001_0010011;                     // ANDI (AND Immediate) Performs a bitwise AND operation between a register and an immediate value, storing the result in a target register.
+         $is_srli = $dec_bits ==? 11'b0_101_0010011;                     // SRLI (Shift Right Logical Immediate) Performs a logical right shift on a source register by a specified immediate value and stores the result in a target register.
+         $is_srai = $dec_bits ==? 11'b1_101_0010011;                     // SRLI (Shift Right Logical Immediate) Performs a logical right shift on a source register by a specified immediate value and stores the result in a target register.
+         $is_sub = $dec_bits ==? 11'b1_000_0110011;                     // SUB (Subtract) Subtracts the value of one register from another and stores the result in a target register.
+         $is_sll = $dec_bits ==? 11'b0_001_0110011;                     // SLL (Shift Left Logical) Performs a logical left shift on the value in one register by the number of bits specified in another register and stores the result in a target register.
+         $is_slt = $dec_bits ==? 11'b0_010_0110011;                     // SLT (Set Less Than) Sets a target register to 1 if the value in one register is less than the value in another register; otherwise, sets it to 0.
+         $is_sltu = $dec_bits ==? 11'b0_011_0110011;                     // SLTU (Set Less Than Unsigned) Sets a target register to 1 if the value in one register is less than the value in another register (unsigned comparison); otherwise, sets it to 0.
+         $is_xor = $dec_bits ==? 11'b0_100_0110011;                      // XOR (Bitwise XOR) Performs a bitwise XOR operation between two registers and stores the result in a target register.
+         $is_srl = $dec_bits ==? 11'b0_101_0110011;                     // XOR (Bitwise XOR) Performs a bitwise XOR operation between two registers and stores the result in a target register.
+         $is_sra = $dec_bits ==? 11'b1_101_0110011;                     // SRA (Shift Right Arithmetic) Arithmetic right shift of a register value. Preserves the sign bit.
+         $is_or = $dec_bits ==? 11'b0_110_0110011;                      // OR (Bitwise OR) Performs a bitwise OR operation between two registers and stores the result in a target register.  
+         $is_and = $dec_bits ==? 11'b0_111_0110011;                     // OR (Bitwise OR) Performs a bitwise OR operation between two registers and stores the result in a target register.
+         $is_lui = $dec_bits ==? 11'bx_xxx_0110111;                   // LUI (Load Upper Immediate) Loads a 16-bit immediate value into the upper bits of a register. Lower bits are set to zero. 
+         $is_auipc = $dec_bits ==? 11'bx_xxx_0010111;                  // AUIPC (Add Upper Immediate to PC) Adds a 16-bit immediate value to the current instruction's address. Result is stored in a register.
+         $is_jal = $dec_bits ==? 11'bx_xxx_1101111;                    // JAL (Jump and Link) Unconditionally jumps to a target address. Saves the return address in a register.            
+         $is_jalr = $dec_bits ==? 11'bx_000_1100111;                   // JALR (Jump and Link Register) Jumps to an address in a register. Saves the return address in a register.  
+         $is_jump = $is_jal || $is_jalr ;                             // Jump (J) Unconditionally jumps to a specified target address.
+```        
    
 
 
