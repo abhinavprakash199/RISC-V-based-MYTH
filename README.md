@@ -1594,12 +1594,11 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 - [MICROCHIP FINAL PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/00ghLV#)
 ### Completing Instruction Decode
 ---
-- Previously, we only added add and branch instructions in the Instruction Decode, so now we will add other instructions also.
 
 <p align="center">
-    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/48a96f04-5c68-44ba-a3f0-1f41d7d009c4"
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/e58af229-0a41-4ae8-a2e0-9fa0daf16aef"
 
-
+- Previously, we only added add and branch instructions in the Instruction Decode, so now we will add other instructions also.
 
 ```verilog
       @1   //Instruction Decode previously done
@@ -1644,10 +1643,11 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 
 ### Completing ALU Design
 
-
 <p align="center">
-    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/e0e4aa22-b017-49e5-903a-e519003e45cf"
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/37ff59cd-17ad-4aed-84c9-6322238cb66a"
 
+- Here we have added the core to execute some left Instruction of ALU.
+	    
 ```verilog
       @3
          $sltu_rslt[31:0] = $src1_value < $src2_value;  // variable declared for $is_slt Instruction
