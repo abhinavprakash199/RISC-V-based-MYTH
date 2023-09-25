@@ -234,6 +234,7 @@ In the RISC-V instruction set architecture, instructions are categorized into di
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/6b8a9e52-c94d-450d-9a25-875755212dfc"
 
 - To illustrate the ABI, the C code shown above will send the values to the ASM code through the function load,in registers a0 and a1, and the ASM code will perform the function and return the value to the C code in register a0 and the value is displayed by the C code.
+  
 
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f1383fb6-18c9-46ff-816a-745a8734f4ec"
@@ -266,6 +267,7 @@ spike pk count_1to9.o
 ```
 
 - Finally, we got the output
+- 
 ![Screenshot (2733)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3e77bf5f-82b9-4257-b10d-f3ce84221ae8)
 ![Screenshot (2732)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/53124ed4-3d67-429a-8051-185c559fbf13)
 
@@ -318,7 +320,9 @@ Makerchip IDE is a user-friendly integrated development environment for digital 
 TL-Verilog is a hardware description language developed by Redwood EDA. It extends Verilog with transaction-level modeling (TL-X), offering more efficient and concise design representation while remaining compatible with standard Verilog. It simplifies syntax, eliminates the need for legacy Verilog features, and is tailored for modeling hardware. TL-Verilog is designed for the design process, making it easier to write and edit Verilog code with fewer bugs. It is particularly useful for transaction-level design, where transactions move through a microarchitecture steered by flow components. TL-Verilog is well-supported by the Makerchip platform.
 
 #### Identifier and Types in TL Verilog
-![Screenshot (2767)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/a791b326-c1b3-4d0b-bcee-03f91e7ea8b7)
+
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/a791b326-c1b3-4d0b-bcee-03f91e7ea8b7"
 
 TL-Verilog uses strict naming semantics. The first token must start with two alpha characters. Identifiers can have three types of delimitation or casing.
 1. **`$lower_case`** - Pipe signal
@@ -429,7 +433,8 @@ $ERROR_CODE
 ---
 #### Fibonacci Series
 
-![Screenshot (2749)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4d07128c-f1d5-4601-b0db-e91f864be879)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4d07128c-f1d5-4601-b0db-e91f864be879"
 
 The TL-Verilog code for fibonacci series
 
@@ -442,7 +447,8 @@ The TL-Verilog code for fibonacci series
 [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0Lgh9D)
  
 #### Counter
-![Screenshot (2752)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f40d26da-07df-4531-9362-fd539d2500fc)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f40d26da-07df-4531-9362-fd539d2500fc"
 
 The TL-Verilog code for Counter
 
@@ -453,7 +459,9 @@ The TL-Verilog code for Counter
 [MICROCHIP PROJECT URL](https://makerchip.com/sandbox/0rkfAhzwA/0KOhW7)
 
 #### Sequential Calculator
-![Screenshot (2755)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/be639c52-6624-480f-be6b-ba6350aa4253)
+
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/be639c52-6624-480f-be6b-ba6350aa4253"
 
 The TL-verilog code for sequential calculator
 
@@ -489,9 +497,12 @@ The TL-verilog code for sequential calculator
 
 ### Lab of Pipelined Pythagorean
 ---
-The TL-Verilog code of Pipelined Pythagorean
-![Screenshot (2763)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/21fb925d-0480-4602-bea0-54dd52bfab3c)
 
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/21fb925d-0480-4602-bea0-54dd52bfab3c"
+	    
+- The TL-Verilog code of Pipelined Pythagorean
+  
 ```verilog
 \m5_TLV_version 1d: tl-x.org
 \m5
@@ -525,7 +536,8 @@ The TL-Verilog code of Pipelined Pythagorean
 ---
 The counter counts no or clock and gives output in cnt whenever reset is 1.
 
-![Screenshot (2781)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4fa10630-b78c-4833-bd53-2de6b540b548)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4fa10630-b78c-4833-bd53-2de6b540b548"
 
 ```verilog
 \m5_TLV_version 1d: tl-x.org
@@ -563,7 +575,8 @@ The counter counts no or clock and gives output in cnt whenever reset is 1.
 
 ### Lab of 2-Cycle Pipeline Calculator
 ---
-![Screenshot (2772)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/9796ed8c-f051-46f1-9c6f-a31c14634829)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/9796ed8c-f051-46f1-9c6f-a31c14634829"
 
 The TL-Verilog code of 2-Cycle Pipeline Calculator
 ```verilog
@@ -657,9 +670,11 @@ Here, we are enabling a valid bit when rand_valif = 3
 
 ### Lab of Distance Accumulator
 ---
-![Screenshot (2809)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/8f4d3c8f-5e7a-416c-a663-21be68cdc9fc)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/8f4d3c8f-5e7a-416c-a663-21be68cdc9fc"
 
-![Screenshot (2812)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/29b7196e-cf0c-4821-89ca-126591a0be6f)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/29b7196e-cf0c-4821-89ca-126591a0be6f"
 
 ```verilog
    |calc
@@ -689,7 +704,8 @@ Here, we are enabling a valid bit when rand_valif = 3
 - Now instead of assigning an output value of 0 in every clock cycle, we are going to use validity.
 - We OR the reset with a valid signal to use the logic enabled during the reset.
 
-![Screenshot (2815)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/acdde9aa-17b3-4a1e-96c2-407644043e0e)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/acdde9aa-17b3-4a1e-96c2-407644043e0e"
 
 ```verilog
    $reset = *reset;
@@ -723,7 +739,8 @@ Here, we are enabling a valid bit when rand_valif = 3
 
 ### Lab of Calculator with Single Value Memory
 ---
-![Screenshot (2818)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b5d7ea27-7502-4a14-ae0d-cb68ffa0f8df)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b5d7ea27-7502-4a14-ae0d-cb68ffa0f8df"
 
 
 ```verilog
@@ -765,7 +782,8 @@ Here, we are enabling a valid bit when rand_valif = 3
 ---
 The basic RISC-V CPU block diagram
 
-![Screenshot (2825)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/0739cc2f-a66d-47e7-abaa-29004e61cfe7)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/59fdaf69-868e-401b-8e24-d7c7db91d255"
 
 1. **Program Counter (PC)**: Keeps track of the memory address of the next instruction to be executed in the CPU.
 
@@ -783,13 +801,15 @@ The basic RISC-V CPU block diagram
 
 ### RISC-V CPU Implementation Steps
 ---
-![Screenshot (2827)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/06c51a01-9774-4472-ada8-f372ee5b3817)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/06c51a01-9774-4472-ada8-f372ee5b3817"
 
 - [CHECK SOLUTION](https://myth.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2FRISC-V_MYTH_Workshop%2Fmaster%2Frisc-v_shell.tlv#)
 - [REFERENCE SOLUTION](https://myth.makerchip.com/sandbox?code_url=https:%2F%2Fraw.githubusercontent.com%2Fstevehoover%2FRISC-V_MYTH_Workshop%2Fmaster%2Freference_solutions.tlv#)
 ### 1-Next Program Counter Logic
 
-![Screenshot (2828)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f87bb674-ddb6-400b-af62-0786e2d688f6)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f87bb674-ddb6-400b-af62-0786e2d688f6"
 
 ```verilog
 |cpu
@@ -808,7 +828,8 @@ The basic RISC-V CPU block diagram
 
 - We uncommented `//m4+imem(@1)` and `//m4+cpu_viz(@4)` compile and observed the log errors.
 
-![Screenshot (2836)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/5128fdd9-ef49-4bec-93e9-f879841939f5)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/6491d711-6cb0-401a-be54-030a93ef8783"
 
 - Based on the instruction we assemble and its array size, we specify the appropriate no of Intex bits `M4_IMEM_INTEX_CNT`.
 - Since we are driving to the address from the PC and the pc is a byte address(we will assume that the PC is properly aligned to the instruction boundary and the lower 2 bits of the PC are 0).
@@ -842,13 +863,17 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/0WnhWl#)
 
 ### 3-Instruction Decode Logic
-![Screenshot (2839)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3ae8c4cd-dc35-4da8-a82b-b424b3e70d12)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3ae8c4cd-dc35-4da8-a82b-b424b3e70d12"
 
-![Screenshot (2840)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/51b2a656-5f93-49e7-9ea6-47fa94347f3c)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/51b2a656-5f93-49e7-9ea6-47fa94347f3c"
 
-![Screenshot (2843)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/57bdfaf1-2692-4a5a-a380-3f0f34234fd6)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/57bdfaf1-2692-4a5a-a380-3f0f34234fd6"
 
-![Screenshot (2844)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/38fd9226-2f2d-453c-809e-c89f6684a74f)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/38fd9226-2f2d-453c-809e-c89f6684a74f"
 
 ```verilog
    |cpu
@@ -924,9 +949,11 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/0X6hz0)
 
 ### 4-Register File Read Logic
-![Screenshot (2847)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b28744cd-4a9e-4400-a0fe-8be961f27be9)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b28744cd-4a9e-4400-a0fe-8be961f27be9"
 
-![Screenshot (2848)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/124b6695-27e9-4b77-a48c-1e4ba3830923)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/124b6695-27e9-4b77-a48c-1e4ba3830923"
 
 ```verilog
       @1
@@ -958,7 +985,8 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/03lhEO)
 
 ### 5-Arithmetic Logic Unit Implementation
-![Screenshot (2850)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/12925ae3-0d53-488a-8749-610deff62e55)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/12925ae3-0d53-488a-8749-610deff62e55"
 
 ```verilog
    @1
@@ -972,7 +1000,8 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/076hJX#)
 
 ### 6-Register File Write Logic
-![Screenshot (2853)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1d96f724-fc33-40fd-87c7-a9f227ea9191)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1d96f724-fc33-40fd-87c7-a9f227ea9191"
 
 ```verilog
       @1
@@ -987,7 +1016,8 @@ The basic RISC-V CPU block diagram
 - [MICROCHIP PROJECT URL](https://myth.makerchip.com/sandbox/0ERfWhw5Y/08qhKm#)
 
 ### 7-Branch Instruction Logic
-![Screenshot (2855)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/c5cea9dc-bfa2-4c88-83b2-77beb1235596)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/c5cea9dc-bfa2-4c88-83b2-77beb1235596"
 
 ```verilog
    |cpu
@@ -1217,10 +1247,12 @@ Pipelining is a fundamental concept in modern processor design, including the RI
 ### Design of Pipeline 3 instruction per cycle of RISC-V CPU micro-architecture
 ---
 - Here, we are planning the architecture so that it operates every third cycle of the clock
-- 
-![Screenshot (2883)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/877a5d5a-1ac1-4653-b078-2b08de3c408e)
 
-![Screenshot (2882)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b2339a2e-aaaf-4511-a715-f056488421f1)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/877a5d5a-1ac1-4653-b078-2b08de3c408e"
+
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b2339a2e-aaaf-4511-a715-f056488421f1"
 
 ```verilog
 \m4_TLV_version 1d: tl-x.org
@@ -1382,7 +1414,7 @@ Pipelining is a fundamental concept in modern processor design, including the RI
 \SV
    endmodule
 ```
-![Screenshot (2884)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/5ba5f3dc-cc92-4e68-ba51-41fa1f8748ac)
+![Screenshot (2854)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f4297a86-992e-4676-b468-bf48a227de30)
 
 - [MICROCHIP FINAL PROJECT URL]()
 ### Design of Pipeline 1 instruction per cycle of RISC-V CPU micro-architecture
@@ -1564,7 +1596,8 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 ---
 - Previously, we only added add and branch instructions in the Instruction Decode, so now we will add other instructions also.
 
-![Screenshot (2888)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/48a96f04-5c68-44ba-a3f0-1f41d7d009c4)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/48a96f04-5c68-44ba-a3f0-1f41d7d009c4"
 
 ```verilog
       @1   //Instruction Decode previously done
@@ -1608,7 +1641,8 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 ```        
 
 ### Completing ALU Design
-![Screenshot (2890)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/e0e4aa22-b017-49e5-903a-e519003e45cf)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/e0e4aa22-b017-49e5-903a-e519003e45cf"
 
 ```verilog
       @3
@@ -1647,7 +1681,8 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 - In Load Instruction in RISC-V loads the register rd(destination register) with the data stores in the rs1(address) + immediate from the main memory.
 - In Store Instruction in RISC-V stores the value in register rd(destination register) to the address of register rs1(address) +immediate of main memory.
 #### Load Instructions
-![Screenshot (2891)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f2fd89eb-f16d-48d4-86b1-2d48494bfda7)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f2fd89eb-f16d-48d4-86b1-2d48494bfda7"
 
 ```verilog
       @0
@@ -1662,7 +1697,8 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
                  
 ```
 #### Store Instructions
-![Screenshot (2892)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/a4cd2176-983e-4abf-b202-cbfb796bdc83)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/a4cd2176-983e-4abf-b202-cbfb796bdc83"
 
 ```verilog
     @3                      // changed from $rf_wr_en = $rf_wr_en_1 && $valid;                   // Here ($rf_wr_en_1 = $rd_valid && $rd != 5'b0)
@@ -1673,7 +1709,8 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 ```
 ### Designing of Data Memory
 ---
-![Screenshot (2893)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/374abde9-6a03-46b3-8bde-a51caf185fcd)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/374abde9-6a03-46b3-8bde-a51caf185fcd"
 
 - We need to uncomment the macro(`m4+dmem(@4)`) of data memory instantiation, which provides the immediate data memory. It has 16 entities, each 32-bit wide 
 ```verilog
@@ -1699,7 +1736,8 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 1. **JAL(jump and link):** Jump to an address "(PC+imm)"
 2. **JALR(jump and link to register):** Jump to address "src1+imm"
 
-![Screenshot (2895)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/2b113d11-b362-487a-a710-da5d923b0da3)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/2b113d11-b362-487a-a710-da5d923b0da3"
 
 ```verilog
      @0              // previously was  $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc : (>>3$valid_load ? >>3$pc+32'd4 : (>>1$pc + 32'd4)); 
