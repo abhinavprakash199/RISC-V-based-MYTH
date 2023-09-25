@@ -1596,8 +1596,6 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 ---
 - Previously, we only added add and branch instructions in the Instruction Decode, so now we will add other instructions also.
 
-<p align="center">
-    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/48a96f04-5c68-44ba-a3f0-1f41d7d009c4"
 
 ```verilog
       @1   //Instruction Decode previously done
