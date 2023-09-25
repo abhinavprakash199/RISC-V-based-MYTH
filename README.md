@@ -1382,7 +1382,7 @@ Pipelining is a fundamental concept in modern processor design, including the RI
 - [MICROCHIP FINAL PROJECT URL]()
 ### Design of Pipeline 1 instruction per cycle of RISC-V CPU micro-architecture
 ---
-Here also if there will be any branch instruction the we will skip 3 clock cycle 
+Here also if there will be any branch instruction we will skip 3 clock cycle 
 
 ```verilog
 \m4_TLV_version 1d: tl-x.org
@@ -1651,6 +1651,7 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
       @3                                                   // changed from $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch)      
          $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch || >>1$valid_load || >>2$valid_load );  // if we get branch or load instruction then $valid is high and it skip 2 cycle
          $valid_load = $valid && $is_load ; // $valid_load is high only when we get a valid high and there is a load instruction in the pipeline
+                 
 ```
 #### Store Instructions
 ![Screenshot (2892)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/a4cd2176-983e-4abf-b202-cbfb796bdc83)
@@ -1685,8 +1686,46 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
 
 ```
 
+### Adding Jump Instruction
+- There are two types of jump instruction.
+1. **JAL(jump and link):** Jump to an address "(PC+imm)"
+2. **JALR(jump and link to register):** Jump to address "src1+imm"
 
-## All commands of linux
+![Screenshot (2895)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/2b113d11-b362-487a-a710-da5d923b0da3)
+
+```verilog
+     @0              // previously was  $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc : (>>3$valid_load ? >>3$pc+32'd4 : (>>1$pc + 32'd4)); 
+        $pc[31:0] = >>1$reset ? 32'd0 :
+                       (>>3$valid_taken_branch ? >>3$br_tgt_pc :
+                             (>>3$valid_load ? >>3$pc+32'd4 :
+                                   ((>>3$valid_jump && >>3$is_jal) ? >>3$br_tgt_pc :   // $br_tgt_pc is used again for JAL (PC+imm) which was previously used for branch instruction(PC +imm)
+                                           (>>3$valid_jump && >>3$is_jalr) ? >>3$jalr_tgt_pc :
+                                                  (>>1$pc + 32'd4)); 
+     @3
+        $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch
+                     || >>1$valid_load || >>2$valid_load 
+                          || >>1$valid_jump || >>2$valid_jump) ;
+        $valid_jump = $valid && $is_jump;
+        $jalr_tgt_pc[31:0] = $src1_value + $imm ; // if Jump to address "src1+imm"
+```
+
+### Final Design of Pipelined and Optimized RISC-V CPU micro-architecture
+---
+#### Final TL Verilog Code of the designed RISC-V CPU micro-architecture
+- [FINAL MAKERCHIP PROJECT LINK]()
+```verilog
+
+```
+
+
+
+### Block Diagram of the designed RISC-V Architecture
+
+### Waveform for designed RISC-V Architecture
+
+### Implemented design of RISC-V Architecture
+
+## All commands of Linux
 ---
 - `leafpad <file_name>.c` Command to make a c file in Leafpad.
 - To run the .c file use `gcc <filename>.c`(if there are no errors in the code, we will get an executable file with the default name a.out), then run this executable by executing `./a.out'.
@@ -1697,7 +1736,7 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
 ---
 - **`sum1ton.o`**: This is an object file likely generated from source code, possibly C or assembly, that contains compiled code for a program that calculates the sum of numbers from 1 to n.
 - **`load.s`**: A source code file, typically in assembly language, that contains instructions for loading or initializing a program, often used in embedded systems.
-- **`rv32im.sh`**: A shell script file used for configuring or managing a RISC-V RV32IM processor, possibly for setting up an environment or running a program on the processor.
+- **`rv32im.sh`**: A shell script file configuring or managing a RISC-V RV32IM processor, possibly for setting up an environment or running a program on the processor.
 - **`firmware.hex`**: A hexadecimal file containing data or instructions, often used for initializing memory or configuring hardware components in digital design.
 - **`firmware32.hex`**: Similar to firmware.hex, but specific to a 32-bit system or processor.
 - **`testbench.vcd`**: A VCD (Value Change Dump) file generated during digital simulation, containing data about signal values and changes over time for debugging and analysis.
@@ -1709,7 +1748,6 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
 - [RISC-V_MYTH_Workshop by Steve](https://github.com/stevehoover/RISC-V_MYTH_Workshop)
 - [RISC-V Commands](https://gcc.gnu.org/onlinedocs/gcc/RISC-V-Options.html)
 - [RISC-V Installation](https://github.com/kunalg123/riscv_workshop_collaterals/blob/master/run.sh)
-- [RISC-V Repo](https://github.com/KanishR1/RISCV-ISA)
 - [TL Verilog Pgojects](https://github.com/TL-X-org/TL-V_Projects)
 
 
@@ -1949,3 +1987,5 @@ Finally, I would like to express my sincere gratitude to [Kunal Ghosh](https://w
 \SV
    endmodule
 ```
+
+
