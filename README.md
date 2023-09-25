@@ -1655,7 +1655,7 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
 #### Store Instructions
 ![Screenshot (2892)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/a4cd2176-983e-4abf-b202-cbfb796bdc83)
 
-```
+```verilog
     @3                      // changed from $rf_wr_en = $rf_wr_en_1 && $valid;                   // Here ($rf_wr_en_1 = $rd_valid && $rd != 5'b0)
         $rf_wr_en = $rf_wr_en_1 && ($valid ||>>2$valid_load); // $rf_wr_en is enable write when load instruction was there before two-cycle
         $rf_wr_index[4:0] = >>2$valid_load ? >>2$rd : $rd ;
