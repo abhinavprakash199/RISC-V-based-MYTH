@@ -1765,7 +1765,8 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
                              (>>3$valid_load ? >>3$pc+32'd4 :
                                    ((>>3$valid_jump && >>3$is_jal) ? >>3$br_tgt_pc :   // $br_tgt_pc is used again for JAL (PC+imm) which was previously used for branch instruction(PC +imm)
                                            ((>>3$valid_jump && >>3$is_jalr) ? >>3$jalr_tgt_pc :
-                                                (>>1$pc + 32'd4)))));       // Here, we are taking the output of the previous pipeline value of $valid_taken_branch, 3$br_tgt_pc and >>3$pc        @3
+                                                (>>1$pc + 32'd4)))));                                                  // Here we are taking the output of previous pipeline value of $valid_taken_branch, 3$br_tgt_pc and >>3$pc      
+      @3
          $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch
                      || >>1$valid_load || >>2$valid_load 
                           || >>1$valid_jump || >>2$valid_jump) ;
@@ -1825,15 +1826,14 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
             $rd[4:0] = $instr[11:7];
             
          $dec_bits[10:0] = {$funct7[5], $funct3, $opcode};
-         $is_beq = $dec_bits ==? 11'bx_000_1100011;
-         $is_bne = $dec_bits ==? 11'bx_001_1100011;
-         $is_blt = $dec_bits ==? 11'bx_100_1100011;
-         $is_bge = $dec_bits ==? 11'bx_101_1100011;
-         $is_bltu = $dec_bits ==? 11'bx_110_1100011;
-         $is_bgeu = $dec_bits ==? 11'bx_111_1100011;
+         $is_beq = $dec_bits ==? 11'bx_000_1100011;                     //BEQ (Branch if Equal)
+         $is_bne = $dec_bits ==? 11'bx_001_1100011;                     //BEQ (Branch if Equal)
+         $is_blt = $dec_bits ==? 11'bx_100_1100011;                     // BLT (Branch if Less Than)
+         $is_bge = $dec_bits ==? 11'bx_101_1100011;                     //BGE (Branch if Greater Than or Equal)
+         $is_bltu = $dec_bits ==? 11'bx_110_1100011;                    //BGE (Branch if Greater Than or Equal)
+         $is_bgeu = $dec_bits ==? 11'bx_111_1100011;                    //BGE (Branch if Greater Than or Equal)
          $is_addi = $dec_bits ==? 11'bx_000_0010011;
          $is_add = $dec_bits ==? 11'b0_000_0110011;
-         // adding Instruction decode for all set of ISA
          $is_load = $dec_bits ==? 11'bx_xxx_0000011;                    // all load instructions(LB(Load Byte),LH(Load Halfword),LW(Load Word),LBU(Load Byte Unsigned),LHU(Load Halfword Unsigned))
          $is_sb = $dec_bits ==? 11'bx_000_0100011;                      //SB (Store Byte)Stores the lowest byte of a register into memory.
          $is_sh = $dec_bits ==? 11'bx_001_0100011;                      //SH  (Store Halfword)Stores the lowest 16 bits of a register into memory.
@@ -1852,25 +1852,27 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
          $is_sltu = $dec_bits ==? 11'b0_011_0110011;                     // SLTU (Set Less Than Unsigned) Sets a target register to 1 if the value in one register is less than the value in another register (unsigned comparison); otherwise, sets it to 0.
          $is_xor = $dec_bits ==? 11'b0_100_0110011;                      // XOR (Bitwise XOR) Performs a bitwise XOR operation between two registers and stores the result in a target register.
          $is_srl = $dec_bits ==? 11'b0_101_0110011;                     // XOR (Bitwise XOR) Performs a bitwise XOR operation between two registers and stores the result in a target register.
-         $is_sra = $dec_bits ==? 11'b1_101_0110011;                     // SRA (Shift Right Arithmetic) Arithmetic right shift of a register value. Preserves the sign bit.
+         $is_sra = $dec_bits ==? 11'b1_101_0110011;                     // SRA (Shift Right Arithmetic) Arithmetic right shift of a register value. It preserves the sign bit.
          $is_or = $dec_bits ==? 11'b0_110_0110011;                      // OR (Bitwise OR) Performs a bitwise OR operation between two registers and stores the result in a target register.  
          $is_and = $dec_bits ==? 11'b0_111_0110011;                     // OR (Bitwise OR) Performs a bitwise OR operation between two registers and stores the result in a target register.
-         $is_lui = $dec_bits ==? 11'bx_xxx_0110111;                   // LUI (Load Upper Immediate) Loads a 16-bit immediate value into the upper bits of a register. Lower bits are set to zero. 
-         $is_auipc = $dec_bits ==? 11'bx_xxx_0010111;                  // AUIPC (Add Upper Immediate to PC) Adds a 16-bit immediate value to the current instruction's address. Result is stored in a register.
+         $is_lui = $dec_bits ==? 11'bx_xxx_0110111;                    // LUI (Load Upper Immediate) Loads a 16-bit immediate value into the upper bits of a register. Lower bits are set to zero. 
+         $is_auipc = $dec_bits ==? 11'bx_xxx_0010111;                  // AUIPC (Add Upper Immediate to PC) Adds a 16-bit immediate value to the current instruction's address. The result is stored in a register.
          $is_jal = $dec_bits ==? 11'bx_xxx_1101111;                    // JAL (Jump and Link) Unconditionally jumps to a target address. Saves the return address in a register.            
          $is_jalr = $dec_bits ==? 11'bx_000_1100111;                   // JALR (Jump and Link Register) Jumps to an address in a register. Saves the return address in a register.  
-         $is_jump = $is_jal || $is_jalr ;                             // Jump (J) Unconditionally jumps to a specified target address.
+         $is_jump = $is_jal || $is_jalr ;                              // Jump (J) Unconditionally jumps to a specified target address.
+      
+      
       
       @2
          //Register File Read
-         $rf_rd_en1 = $rs1_valid && >>2$result ; //if two stage back result and ISA has rs1 register then only read the value from ISA
+         $rf_rd_en1 = $rs1_valid && >>2$result ; //if two-stage back result and ISA has rs1 register then only read the value from ISA
          $rf_rd_index1[4:0] = $rs1;  //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is index value of register of RISC-V)
-                                     // and return its value as $rf_rd_data1 of 32 bit, which is the value stored in that register
-         $rf_rd_en2 = $rs2_valid && >>2$result;   //if two stage back result and ISA has rs2 register then only read the value from ISA
+                                     // and return its value as $rf_rd_data1 of 32-bit, which is the value stored in that register
+         $rf_rd_en2 = $rs2_valid && >>2$result;   //if two-stage back result and ISA has rs2 register then only read the value from ISA
          $rf_rd_index2[4:0] = $rs2;   //m4+rf(@1, @1) takes input $rf_rd_index1[4:0] (which is index value of register of RISC-V)
-                                     // and return its value as $rf_rd_data2 of 32 bit, which is the value stored in that register
-         $src1_value[31:0] = >>1$rf_wr_en && (>>1$rf_wr_index == $rs1) ? (>>1$result) : $rf_rd_data1;   //if previous destination register address matches the source register address and if previous instruction result was written in RISC V register($rf_wr_en is high) then only stote the last result of result else result date coming out from m4+rf
-         $src2_value[31:0] = >>1$rf_wr_en && (>>1$rf_wr_index == $rs2) ? (>>1$result) : $rf_rd_data2;  //if previous destination register address matches the source register address and if previous instruction result was written in RISC V register ($rf_wr_en is high) then only stote the last result of result else result date coming out from m4+rf
+                                     // and return its value as $rf_rd_data2 of 32-bit, which is the value stored in that register
+         $src1_value[31:0] = >>1$rf_wr_en && (>>1$rf_wr_index == $rs1) ? (>>1$result) : $rf_rd_data1;   //if the previous destination register address matches the source register address and if the previous instruction result was written in RISC V register($rf_wr_en is high) then only store the last result of result else result date coming out from m4+rf
+         $src2_value[31:0] = >>1$rf_wr_en && (>>1$rf_wr_index == $rs2) ? (>>1$result) : $rf_rd_data2;  //if the previous destination register address matches the source register address and if the previous instruction result was written in RISC V register ($rf_wr_en is high) then only store the last result of result else result date coming out from m4+rf
                                                                   // $rf_wr_index = $rd; $rf_rd_index1 = rs1 ; $rf_rd_index2 = rs2 
       @3
          //Full Designed ALU
@@ -1903,12 +1905,12 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
               $is_sra ? {{32{$src1_value[31]}}, $src1_value} >> $src2_value[4:0] :
               $is_load || $is_s_instr ? $src1_value + $imm :            // if there is load instruction or S-type(only type of ISA which have store instruction) ISA then result will be  $src1_value + $imm which is address of the main memory
               32'bx ;                   
-      @3                      
+      @3                     
          //Register file write
          $rf_wr_en_1 = $rd_valid && $rd != 5'b0;  // if $rd_valid =0 or $rd =0 then then $rf_wr_en is 0
          $rf_wr_en = $rf_wr_en_1 && $valid ||>>2$valid_load; // $rf_wr_en is enable write when load instruction was there before two-cycle
          $rf_wr_index[4:0] = >>2$valid_load ? >>2$rd : $rd ;
-         $rf_wr_data[31:0] = >>2$valid_load ? >>2$ld_data : $result;      // if there is a load instruction, then load the data in the data in $rf_wr_data  else normal working of the pipeline    
+         $rf_wr_data[31:0] = >>2$valid_load ? >>2$ld_data : $result;      // if there is a load instruction, then load the data in the data in $rf_wr_data  else, normal working of the pipeline   
       @3
          //Branch Instructions
          $taken_branch = $is_beq ? ($src1_value == $src2_value):               //BEQ (Branch if Equal)
@@ -1921,11 +1923,11 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
          $valid_taken_branch = ($valid && $taken_branch) ;  // after every 3 clock cycle when $valid is hihen and $taken_branch is high then $valid_taken_branch is high.
       @2 
          $br_tgt_pc[31:0] = $pc + $imm;
-         //$br_tgt_pc[31:0] = $pc + $imm;        // $br_tgt_pc will add the value of %pc value and $imm value which has the stored value of  differnece of target address and current address
+         //$br_tgt_pc[31:0] = $pc + $imm;        // $br_tgt_pc will add the value of %pc value and $imm value which has the stored value of  difference of target address and current address
       @4
          $dmem_wr_en = $is_s_instr && $valid ; //$dmem_wr_en of is enable pin to m4+dmem(@4)  // $valis is high and S-type(only type of ISA which have store instruction) ISA 
-         $dmem_addr[3:0] = $result[5:2];      // sending the address of data memory through which we need data.//Here we are only supporting the word operations and the address is a byte
-                                              // address so we assume it's aligned such that the lower 2 bits of $result can be ignored (because only 16 entries are possible, so main memory has only 4 bit address)
+         $dmem_addr[3:0] = $result[5:2];      // sending the address of data memory through which we need data.//Here we are only supporting the word operations, and the address is a byte
+                                              // address, so we assume it's aligned such that the lower 2 bits of $result can be ignored (because only 16 entries are possible, so main memory has only 4 bit address)
          $dmem_wr_data[31:0] = $src2_value ;   // to write data in memory address
          $dmem_rd_en = $is_load ;             // enable pin to read the data if load instruction came
          $ld_data[31:0] = $dmem_rd_data ;   // taking output from memory and giving it back  
@@ -1945,7 +1947,7 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
       m4+dmem(@4)    // Args: (read/write stage)
       //m4+myth_fpga(@0)  // Uncomment to run on fpga
 
-   m4+cpu_viz(@4)    // For visualisation, argument should be at least equal to the last stage of CPU logic. @4 would work for all labs.
+   m4+cpu_viz(@4)    // For visualization, the argument should be equal to the last stage of CPU logic. @4 would work for all labs.
 \SV
    endmodule
 ```
