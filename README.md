@@ -49,6 +49,7 @@ This repository contains the whole summary of the hands-on work done by Abhinav 
     + [Completing ALU Design](#Completing-ALU-Design)
     + [Adding Load/Store Instructions](#Adding-Load/Store-Instructions)
     + [Designing of Data Memory](#Designing-of-Data-Memory)
+    + [Adding Jump Instruction](#Adding-Jump-Instruction)
     + [Final Design of Pipelined and Optimized RISC-V CPU micro-architecture](#Final-Design-of-Pipelined-and-Optimized-RISC-V-CPU-micro-architecture)
  
 
