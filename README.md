@@ -1,8 +1,5 @@
 # RISC-V-based-MYTH
-This repository contains the whole summary of the hands-on done by Abhinav Prakash (IS22MTECH14002) during the workshop RISC-V based MYTH and understanding the architecture of RISC-V and configuring the ISA and binary files using picorv32 RISC-V architecture with the help if  TL-verilog and Makerchip.
-
-
-
+This repository contains the whole summary of the hands-on work done by Abhinav Prakash (IS22MTECH14002) during the workshop on RISC-V-based MYTH, understanding the architecture of RISC-V, and configuring the ISA and binary files using Picorv32 RISC-V architecture with the help of TL-Verilog and Makerchip.
 
 ## *Table of Contents*
 
@@ -51,7 +48,8 @@ This repository contains the whole summary of the hands-on done by Abhinav Praka
     + [Completing Instruction Decode](#Completing-Instruction-Decode)
     + [Completing ALU Design](#Completing-ALU-Design)
     + [Adding Load/Store Instructions](#Adding-Load/Store-Instructions)
-    + [Designing of Data Memory](#Designing-of-Data-Memory) 
+    + [Designing of Data Memory](#Designing-of-Data-Memory)
+    + [Final Design of Pipelined and Optimized RISC-V CPU micro-architecture](#Final-Design-of-Pipelined-and-Optimized-RISC-V-CPU-micro-architecture)
  
 
 
@@ -1546,9 +1544,9 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
       m4+imem(@1)    // Args: (read stage)
       m4+rf(@2, @3)  // Args: (read stage, write stage) - if equal, no register bypass is required
       //m4+dmem(@4)    // Args: (read/write stage)
-      //m4+myth_fpga(@0)  // Uncomment to run on fpga
+      //m4+myth_fpga(@0)  // Uncomment to run on FPGA
 
-   m4+cpu_viz(@4)    // For visualization, the argument should be equal to the last stage of CPU logic. @4 would work for all labs.
+   m4+cpu_viz(@4)    // For visualization, the argument should equal the last stage of CPU logic. @4 would work for all labs.
 \SV
    endmodule
 ```
@@ -1647,13 +1645,13 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 ```verilog
       @0
          $pc[31:0] = >>1$reset ? 32'd0 :
-                       (>>3$valid_taken_branch ? >>3$br_tgt_pc :                 // if we get a valid load in the third last cycle skip the pc increment for 
+                       (>>3$valid_taken_branch ? >>3$br_tgt_pc :                 //If we get a valid load in the third last cycle, skip the pc increment for 
                             (>>3$valid_load ? >>3$pc+32'd4 :                     // 2 times else do whatever it was doing before.
                                     (>>1$pc + 32'd4));  
                       // changed from $pc[31:0] = >>1$reset ? 32'd0 : (>>3$valid_taken_branch ? >>3$br_tgt_pc : >>1$pc + 32'd4);   
       @3             // changed from $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch)      
          $valid = !(>>1$valid_taken_branch || >>2$valid_taken_branch || >>1$valid_load || >>2$valid_load );  // if we get branch or load instruction then $valid is high and it skip 2 cycle
-         $valid_load = $valid && $is_load ; // $valid_load is high only when we get a valid high and there is a load instruction in the pipeline
+         $valid_load = $valid && $is_load ; // $valid_load is high only when we get a valid high, and there is a load instruction in the pipeline
                  
 ```
 #### Store Instructions
@@ -1715,7 +1713,7 @@ Here also if there will be any branch instruction we will skip 3 clock cycle
 ### Final Design of Pipelined and Optimized RISC-V CPU micro-architecture
 ---
 #### Final TL Verilog Code of the designed RISC-V CPU micro-architecture
-- [FINAL MAKERCHIP PROJECT LINK]()
+- [FINAL MAKERCHIP PROJECT LINK](https://myth.makerchip.com/sandbox/0PNf4h03q/00ghLV#)
 ```verilog
 \m4_TLV_version 1d: tl-x.org
 \SV
