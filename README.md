@@ -534,11 +534,11 @@ The TL-verilog code for sequential calculator
 
 ### Lab of Counter and 1 Cycle Pipeline Calculator
 ---
-The counter counts no or clock and gives output in cnt whenever reset is 1.
 
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4fa10630-b78c-4833-bd53-2de6b540b548"
 
+- The counter counts no or clock and gives output in cnt whenever reset is 1.
 ```verilog
 \m5_TLV_version 1d: tl-x.org
 \m5
@@ -675,6 +675,8 @@ Here, we are enabling a valid bit when rand_valif = 3
 
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/29b7196e-cf0c-4821-89ca-126591a0be6f"
+	    
+- TL Verilog codes to add logic of 2 Cycle Pipeline Calculator with Validity Distance Accumulator
 
 ```verilog
    |calc
@@ -706,7 +708,9 @@ Here, we are enabling a valid bit when rand_valif = 3
 
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/acdde9aa-17b3-4a1e-96c2-407644043e0e"
-
+	    
+- TL Verilog codes to add logic of 2 Cycle Pipeline Calculator with Validity
+  
 ```verilog
    $reset = *reset;
    $op[1:0] = $rand2[1:0];
@@ -742,7 +746,8 @@ Here, we are enabling a valid bit when rand_valif = 3
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b5d7ea27-7502-4a14-ae0d-cb68ffa0f8df"
 
-
+- TL Verilog codes to add logic of Calculator with Single Value Memory
+  
 ```verilog
 |calc
       @1
@@ -811,6 +816,7 @@ The basic RISC-V CPU block diagram
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f87bb674-ddb6-400b-af62-0786e2d688f6"
 
+- TL Verilog codes to add logic of PC
 ```verilog
 |cpu
       @0
@@ -874,7 +880,9 @@ The basic RISC-V CPU block diagram
 
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/38fd9226-2f2d-453c-809e-c89f6684a74f"
-
+ 
+- TL Verilog codes to add logic of Instruction Decode.
+  
 ```verilog
    |cpu
       @0
@@ -955,6 +963,8 @@ The basic RISC-V CPU block diagram
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/124b6695-27e9-4b77-a48c-1e4ba3830923"
 
+- TL Verilog codes to add logic of Register File Read.
+  
 ```verilog
       @1
          //Register File Read
@@ -988,6 +998,7 @@ The basic RISC-V CPU block diagram
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/12925ae3-0d53-488a-8749-610deff62e55"
 
+- TL Verilog codes to add logic of ALU
 ```verilog
    @1
       //ALU
@@ -1003,6 +1014,8 @@ The basic RISC-V CPU block diagram
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/1d96f724-fc33-40fd-87c7-a9f227ea9191"
 
+- TL Verilog codes to add logic of Register File Write.
+- 
 ```verilog
       @1
          //Register File Write                  // $rd_valid = 1 when ISA have rd its instruction 
@@ -1018,7 +1031,9 @@ The basic RISC-V CPU block diagram
 ### 7-Branch Instruction Logic
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/c5cea9dc-bfa2-4c88-83b2-77beb1235596"
-
+	    
+- TL Verilog codes to add logic of Branch Instructions.
+	    
 ```verilog
    |cpu
       @0
