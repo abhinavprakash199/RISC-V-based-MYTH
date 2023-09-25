@@ -1246,7 +1246,6 @@ Pipelining is a fundamental concept in modern processor design, including the RI
 
 ### Design of Pipeline 3 instruction per cycle of RISC-V CPU micro-architecture
 ---
-- Here, we are planning the architecture so that it operates every third cycle of the clock
 
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/877a5d5a-1ac1-4653-b078-2b08de3c408e"
@@ -1254,6 +1253,8 @@ Pipelining is a fundamental concept in modern processor design, including the RI
 <p align="center">
     <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b2339a2e-aaaf-4511-a715-f056488421f1"
 
+- Here, we are planning the architecture so that it operates every third cycle of the clock.
+  
 ```verilog
 \m4_TLV_version 1d: tl-x.org
 \SV
