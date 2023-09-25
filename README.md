@@ -1549,7 +1549,7 @@ Here also if there will be any branch instruction the we will skip 3 clock cycle
 \SV
    endmodule
 ```
-![image](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/4d4d0fb2-cf76-44fe-9baa-8acc36f3fcc8)
+![Screenshot (2889)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/d084c50e-324e-4c77-a2e1-e7798fce8a56)
 
 - [MICROCHIP FINAL PROJECT URL](https://myth.makerchip.com/sandbox/0PNf4h03q/00ghLV#)
 ### Completing Instruction Decode
