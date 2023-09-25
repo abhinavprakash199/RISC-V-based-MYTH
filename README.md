@@ -1,5 +1,5 @@
 # RISC-V-based-MYTH
-This repository contains the whole summary of the hands-on work done by Abhinav Prakash (IS22MTECH14002) during the workshop on RISC-V-based MYTH, understanding the architecture of RISC-V, and configuring the ISA and binary files using Picorv32 RISC-V architecture with the help of TL-Verilog and Makerchip.
+This repository contains the whole summary of the hands-on work done by Abhinav Prakash (IS22MTECH14002) during the workshop on RISC-V-based MYTH, understanding and coding the piplened RISC-V micro-architecture using TL-Verilog. Understand in detail about machine code, the different ISA of RISC-V, the Instruction Fretch to Write Back process, and coding the optimized architecture. of RICS-V.
 
 ## *Table of Contents*
 
@@ -52,9 +52,6 @@ This repository contains the whole summary of the hands-on work done by Abhinav 
     + [Adding Jump Instruction](#Adding-Jump-Instruction)
     + [Final Design of Pipelined and Optimized RISC-V CPU micro-architecture](#Final-Design-of-Pipelined-and-Optimized-RISC-V-CPU-micro-architecture)
  
-
-
-
 * [All commands of linux](#All-commands-of-linux)
 * [Appendix](#Appendix)
 * [References](#references)
@@ -187,31 +184,38 @@ spike  pk signed.o
 ## Introduction to ABI and basic verification flow
 ---
 ### Application Binary interface (ABI)
-![Screenshot (2716)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/ea0ce1a2-156e-4f3c-912c-68635aaa2334)
+<p align="center">
+    <img src="![Screenshot (2716)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/b15e04c5-d479-40c9-ad87-cf538bda1f5e"
+
 
 - A **double word** is twice the size of a word. In RISC-V, for example, in RV32, a double word is 8 bytes (64 bits), whereas a word is 4 bytes (32 bits), and in RV64, a double word is 16 bytes (128 bits), whereas a word is 8 bytes(64 bits).
 - An **edianess** refers to how multi-byte data is stored in memory. In a big-endian system, the most significant byte is stored at the lowest memory address, while in a little-endian system, the least significant byte is stored at the lowest memory address. RISC-V supports both big-endian and little-endian modes.
 - The **RV32I has 32-bit registers**, and the **RV64I has 64-bit registers**. But both the **RV32I and RV64I have only 32 registers**, and the **size of the instructions is 32 bits only**.
 
 #### Load Instruction 
-- Here we load the value of the RISC-V x8 register in the main memory address from 16 to the next 8byte (total 64-bit data, same as the size of x8, each of size 8bit), and from x23 is the reference main memory register having value 0 to which we will add 16 to go to the desired address.
+- Here we load the value of the RISC-V x8 register in the main memory address from 16 to the next 8 byte (total 64-bit data, same as the size of x8, each of size 8bit), and from x23 is the reference main memory register having value 0 to which we will add 16 to go to the desired address.
 
-![Screenshot (2718)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/3926173a-c26f-4ec8-85fb-d6535a5ed894)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f2e8aea9-45fd-4f05-ac4b-5d35927a3ee6"
 
 #### Add Instruction
-- Here, we add 24 and 8 and store the value in the RISC-V x8 register(64-bit for RV64I).
-![Screenshot (2719)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/c2135f5c-168c-46a7-8cbb-af75bf7d548d)
+- Here, we add 24 and 8 and store the value in the RISC-V x8 register (64-bit for RV64I).
+
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/62592c13-570d-48c6-92ee-a2736a447bf8"
 
 #### Store Instruction 
 - Here, we store the value from the RISC-V x8 register to the main memory address from 8 to the next 8byte (total 64-bit data, same as the size of x8, each of size 8bit), and from x23 is the reference main memory register having value 0 to which we will add 8 to go to the desired address.
 
-![Screenshot (2722)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/2f95b81e-3912-4fc1-aaf1-db77c3ea6b3e)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/093377e2-0472-43b6-8342-1d43bcbcc063"
 
 - Here, all the registers (rd,rs1,rs2) are of 5 bits and this is the reason **RISC-5 has only 32 registers**(2^5)
 
 - ABI set of rules governing how software components interact at the binary level, and dose the instruction calls through this particular 32 registers.
 
-![Screenshot (2723)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/69c726eb-7a4c-4d21-a42a-34001d5e32d9)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/7451eb78-4a81-409d-bca0-302ae9c0a6bc"
 
 ### RISC-V instruction set architecture
 ---
@@ -226,11 +230,13 @@ In the RISC-V instruction set architecture, instructions are categorized into di
 ---
 - The flow chart of the function performed by ASM(Assembly code) code is shown below :
 
-![Screenshot (2725)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/47a6bc2c-d4d3-4710-ad8c-b0a83e6f4492)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/6b8a9e52-c94d-450d-9a25-875755212dfc"
 
 - To illustrate the ABI, the C code shown above will send the values to the ASM code through the function load,in registers a0 and a1, and the ASM code will perform the function and return the value to the C code in register a0 and the value is displayed by the C code.
 
-![Screenshot (2728)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f1383fb6-18c9-46ff-816a-745a8734f4ec)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/f1383fb6-18c9-46ff-816a-745a8734f4ec"
 
 - We the ASM(Assembly code) code to add numbers from 1 to 9 in `load.s` file
 
@@ -268,8 +274,8 @@ spike pk count_1to9.o
 - Now, we will see to run the C program in RISC-V CPU(till now we have done simulations)
 - We have RISCV CPU written in Verilog but we will be doing lays in tl-Verilog 
 - For verification of the RISC-V CPU the C code will be converted into an HEX file and it will be given to the RISC-V CPU and the output will be displayed and verified. The block diagram is shown below :
-
-![Screenshot (2734)](https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/52e86747-fd17-464e-9c62-64e0d081fca1)
+<p align="center">
+    <img src="https://github.com/abhinavprakash199/RISC-V-based-MYTH/assets/120498080/5e14aac8-eeb2-4c89-9f9a-0b8ba6ab4b85"
 
 - Now to clon all the RISC-V Core files we use
 ```
